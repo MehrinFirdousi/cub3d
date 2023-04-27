@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/04/26 20:30:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/04/27 16:53:29 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub3D
 
-SRCS	=	srcs/main.c
+SRCS	=	srcs/main.c srcs/get_data.c srcs/parse.c\
 
 OBJS	=	${SRCS:.c=.o}
 

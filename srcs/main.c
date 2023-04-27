@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/26 20:30:45 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:52:20 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
+	parsing(argc, argv);
 	return (0);
 }

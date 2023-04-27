@@ -1,0 +1,7 @@
+*.o
+cub3d
+cube.dSYM
+cube
+.vscode
+_cube
+.DS_Store
