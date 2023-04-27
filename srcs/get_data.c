@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/27 16:53:46 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/27 17:09:11 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ char	*path_substr(const char *line)
 
 void	get_paths(const char *line, t_data *data)
 {
-	int		flag;
+	int		flag = -1;
 	char	*path;
 	
 	path = path_substr(&line[3]);
-
+	int fd = open(path, O_RDONLY);
+	if(fd < 0)
+		put_error("Bad texture's file");
+	printf("{%s}", line);
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		flag = (E_NORTH);
 	if (ft_strncmp(line, "SO ", 3) == 0)
@@ -59,8 +62,8 @@ void	get_paths(const char *line, t_data *data)
 		flag =  (E_WEST);
 	if (ft_strncmp(line, "EA ", 3) == 0)
 		flag =  (E_EAST);
-
 	printf("flag  %d\n", flag);
+
 	if (flag == E_NORTH && !data->path_north)
 		data->path_north = path;
 	else if (flag == E_SOUTH && !data->path_south)
