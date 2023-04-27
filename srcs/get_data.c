@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/27 20:02:49 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:26:57 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char	*path_substr(const char *line)
 	return (ft_substr(line, 0, i));
 }
 
-void	get_paths(const char *line, t_data *data)
+void	get_paths(const char *line, t_map *data)
 {
 	int		flag = -1;
 	char	*path;
-	
+
 	path = path_substr(&line[3]);
 	int fd = open(path, O_RDONLY);
-	if(fd < 0)
+	if (fd < 0)
 		put_error("Bad texture's file");
 	printf("{%s}", line);
 	if (ft_strncmp(line, "NO ", 3) == 0)
@@ -79,7 +79,7 @@ void	get_paths(const char *line, t_data *data)
 	}
 }
 
-int	convert_texture(char *line, t_data *data)
+int	convert_texture(char *line, t_map *data)
 {
 	int	i;
 	int	count_line;
@@ -102,11 +102,11 @@ int	convert_texture(char *line, t_data *data)
 	return (i);
 }
 
-t_data	*get_data(char *line)
+t_map	*get_data(char *line)
 {
-	t_data	*data;
+	t_map	*data;
 
-	data = (t_data *) malloc(sizeof (t_data));
+	data = (t_map *) malloc(sizeof (t_map));
 	data->path_north = NULL;
 	data->path_south = NULL;
 	data->path_west = NULL;

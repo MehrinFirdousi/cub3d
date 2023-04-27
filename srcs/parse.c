@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/27 20:02:02 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:13:16 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	parsing(int argc, char **argv)
 		put_error("invalid file | rights");
 	rd = read_data(fd);
 	close(fd);
-	t_data	*data = get_data(rd);
-	(void) data;
+	t_map	*map = get_data(rd);
+	(void) map;
 }
