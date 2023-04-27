@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/27 21:45:08 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/27 22:08:40 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef struct s_player
 	char	orientation;
 }	t_player;
 
+typedef struct s_point
+{
+	int		x;
+	int		y;
+	char	value;
+}	t_point;
+
 typedef struct s_map
 {
 	int		ceil_color;
@@ -45,7 +52,8 @@ typedef struct s_map
 	char	*path_south;
 	char	*path_west ;
 	char	*path_east ;
-	char	**map;
+	// char	**map;
+	t_point *map;
 }	t_map;
 
 typedef struct s_img
