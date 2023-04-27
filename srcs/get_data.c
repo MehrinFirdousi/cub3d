@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/27 17:09:11 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/27 20:02:49 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "cub3d.h"
 
 void	put_error(const char *error)
 {
@@ -41,7 +41,7 @@ char	*path_substr(const char *line)
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 		++i;
-	return ft_substr(line, 0, i);
+	return (ft_substr(line, 0, i));
 }
 
 void	get_paths(const char *line, t_data *data)
@@ -57,11 +57,11 @@ void	get_paths(const char *line, t_data *data)
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		flag = (E_NORTH);
 	if (ft_strncmp(line, "SO ", 3) == 0)
-		flag =  (E_SOUTH);
+		flag = (E_SOUTH);
 	if (ft_strncmp(line, "WE ", 3) == 0)
-		flag =  (E_WEST);
+		flag = (E_WEST);
 	if (ft_strncmp(line, "EA ", 3) == 0)
-		flag =  (E_EAST);
+		flag = (E_EAST);
 	printf("flag  %d\n", flag);
 
 	if (flag == E_NORTH && !data->path_north)
@@ -72,7 +72,8 @@ void	get_paths(const char *line, t_data *data)
 		data->path_west = path;
 	else if (flag == E_EAST && !data->path_east)
 		data->path_east = path;
-	else{
+	else
+	{
 		printf("flag %d\n", flag);
 		put_error("Side not recognized");
 	}
@@ -112,6 +113,6 @@ t_data	*get_data(char *line)
 	data->path_east = NULL;
 
 	convert_texture(line, data);
-	
+
 	return (data);
 }

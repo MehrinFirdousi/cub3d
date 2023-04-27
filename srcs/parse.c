@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/27 16:57:40 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/27 20:02:02 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "cub3d.h"
 
 static void	is_valid_file(const char *file_name)
 {
-	int	index;
-	const int exten = 4;
+	int			index;
+	const int	exten = 4;
 
 	index = (int) ft_strlen(file_name) - exten;
 	if (index < 0 || ft_strncmp(".cub", (char *)(file_name + index), exten + 1))
