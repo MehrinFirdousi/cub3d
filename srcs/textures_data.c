@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:29:30 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 11:06:41 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/28 23:33:43 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	get_paths(const char *line, t_map *data)
 		put_error("Side not recognized");
 }
 
-int	convert_texture(char *line, t_map *data)
+int	convert_texture(char *line, t_map *data, int flag)
 {
 	int	i;
 	int	count_line;
@@ -78,11 +78,18 @@ int	convert_texture(char *line, t_map *data)
 	{
 		while (line[i] == '\n')
 			++i;
-		if (count_line == 4)
+		if (count_line == 4 && !flag)
 			return (i);
-		get_paths(&line[i], data);
+		if (count_line == 2 && flag)
+			return (i);
+		if(!flag)	
+			get_paths(&line[i], data);
+		if(flag)
+			get_colors(&line[i], data);	
 		++count_line;
 		i += cur_index(&line[i], '\n');
 	}
+	if (line[i] == '\0')
+		put_error("Map is missing one or more data");
 	return (i);
 }

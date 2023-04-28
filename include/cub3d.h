@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/28 19:42:16 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/28 23:29:55 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ typedef struct s_mlx
 
 /* -------> Parse <-------- */
 void	parsing(int argc, char **argv);
-int		convert_color(char *line, t_map *map);
-int		convert_texture(char *line, t_map *data);
+int		convert_texture(char *line, t_map *data, int flag);
 t_map	*get_data(char *line);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
 int	check_surface(const char *line);
 void	put_error(const char *error);
+void	get_colors(char *line, t_map *map);
 
 int		key_click_handler(int keycode, t_mlx *m);
 

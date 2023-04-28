@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 19:41:05 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/28 23:21:20 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_map	*get_data(char *line)
 	
 	data = NULL;
 	init_data(&data);
-	convert_color(&line[convert_texture(line, data)], data);
+	convert_texture(&line[convert_texture(line, data, 0)], data, 1);
 	i = 0;
 	while(i < 3)
 		printf("%d\n", data->floor_color[i++]);
