@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/27 22:08:40 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:42:16 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ typedef struct s_point
 	char	value;
 }	t_point;
 
+
 typedef struct s_map
 {
-	int		ceil_color;
-	int		floor_color;
+	int		*ceil_color;
+	int		*floor_color;
 	char	*path_north;
 	char	*path_south;
 	char	*path_west ;
@@ -72,9 +73,17 @@ typedef struct s_mlx
 	t_img	*img;
 }	t_mlx;
 
-int		key_click_handler(int keycode, t_mlx *m);
+
+/* -------> Parse <-------- */
 void	parsing(int argc, char **argv);
+int		convert_color(char *line, t_map *map);
+int		convert_texture(char *line, t_map *data);
 t_map	*get_data(char *line);
+int		cur_index(const char *str, char c);
+int		valid_color(const char *str);
+int	check_surface(const char *line);
 void	put_error(const char *error);
+
+int		key_click_handler(int keycode, t_mlx *m);
 
 #endif
