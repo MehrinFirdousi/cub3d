@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/29 14:58:45 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/29 23:03:56 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_map	*get_data(char *line)
 	convert_texture(&line[convert_texture(line, data, 0)], data, 1);
 	printf("%d\n", data->floor_color);
 	printf("%d\n", data->ceil_color);
+
 	return (data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:29:30 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/29 14:56:16 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/29 23:00:09 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void is_valid_path(char *path)
 static char	*path_substr(const char *line)
 {
 	int		i;
-	while (*line == ' ')
+	while (ft_is_space(*line))
 		++line;
 	if (*line == '\0')
 		put_error("No path");
@@ -50,8 +50,11 @@ static void	get_paths(const char *line, t_map *data)
 {
 	int		flag;
 	char	*path;
+	char	*tmp_path;
 
-	path = path_substr(&line[3]);
+	tmp_path = path_substr(&line[3]);
+	path = ft_strtrim(tmp_path, " \t");
+	free(tmp_path);
 	is_valid_path(path);
 	flag = -1;	
 	update_flag(&flag, line);

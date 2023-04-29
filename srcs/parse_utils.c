@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 19:46:16 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/29 23:03:31 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	valid_color(const char *str)
 	int i;
 	
 	i = 0;
-	while (str[i] == ' ')
+	while (ft_is_space(str[i]))
 		i++;
 	if (!ft_isdigit(str[i]))
 		return (-1);
