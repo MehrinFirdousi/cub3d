@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:29:30 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 23:33:43 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/29 14:56:16 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	convert_texture(char *line, t_map *data, int flag)
 			return (i);
 		if (count_line == 2 && flag)
 			return (i);
-		if(!flag)	
+		if(!flag)
 			get_paths(&line[i], data);
-		if(flag)
+		if (flag)
 			get_colors(&line[i], data);	
 		++count_line;
 		i += cur_index(&line[i], '\n');

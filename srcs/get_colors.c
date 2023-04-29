@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_data.c                                      :+:      :+:    :+:   */
+/*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 23:33:24 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/29 18:00:51 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static char	*get_subline(const char *line)
 	return (ft_substr(line, 0, i));
 }
 
+static int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 static void validate_surface(int *colors, char *line, t_map *map)
 {
 	int surface;
@@ -34,20 +39,23 @@ static void validate_surface(int *colors, char *line, t_map *map)
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
 		put_error("colo range 0 -> 255");
 	surface = check_surface(line);
-	if(surface == 0)
-		map->floor_color = colors;
+	if (surface == 0)
+		// map->floor_color = colors;
+		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
 	else if(surface == 1)
-		map->ceil_color = colors;
+		// map->ceil_color = colors;
+		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
+
 }
 
 void	get_colors(char *line, t_map *map)
 {
 	int		i;
 	char	*str;
-	int *colors;
+	int		*colors;
 
 	colors = malloc(sizeof(int) * 3);
-	
+
 	str = get_subline(&line[2]);
 	colors[0] = valid_color(str);
 	i = cur_index(str, ',');

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
+#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/04/28 23:32:23 by ahassan          ###   ########.fr        #
+#    Updated: 2023/04/29 18:18:46 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,10 @@ SRCS	=	srcs/main.c \
 			srcs/get_data.c \
 			srcs/parse.c \
 			srcs/textures_data.c \
-			srcs/colors_data.c \
+			srcs/get_colors.c \
 			srcs/parse_utils.c \
-			srcs/key_handler.c
+			srcs/key_handler.c \
+			srcs/ray_casting.c
 
 OBJS	=	${SRCS:.c=.o}
 

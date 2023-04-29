@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/28 23:29:55 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/29 18:41:20 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 # define ESC 53
+# define WHITE 16777215
+# define GREEN 65280
+# define GRAY 0X00808080
+# define SPEED 5;
+
+#  define W		13
+#  define A		0
+#  define S		1
+#  define D		2
 
 enum e_side
 {
@@ -37,24 +46,37 @@ typedef struct s_player
 	char	orientation;
 }	t_player;
 
-typedef struct s_point
-{
-	int		x;
-	int		y;
-	char	value;
-}	t_point;
+// typedef struct s_point
+// {
+// 	int		x;
+// 	int		y;
+// 	char	value;
+// }	t_point;
 
+typedef struct s_dda_dat
+{
+	int		dx;
+	int		dy;
+	int		dx_abs;
+	int		dy_abs;
+	int		steps;
+	float	x_inc;
+	float	y_inc;
+}				t_dda_dat;
 
 typedef struct s_map
 {
-	int		*ceil_color;
-	int		*floor_color;
+	int		ceil_color;
+	int		floor_color;
 	char	*path_north;
 	char	*path_south;
 	char	*path_west ;
 	char	*path_east ;
-	// char	**map;
-	t_point *map;
+	char	**map;
+	int		player_x;
+	int		player_y;
+
+	// t_list *map;
 }	t_map;
 
 typedef struct s_img
@@ -71,6 +93,8 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 	t_img	*img;
+	int		x_offset;
+	int		y_offset;
 }	t_mlx;
 
 
@@ -85,5 +109,6 @@ void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
 
 int		key_click_handler(int keycode, t_mlx *m);
+void	draw_blocks_2d(t_mlx *mlx);
 
 #endif
