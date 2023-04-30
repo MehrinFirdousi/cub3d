@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/04/30 13:43:41 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/04/30 17:11:35 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS	=	srcs/main.c \
 			srcs/parse.c \
 			srcs/textures_data.c \
 			srcs/get_colors.c \
+			srcs/get_map.c \
 			srcs/parse_utils.c \
 			srcs/key_handler.c \
 			srcs/ray_casting.c
@@ -29,11 +30,11 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc
+CC		=	gcc -fsanitize=address -g3
 
 MLX_DIR		=	mlx
 
-CFLAGS	=	 -Wall -Wextra -Werror -I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
 
 MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 

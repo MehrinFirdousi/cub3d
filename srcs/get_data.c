@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/29 23:03:56 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:11:58 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,23 @@ void	init_data(t_map **data)
 	(*data)->path_east = NULL;
 }
 
+
 t_map	*get_data(char *line)
 {
 	t_map	*data;
-
+	int i;
+	
 	data = NULL;
 	init_data(&data);
-	convert_texture(&line[convert_texture(line, data, 0)], data, 1);
-	printf("%d\n", data->floor_color);
-	printf("%d\n", data->ceil_color);
+	i = convert_texture(line, data, 0);
+	i += convert_texture(&line[i], data, 1);
+	get_map(&line[i], data);
 
+	while(*data->map)
+		printf("{%s}\n", *data->map++);
 	return (data);
 }
+
+
+//pa = 270 NORTH
+// == 90 West

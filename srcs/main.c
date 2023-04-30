@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:42:34 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:18:57 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ int	main(int argc, char **argv)
 	t_pos	pos;
 	
 	parsing(argc, argv);
-	mlx_set_up(&mlx, &img, &pos);
-	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
-	draw_blocks_2d(&mlx);
+	// mlx_set_up(&mlx, &img, &pos);
+	// // my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
+	// draw_blocks_2d(&mlx);
 	
-	write(1, "drawing done\n", 14);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+	// write(1, "drawing done\n", 14);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 
-	mlx_key_hook(mlx.win, key_click_handler, &mlx);
-	mlx_hook(mlx.win, 2, 0, key_hold_handler, &mlx);
-	mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
-	mlx_loop(mlx.mlx);
+	// mlx_key_hook(mlx.win, key_click_handler, &mlx);
+	// mlx_hook(mlx.win, 2, 0, key_hold_handler, &mlx);
+	// mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
+	// mlx_loop(mlx.mlx);
 
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:19:05 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:10:54 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_map
 	char	*path_west ;
 	char	*path_east ;
 	char	**map;
+	int		map_width;
+	int		map_height;
 	int		player_x;
 	int		player_y;
 
@@ -118,6 +120,7 @@ typedef struct s_mlx
 void	parsing(int argc, char **argv);
 int		convert_texture(char *line, t_map *data, int flag);
 t_map	*get_data(char *line);
+void	get_map(char *line, t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
 int		check_surface(const char *line);
