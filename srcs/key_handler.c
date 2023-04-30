@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:49:04 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:42:28 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:13:40 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	redraw_image(t_mlx *m)
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
 									&(m->img->line_length), &(m->img->endian));
 	draw_blocks_2d(m);
+	draw_rays_2d(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 
@@ -37,7 +38,7 @@ int	key_hold_handler(int keycode, t_mlx *m)
 {
 	if (keycode == LEFT)
 	{
-		m->pos->pa -= 0.1;
+		m->pos->pa -= TURN_SPEED;
 		if (m->pos->pa < 0)
 			m->pos->pa += 2 * M_PI;
 		m->pos->pdx = cos(m->pos->pa) * 5;
@@ -45,7 +46,7 @@ int	key_hold_handler(int keycode, t_mlx *m)
 	}
 	if (keycode == RIGHT)
 	{
-		m->pos->pa += 0.1;
+		m->pos->pa += TURN_SPEED;
 		if (m->pos->pa > 2 * M_PI)
 			m->pos->pa -= 2 * M_PI;
 		m->pos->pdx = cos(m->pos->pa) * 5;
@@ -53,25 +54,29 @@ int	key_hold_handler(int keycode, t_mlx *m)
 	}
 	if (keycode == S)
 	{
-		ft_printf("S clicked\n");
-		m->pos->y_offset -= m->pos->pdy;
-		m->pos->x_offset -= m->pos->pdx;
+		m->pos->px -= m->pos->pdx;
+		m->pos->py -= m->pos->pdy;
+		printf("S clicked, dx = %lf, dy = %lf\n", m->pos->pdx, m->pos->pdy);
 	}
 	else if (keycode == W)
 	{
-		ft_printf("W clicked\n");
-		m->pos->y_offset += m->pos->pdy;
-		m->pos->x_offset += m->pos->pdx;
+		m->pos->px += m->pos->pdx;
+		m->pos->py += m->pos->pdy;
+		printf("W clicked, dx = %lf, dy = %lf\n", m->pos->pdx, m->pos->pdy);
 	}
 	else if (keycode == A)
 	{
 		ft_printf("A clicked\n");
-		m->pos->x_offset -= SPEED;
+		m->pos->px -= STRAFE_SPEED;
+		// m->pos->px -= m->pos->pdx;
+		// m->pos->py += m->pos->pdy;
 	}
 	else if (keycode == D)
 	{
 		ft_printf("D clicked\n");
-		m->pos->x_offset += SPEED;
+		m->pos->px += STRAFE_SPEED;
+		// m->pos->px += m->pos->pdx;
+		// m->pos->py -= m->pos->pdy;
 	}
 	
 	redraw_image(m);

@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:42:34 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:21:03 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	mlx_set_up(t_mlx *mlx, t_img *img, t_pos *pos)
 	img->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 								&img->line_length, &img->endian);
-	pos->x_offset = 0;
-	pos->y_offset = 0;
+	pos->px = 0;
+	pos->py = 0;
 	pos->pa = deg_to_rad(270);
 	pos->pdx = cos(pos->pa) * 5;
 	pos->pdy = sin(pos->pa) * 5;
@@ -45,13 +45,12 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 	t_img	img;
 	t_pos	pos;
-	
+
 	parsing(argc, argv);
 	mlx_set_up(&mlx, &img, &pos);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_blocks_2d(&mlx);
-	
-	write(1, "drawing done\n", 14);
+	draw_rays_2d(&mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 
 	mlx_key_hook(mlx.win, key_click_handler, &mlx);

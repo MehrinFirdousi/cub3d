@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:00:59 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:37:32 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:04:52 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,70 @@ void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color)
 	}
 }
 
+void draw_rays_2d(t_mlx* m)
+{
+	double	ra; // ray angle 
+	double	rx;
+	double	ry;
+	double	x_offset;
+	double	y_offset;
+	double	a_tan;
+	int		dof;
+	int		mx;
+	int		my;
+	int		num_rays;
+	int		i;
+
+	i = -1;
+	num_rays = 1;
+	ra = m->pos->pa;
+	while (++i < num_rays)
+	{
+		dof = 0;
+		a_tan = -1 / tan(ra);
+		if (ra > M_PI) // looking up
+		{
+			ry = ((int)m->pos->py >> 6) << 6; // rounding the ray's y position to the nearest 64th value
+			rx = (m->pos->py - ry) * a_tan + m->pos->px;
+			y_offset = -size;
+			x_offset = -y_offset * a_tan;
+		}
+		else if (ra < M_PI) // looking down
+		{
+			ry = (((int)m->pos->py >> 6) << 6) + size; // rounding the ray's y position to the nearest 64th value
+			rx = (m->pos->py - ry) * a_tan + m->pos->px;
+			y_offset = size;
+			x_offset = -y_offset * a_tan;
+		}
+		else if (ra == 0 || ra == M_PI) // ray is exactly facing right or left
+		{
+			rx = m->pos->px;
+			ry = m->pos->py;
+			dof = 8;
+		}
+		while (dof < 8)
+		{
+			// finding the ray hit position in the map array, divide by size(64)
+			mx = (int)rx >> 6;
+			my = (int)ry >> 6;
+			printf("ray facing (%d, %d)\n", my, mx);
+			// mp = my * 8 + mx;
+			if (mx >= 0 && my >= 0 && mx < 8 && my < 8 && map[my][mx] == 1) // if we hit a wall
+			{
+				dof = 8;
+				break;
+			}
+			else
+			{
+				rx += x_offset;
+				ry += y_offset;
+				dof += 1;
+			}
+		}
+		dda(m, m->pos->px, m->pos->py, rx, ry, RED);
+	}
+}
+
 void draw_blocks_2d(t_mlx *m)
 {
 	int	i;
@@ -73,10 +137,7 @@ void draw_blocks_2d(t_mlx *m)
 	int x;
 	int y;
 	int color;
-	
-	int px; // temp
-	int py; // temp
-	
+
 	i = -1;
 	color = GRAY;
 	while (++i < 8)
@@ -103,13 +164,15 @@ void draw_blocks_2d(t_mlx *m)
 			if (map[i][j] == 2)
 			{
 				color = GREEN;
-				px = x + size / 2 + m->pos->x_offset;
-				py = y + size / 2 + m->pos->y_offset;
-				my_mlx_pixel_put(m->img, px, py, color);
-				my_mlx_pixel_put(m->img, px + 1, py, color);
-				my_mlx_pixel_put(m->img, px + 1, py + 1, color);
-				my_mlx_pixel_put(m->img, px, py + 1, color);
-				dda(m, px, py, px + (m->pos->pdx * 5), py + (m->pos->pdy * 5), color);
+				if (m->pos->px == 0)
+					m->pos->px = x + size / 2;
+				if (m->pos->py == 0)
+					m->pos->py = y + size / 2;
+				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py, color);
+				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py, color);
+				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py + 1, color);
+				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py + 1, color);
+				dda(m, m->pos->px, m->pos->py, m->pos->px + (m->pos->pdx * 5), m->pos->py + (m->pos->pdy * 5), color);
 			}
 			color = GRAY;
 		}

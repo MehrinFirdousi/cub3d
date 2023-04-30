@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 13:19:05 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:20:31 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # define GREEN 65280
 # define GRAY 0X00808080
 # define RED 0X00FF0000
-# define SPEED 5
+# define STRAFE_SPEED 5
+# define TURN_SPEED 0.0349066 // 2 deg in rad
 
 # define W 13
 # define A 0
@@ -96,13 +97,11 @@ typedef struct s_img
 
 typedef struct s_pos
 {
-	int	x_offset;
-	int	y_offset;
 	double	pa;			// player angle
 	double	pdx;		// change in player's x based on player angle
 	double	pdy;		// change in player's y based on player angle
-	int px;			// player's x coordinate
-	int py;			// player's y coordinate
+	double	px;			// player's x coordinate
+	double	py;			// player's y coordinate
 }	t_pos;
 
 typedef struct s_mlx
@@ -111,6 +110,7 @@ typedef struct s_mlx
 	void	*win;
 	t_img	*img;
 	t_pos	*pos;
+	t_map	*map;
 }	t_mlx;
 
 
@@ -127,5 +127,6 @@ void	get_colors(char *line, t_map *map);
 int		key_click_handler(int keycode, t_mlx *m);
 int		key_hold_handler(int keycode, t_mlx *m);
 void	draw_blocks_2d(t_mlx *mlx);
+void	draw_rays_2d(t_mlx* m);
 
 #endif
