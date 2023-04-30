@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/28 11:04:51 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:19:50 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*read_data(int fd)
 	return (result);
 }
 
-void	parsing(int argc, char **argv)
+t_map	*parsing(int argc, char **argv)
 {
 	int		fd;
 	char	*rd;
@@ -66,5 +66,5 @@ void	parsing(int argc, char **argv)
 	close(fd);
 	map = NULL;
 	map = get_data(rd);
-	(void) map;
+	return (map);
 }

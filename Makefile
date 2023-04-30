@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/04/30 17:16:52 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/04/30 19:48:22 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS	=	srcs/main.c \
 			srcs/parse.c \
 			srcs/textures_data.c \
 			srcs/get_colors.c \
+			srcs/get_map.c \
 			srcs/parse_utils.c \
 			srcs/key_handler.c \
 			srcs/ray_casting.c
@@ -33,7 +34,7 @@ CC		=	gcc -g -fsanitize=address
 
 MLX_DIR		=	mlx
 
-CFLAGS	=	 -Wall -Wextra -Werror -I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
 
 MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 
@@ -57,7 +58,7 @@ clean:
 
 fclean:		clean
 			rm -f ${NAME}
-			${MAKE} -C libft fclean
+#			${MAKE} -C libft fclean
 
 re:			fclean all
 

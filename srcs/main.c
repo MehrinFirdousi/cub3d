@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 15:21:03 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:47:34 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 int	exit_free(t_mlx *m)
 {
 	mlx_destroy_image(m->mlx, m->img->img);
-	// free any alloced mem here
+	free(m->map->path_north);
+	free(m->map->path_south);
+	free(m->map->path_west );
+	free(m->map->path_east );	
+	ft_split_destroy(m->map->map);
+	free(m->map);
 	exit(0);
 }
 
 double	deg_to_rad(double x)
 {
-	return (x * (M_PI / 180.0));
+	return (x * M_PI / 180.0);
 }
 
-void	mlx_set_up(t_mlx *mlx, t_img *img, t_pos *pos)
+void	mlx_set_up(t_mlx *mlx, t_img *img, t_pos *pos, t_map *map)
 {
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
@@ -38,6 +43,7 @@ void	mlx_set_up(t_mlx *mlx, t_img *img, t_pos *pos)
 	pos->pdy = sin(pos->pa) * 5;
 	mlx->img = img;
 	mlx->pos = pos;
+	mlx->map = map;
 }
 
 int	main(int argc, char **argv)
@@ -45,9 +51,10 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 	t_img	img;
 	t_pos	pos;
-
-	parsing(argc, argv);
-	mlx_set_up(&mlx, &img, &pos);
+	t_map	*map;
+	
+	map = parsing(argc, argv);
+	mlx_set_up(&mlx, &img, &pos, map);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_blocks_2d(&mlx);
 	draw_rays_2d(&mlx);

@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 15:20:31 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:44:36 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1220
+# define WIN_HEIGHT 980
 # define ESC 53
 # define WHITE 16777215
 # define GREEN 65280
 # define GRAY 0X00808080
 # define RED 0X00FF0000
+# define BLUE 0X000000FF
 # define STRAFE_SPEED 5
 # define TURN_SPEED 0.0349066 // 2 deg in rad
-
+# define ONEDEG 0.0174533 // 1 deg in rad
 # define W 13
 # define A 0
 # define S 1
@@ -80,6 +81,8 @@ typedef struct s_map
 	char	*path_west ;
 	char	*path_east ;
 	char	**map;
+	int		map_width;
+	int		map_height;
 	int		player_x;
 	int		player_y;
 
@@ -98,10 +101,10 @@ typedef struct s_img
 typedef struct s_pos
 {
 	double	pa;			// player angle
-	double	pdx;		// change in player's x based on player angle
-	double	pdy;		// change in player's y based on player angle
 	double	px;			// player's x coordinate
 	double	py;			// player's y coordinate
+	double	pdx;		// change in player's x based on player angle
+	double	pdy;		// change in player's y based on player angle
 }	t_pos;
 
 typedef struct s_mlx
@@ -113,11 +116,11 @@ typedef struct s_mlx
 	t_map	*map;
 }	t_mlx;
 
-
 /* -------> Parse <-------- */
-void	parsing(int argc, char **argv);
+t_map	*parsing(int argc, char **argv);
 int		convert_texture(char *line, t_map *data, int flag);
 t_map	*get_data(char *line);
+void	get_map(char *line, t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
 int		check_surface(const char *line);
