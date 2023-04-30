@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:00:59 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/29 18:45:54 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:37:32 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (x >= 0 && y >= 0 && x < WIN_WIDTH && y < WIN_HEIGHT)
+	{
+		dst = data->addr + \
+				(y * data->line_length + x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
 void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color)
@@ -62,14 +66,16 @@ void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color)
 	}
 }
 
-void draw_blocks_2d(t_mlx *mlx)
+void draw_blocks_2d(t_mlx *m)
 {
 	int	i;
 	int	j;
 	int x;
 	int y;
-	
 	int color;
+	
+	int px; // temp
+	int py; // temp
 	
 	i = -1;
 	color = GRAY;
@@ -82,26 +88,29 @@ void draw_blocks_2d(t_mlx *mlx)
 			y = i * size;
 			if (map[i][j] == 1)
 				color = WHITE;
-			else if (map[i][j] == 2)
+			dda(m, x + gap, y + gap, \
+					x + gap, y + size - gap,
+					color);
+			dda(m, x + gap, y + size - gap, \
+					x + size - gap, y + size - gap,
+					color);
+			dda(m, x + size - gap, y + size - gap, \
+					x + size - gap, y + gap,
+					color);
+			dda(m, x + size - gap, y + gap, \
+					x + gap, y + gap,
+					color);
+			if (map[i][j] == 2)
 			{
-				my_mlx_pixel_put(mlx->img, x + size/2 - 1 + mlx->x_offset, y + size/2 - 1 + mlx->y_offset, GREEN); // 0,255,0,0
-				my_mlx_pixel_put(mlx->img, x + size/2 + 1 + mlx->x_offset, y + size/2 + 1 + mlx->y_offset, GREEN); // 0,255,0,0
-				my_mlx_pixel_put(mlx->img, x + size/2 - 1 + mlx->x_offset, y + size/2 + 1 + mlx->y_offset, GREEN); // 0,255,0,0
-				my_mlx_pixel_put(mlx->img, x + size/2 + 1 + mlx->x_offset, y + size/2 - 1 + mlx->y_offset, GREEN); // 0,255,0,0
-				// color = GREEN;
+				color = GREEN;
+				px = x + size / 2 + m->pos->x_offset;
+				py = y + size / 2 + m->pos->y_offset;
+				my_mlx_pixel_put(m->img, px, py, color);
+				my_mlx_pixel_put(m->img, px + 1, py, color);
+				my_mlx_pixel_put(m->img, px + 1, py + 1, color);
+				my_mlx_pixel_put(m->img, px, py + 1, color);
+				dda(m, px, py, px + (m->pos->pdx * 5), py + (m->pos->pdy * 5), color);
 			}
-			dda(mlx, x + gap, y + gap, \
-					 x + gap, y + size - gap,
-					 color);
-			dda(mlx, x + gap, y + size - gap, \
-					 x + size - gap, y + size - gap,
-					 color);
-			dda(mlx, x + size - gap, y + size - gap, \
-					 x + size - gap, y + gap,
-					 color);
-			dda(mlx, x + size - gap, y + gap, \
-					 x + gap, y + gap,
-					 color);
 			color = GRAY;
 		}
 	}

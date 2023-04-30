@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/29 18:41:20 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/04/30 13:19:05 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,18 @@
 # define WHITE 16777215
 # define GREEN 65280
 # define GRAY 0X00808080
-# define SPEED 5;
+# define RED 0X00FF0000
+# define SPEED 5
 
-#  define W		13
-#  define A		0
-#  define S		1
-#  define D		2
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+
+#  define LEFT	123
+#  define UP	126
+#  define RIGHT	124
+#  define DOWN	125
 
 enum e_side
 {
@@ -88,13 +94,23 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
+typedef struct s_pos
+{
+	int	x_offset;
+	int	y_offset;
+	double	pa;			// player angle
+	double	pdx;		// change in player's x based on player angle
+	double	pdy;		// change in player's y based on player angle
+	int px;			// player's x coordinate
+	int py;			// player's y coordinate
+}	t_pos;
+
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
 	t_img	*img;
-	int		x_offset;
-	int		y_offset;
+	t_pos	*pos;
 }	t_mlx;
 
 
@@ -104,11 +120,12 @@ int		convert_texture(char *line, t_map *data, int flag);
 t_map	*get_data(char *line);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
-int	check_surface(const char *line);
+int		check_surface(const char *line);
 void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
 
 int		key_click_handler(int keycode, t_mlx *m);
+int		key_hold_handler(int keycode, t_mlx *m);
 void	draw_blocks_2d(t_mlx *mlx);
 
 #endif
