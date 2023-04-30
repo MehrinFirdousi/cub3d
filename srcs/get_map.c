@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/30 17:12:34 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:38:17 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	mapy_len(const char *line)
 	return (cnt);
 }
 
-void	get_map(char *line, t_map *map)
+void	get_map(char *line, t_map *map, t_pos *pos)
 {
 	int		i;
 	int		y;

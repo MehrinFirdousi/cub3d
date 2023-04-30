@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 15:18:57 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:36:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 	t_img	img;
 	t_pos	pos;
+	t_map	*map;
 	
-	parsing(argc, argv);
+	parsing(argc, argv, &map, &pos);
+	print_map(map, &pos);
 	// mlx_set_up(&mlx, &img, &pos);
 	// // my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	// draw_blocks_2d(&mlx);
