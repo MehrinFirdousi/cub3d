@@ -51,7 +51,7 @@ static char	*read_data(int fd)
 	return (result);
 }
 
-void	parsing(int argc, char **argv, t_map *map, t_pos *pos)
+void	parsing(int argc, char **argv, t_map *map, t_player *pos)
 {
 	int		fd;
 	char	*rd;

@@ -19,7 +19,7 @@ void	redraw_image(t_mlx *m)
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
 									&(m->img->line_length), &(m->img->endian));
 	draw_rays_2d(m);
-	draw_blocks_2d(m);
+	draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 

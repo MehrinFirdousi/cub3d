@@ -54,7 +54,7 @@ void	put_error(const char *error)
 	exit(1);
 }
 
-void print_map(t_map *map, t_pos *pos)
+void print_map(t_map *map, t_player *pos)
 {
 	int i;
 

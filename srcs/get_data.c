@@ -20,7 +20,7 @@ void	init_data(t_map *data)
 	data->path_east = NULL;
 }
 
-void get_player(t_map *map, t_pos *pos)
+void get_player(t_map *map, t_player *pos)
 {
 	int y;
 	int x;
@@ -48,7 +48,7 @@ void get_player(t_map *map, t_pos *pos)
 	}
 }
 
-t_map	*get_data(char *line, t_map *data, t_pos *pos)
+t_map	*get_data(char *line, t_map *data, t_player *pos)
 {
 	int i;
 	
