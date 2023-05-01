@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 21:44:36 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:56:34 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,19 +117,21 @@ typedef struct s_mlx
 }	t_mlx;
 
 /* -------> Parse <-------- */
-t_map	*parsing(int argc, char **argv);
+void	parsing(int argc, char **argv, t_map **map, t_pos *pos);
 int		convert_texture(char *line, t_map *data, int flag);
-t_map	*get_data(char *line);
-void	get_map(char *line, t_map *map);
+t_map	*get_data(char *line, t_pos *pos);
+void	get_map(char *line, t_map *map, t_pos *pos);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
 int		check_surface(const char *line);
 void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
+void 	print_map(t_map *map, t_pos *pos);
 
 int		key_click_handler(int keycode, t_mlx *m);
 int		key_hold_handler(int keycode, t_mlx *m);
 void	draw_blocks_2d(t_mlx *mlx);
+double	deg_to_rad(double x);
 void	draw_rays_2d(t_mlx* m);
 
 #endif

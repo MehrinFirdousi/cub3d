@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/29 23:03:31 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:29:19 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ void	put_error(const char *error)
 	write(2, error, ft_strlen(error));
 	write(2, "\n", 1);
 	exit(1);
+}
+
+void print_map(t_map *map, t_pos *pos)
+{
+	int i;
+
+	i = 0;
+	ft_printf("py == %d\n", pos->py);
+	ft_printf("px == %d\n", pos->px);
+	printf("pa == %f\n", pos->pa);
+	while(map->map[i])
+		ft_printf("{%s}\n", map->map[i++]);
 }
 
 int	check_surface(const char *line)
