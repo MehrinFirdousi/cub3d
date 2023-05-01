@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:00:59 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 22:14:28 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:38:15 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	check_horizontal_intersect(t_pos *p, t_ray *r)
 		r->rx = (p->py - r->ry) * r->tan_ra + p->px;
 		r->y_step = -BLOCK_SIZE;
 		r->x_step = -r->y_step * r->tan_ra;
-		// printf("player looking up, (xo, yo) = (%lf, %lf)\n", r->x_step, r->y_step);
 	}
 	else if (r->ra < M_PI) // looking down
 	{
@@ -98,14 +97,12 @@ void	check_horizontal_intersect(t_pos *p, t_ray *r)
 		r->rx = (p->py - r->ry) * r->tan_ra + p->px;
 		r->y_step = BLOCK_SIZE;
 		r->x_step = -r->y_step * r->tan_ra;
-		// printf("player looking down, (xo, yo) = (%lf, %lf)\n", r->x_step, r->y_step);
 	}
 	else // ray is exactly facing right or left
 	{
 		r->rx = p->px;
 		r->ry = p->py;
 		r->dof = 8;
-		// printf("player looking straight left or right\n");
 	}
 }
 
@@ -119,7 +116,6 @@ void	check_vertical_intersect(t_pos *p, t_ray *r)
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = -BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
-		// printf("player looking left, (xo, yo) = (%lf, %lf)\n", r->x_step, r->y_step);
 	}
 	else if (r->ra < M_PI / 2 || r->ra > 3 * M_PI / 2) // looking right
 	{
@@ -127,14 +123,12 @@ void	check_vertical_intersect(t_pos *p, t_ray *r)
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
-		// printf("player looking right, (xo, yo) = (%lf, %lf)\n", r->x_step, r->y_step);
 	}
 	else // ray is exactly facing right or left
 	{
 		r->rx = p->px;
 		r->ry = p->py;
 		r->dof = 8;
-		// printf("player looking straight left or right\n");
 	}
 }
 
@@ -190,9 +184,9 @@ void draw_rays_2d(t_mlx* m)
 	
 	i = -1;
 	ra = fix_angle(m->pos->pa - ONEDEG * WIN_WIDTH / 2); // move the ray angle back by 30 degrees 
-	while (++i < WIN_WIDTH) 
+	while (++i < WIN_WIDTH)
 	{
-		h_ray.ra = ra;
+		h_ray.ra = ra; 
 		v_ray.ra = ra;
 		check_horizontal_intersect(m->pos, &h_ray);
 		cast_ray(m->map, &h_ray);

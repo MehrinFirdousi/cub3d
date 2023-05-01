@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 22:15:49 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:19:06 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	get_map(char *line, t_map *map)
 	char	*str;
 	
 	(void)str;
-	(void)pos;
 	map->map_width = mapx_len(line);
 	map->map_height = mapy_len(line);
 	map->map = malloc(sizeof (char *) * (map->map_height + 1));
