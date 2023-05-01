@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 22:15:31 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:47:55 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ typedef struct s_ray
 }	t_ray;
 
 /* -------> Parse <-------- */
-void	parsing(int argc, char **argv, t_map **map, t_pos *pos);
+void	parsing(int argc, char **argv, t_map *map, t_pos *pos);
 int		convert_texture(char *line, t_map *data, int flag);
-t_map	*get_data(char *line, t_pos **pos);
+t_map	*get_data(char *line, t_map *map, t_pos *pos);
 void	get_map(char *line, t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);

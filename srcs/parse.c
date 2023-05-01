@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 18:34:43 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 22:47:21 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*read_data(int fd)
 	return (result);
 }
 
-void	parsing(int argc, char **argv, t_map **map, t_pos *pos)
+void	parsing(int argc, char **argv, t_map *map, t_pos *pos)
 {
 	int		fd;
 	char	*rd;
@@ -63,6 +63,6 @@ void	parsing(int argc, char **argv, t_map **map, t_pos *pos)
 		put_error("invalid file | rights");
 	rd = read_data(fd);
 	close(fd);
-	*map = get_data(rd, &pos);
+	get_data(rd, map, pos);
 
 }

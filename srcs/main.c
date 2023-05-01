@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 22:15:52 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:47:12 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 	t_img	img;
 	t_pos	pos;
-	t_map	*map;
+	t_map	map;
 	
 	parsing(argc, argv, &map, &pos);
-	print_map(map, &pos);
+	print_map(&map, &pos);
 	printf("py == %lf\n", pos.py);
 	printf("px == %lf\n", pos.px);
-	mlx_set_up(&mlx, &img, &pos, map);
+	mlx_set_up(&mlx, &img, &pos, &map);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_rays_2d(&mlx);
 	draw_blocks_2d(&mlx);
