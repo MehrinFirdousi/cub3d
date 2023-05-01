@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 21:44:36 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:08:13 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define ESC 53
 # define WHITE 16777215
 # define GREEN 65280
+# define TEAL 0X0014FFC0
+# define TEAL_D 0X0000D69D
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define BLUE 0X000000FF

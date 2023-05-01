@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:49:04 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 17:58:41 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:11:54 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	redraw_image(t_mlx *m)
 
 int	key_click_handler(int keycode, t_mlx *m)
 {
+	printf("key clicked\n");
 	if (keycode == ESC)
 	{
+		printf("esc clicked\n");
 		mlx_destroy_image(m->mlx, m->img->img);
 		mlx_destroy_window(m->mlx, m->win);
 		exit(0);
