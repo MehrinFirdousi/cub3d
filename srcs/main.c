@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 12:59:00 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:17:07 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ int	main(int argc, char **argv)
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_blocks_2d(&mlx);
 	draw_rays_2d(&mlx);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-
 	mlx_key_hook(mlx.win, key_click_handler, &mlx);
-	mlx_hook(mlx.win, 2, 0, key_hold_handler, &mlx);
+	mlx_hook(mlx.win, 2, 1L << 0, key_hold_handler, &mlx);
 	mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
+	
+	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
 	return (0);

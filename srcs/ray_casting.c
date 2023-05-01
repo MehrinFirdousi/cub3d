@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:00:59 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/04/30 22:12:22 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:12:38 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void draw_rays_2d(t_mlx* m)
 	double	line_offset;
 	double	a_diff;
 	int		i;
+	int		color;
 
 	i = -1;
 	num_rays = 60;
@@ -210,22 +211,24 @@ void draw_rays_2d(t_mlx* m)
 		vx = rx;
 		vy = ry;
 		len_v = get_ray_len(m->pos->px, m->pos->py, rx, ry);
-		if (len_h <= len_v)
+		if (len_h <= len_v) // ray hit a horiontal wall
 		{
 			ray_distance = len_h;
-			dda(m, m->pos->px, m->pos->py, hx, hy, RED);
+			color = TEAL;
+			dda(m, m->pos->px, m->pos->py, hx, hy, color);
 		}
-		else
+		else // ray hit a vertical wall
 		{
 			ray_distance = len_v;
-			dda(m, m->pos->px, m->pos->py, vx, vy, BLUE);
+			color = TEAL_D;
+			dda(m, m->pos->px, m->pos->py, vx, vy, color);
 		}
 		// DRAWING 3D SCENE
 		a_diff = fix_angle(m->pos->pa - ra);
 		ray_distance = ray_distance * cos(a_diff); 
 		line_height = (64 * WIN_HEIGHT) / ray_distance;
 		line_offset = WIN_HEIGHT - line_height / 2;
-		dda(m, i * 4 + WIN_WIDTH / 2, line_offset, i * 4 + WIN_WIDTH / 2, line_height, GREEN);
+		dda(m, i * 4 + WIN_WIDTH / 2, line_offset, i * 4 + WIN_WIDTH / 2, line_height, color);
 		ra = fix_angle(ra + ONEDEG);
 	}
 }
