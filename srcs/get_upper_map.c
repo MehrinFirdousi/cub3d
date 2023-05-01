@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures_data.c                                    :+:      :+:    :+:   */
+/*   get_upper_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:29:30 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/29 23:00:09 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 23:08:47 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	get_paths(const char *line, t_map *data)
 		put_error("Side not recognized");
 }
 
-int	convert_texture(char *line, t_map *data, int flag)
+int	get_upper_map(char *line, t_map *data, int flag)
 {
 	int	i;
 	int	count_line;

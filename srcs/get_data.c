@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 22:48:02 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 23:07:04 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ void get_player(t_map *map, t_pos *pos)
 	int y;
 	int x;
 	
-	y = 0;
-	while(map->map[y])
+	y = -1;
+	while(map->map[++y])
 	{
-		x = 0;
-		while(map->map[y][x])
+		x = -1;
+		while(map->map[y][++x])
 		{
-			if(map->map[y][x] == 'N' || map->map[y][x] == 'W'
-				|| map->map[y][x] == 'S' || map->map[y][x] == 'E')
+			if(player_symbol(map->map[y][x]))
 			{
 				if(map->map[y][x] == 'N')
 					pos->pa = deg_to_rad(90);
@@ -45,9 +44,7 @@ void get_player(t_map *map, t_pos *pos)
 				pos->px = x;
 				pos->py = y;
 			}
-			x++;
 		}	
-		y++;
 	}
 }
 
@@ -56,8 +53,8 @@ t_map	*get_data(char *line, t_map *data, t_pos *pos)
 	int i;
 	
 	init_data(data);
-	i = convert_texture(line, data, 0);
-	i += convert_texture(&line[i], data, 1);
+	i = get_upper_map(line, data, 0);
+	i += get_upper_map(&line[i], data, 1);
 	get_map(&line[i], data);
 	get_player(data, pos);
 	return (data);

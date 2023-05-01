@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 22:47:12 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 23:13:52 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	exit_free(t_mlx *m)
 	free(m->map->path_west );
 	free(m->map->path_east );	
 	ft_split_destroy(m->map->map);
-	free(m->map);
 	exit(0);
 }
 
@@ -55,8 +54,6 @@ int	main(int argc, char **argv)
 	
 	parsing(argc, argv, &map, &pos);
 	print_map(&map, &pos);
-	printf("py == %lf\n", pos.py);
-	printf("px == %lf\n", pos.px);
 	mlx_set_up(&mlx, &img, &pos, &map);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_rays_2d(&mlx);

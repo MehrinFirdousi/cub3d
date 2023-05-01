@@ -6,7 +6,7 @@
 #    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/01 22:48:24 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/01 23:12:53 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,10 @@ NAME	=	cub3D
 SRCS	=	srcs/main.c \
 			srcs/get_data.c \
 			srcs/parse.c \
-			srcs/textures_data.c \
+			srcs/get_upper_map.c \
 			srcs/get_colors.c \
 			srcs/get_map.c \
+			srcs/valid_map.c \
 			srcs/parse_utils.c \
 			srcs/key_handler.c \
 			srcs/ray_casting.c

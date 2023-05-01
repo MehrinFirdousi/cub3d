@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 22:47:21 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 23:09:29 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	is_valid_file(const char *file_name)
 	const int	exten = 4;
 
 	index = (int) ft_strlen(file_name) - exten;
-	if (index < 0 || ft_strncmp(".cub", (char *)(file_name + index), exten + 1))
+	if (index < 0 || 
+			ft_strncmp(".cub", (char *)(file_name + index), exten + 1))
 		put_error("invalid file");
 }
 
