@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 17:16:56 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 21:24:19 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@
 # define BLUE 0X000000FF
 # define STRAFE_SPEED 5
 # define TURN_SPEED 0.0349066 // 2 deg in rad
-# define ONEDEG 0.0174533 // 1 deg in rad
+// # define ONEDEG 0.0174533 // 1 deg in rad
+// # define ONEDEG 0.00872665 // 1 deg in rad
+# define ONEDEG 0.000858358649063299 // 1 deg in rad
+# define BLOCK_SIZE 32
+// # define ONEDEG 0.00171671729638127 // 1 deg in rad
 # define W 13
 # define A 0
 # define S 1
@@ -117,6 +121,18 @@ typedef struct s_mlx
 	t_pos	*pos;
 	t_map	*map;
 }	t_mlx;
+
+typedef struct s_ray
+{
+	double	ra; // ray angle 
+	double	rx;
+	double	ry;
+	double	x_step;
+	double	y_step;
+	double	tan_ra;
+	int		dof;		// depth of field - how far to trace the ray before stopping
+	double	ray_len;	// length of final ray 
+}	t_ray;
 
 /* -------> Parse <-------- */
 void	parsing(int argc, char **argv, t_map **map, t_pos *pos);

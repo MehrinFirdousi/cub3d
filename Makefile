@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/01 17:13:55 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/01 20:35:40 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc -g -fsanitize=address
+CC		=	gcc
 
 MLX_DIR		=	mlx
 
-CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
 
 MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 

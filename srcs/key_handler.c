@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 20:49:04 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 13:11:54 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:02:40 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	redraw_image(t_mlx *m)
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
 									&(m->img->line_length), &(m->img->endian));
-	draw_blocks_2d(m);
 	draw_rays_2d(m);
+	draw_blocks_2d(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 

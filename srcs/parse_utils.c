@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/04/30 19:29:19 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/01 18:50:15 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void print_map(t_map *map, t_pos *pos)
 	int i;
 
 	i = 0;
-	ft_printf("py == %d\n", pos->py);
-	ft_printf("px == %d\n", pos->px);
-	printf("pa == %f\n", pos->pa);
+	printf("py == %lf\n", pos->py);
+	printf("px == %lf\n", pos->px);
+	printf("pa == %lf\n", pos->pa);
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }
