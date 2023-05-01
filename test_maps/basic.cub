@@ -4,7 +4,7 @@ WE texture/xpm2.xpm
 EA texture/xpm3.xpm
 
 F 220 ,100                               ,                                                  0
-C 225,30,  0
+C 225,30,  4294967295
 
 11111111
 10100001

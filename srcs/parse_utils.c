@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 18:50:15 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:15:59 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ int	valid_color(const char *str)
 		return (-1);
 	num = 0;
 	while (ft_isdigit(str[i]))
+	{
 		num = num * 10 + (str[i++] - '0');
+		if(num > 255)
+			return -1;
+	}
 	while (str[i] == ' ')
 		++str;
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
