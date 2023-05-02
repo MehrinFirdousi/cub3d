@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 14:33:16 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:56:31 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	put_error(const char *error)
 	exit(1);
 }
 
-void print_map(t_map *map, t_pos *pos)
+void print_map(t_map *map, t_player *pos)
 {
 	int i;
 

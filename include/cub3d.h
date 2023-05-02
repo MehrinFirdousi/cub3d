@@ -53,19 +53,18 @@ enum e_side
 	E_EAST
 };
 
-typedef struct s_player
-{
-	int		x;
-	int		y;
-	char	orientation;
-}	t_player;
-
-// typedef struct s_point
+// typedef struct s_player
 // {
 // 	int		x;
 // 	int		y;
-// 	char	value;
-// }	t_point;
+// 	char	orientation;
+// }	t_player;
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+}	t_point;
 
 typedef struct s_dda_dat
 {
@@ -92,8 +91,6 @@ typedef struct s_map
 	int		player_cnt;
 	int		player_x;
 	int		player_y;
-
-	// t_list *map;
 }	t_map;
 
 typedef struct s_img
@@ -105,22 +102,22 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
-typedef struct s_pos
+typedef struct s_player
 {
 	double	pa;			// player angle
 	double	px;			// player's x coordinate
 	double	py;			// player's y coordinate
 	double	pdx;		// change in player's x based on player angle
 	double	pdy;		// change in player's y based on player angle
-}	t_pos;
+}	t_player;
 
 typedef struct s_mlx
 {
-	void	*mlx;
-	void	*win;
-	t_img	*img;
-	t_pos	*pos;
-	t_map	*map;
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	t_player	*pos;
+	t_map		*map;
 }	t_mlx;
 
 typedef struct s_ray
@@ -136,9 +133,9 @@ typedef struct s_ray
 }	t_ray;
 
 /* -------> Parse <-------- */
-void	parsing(int argc, char **argv, t_map *map, t_pos *pos);
+void	parsing(int argc, char **argv, t_map *map, t_player *pos);
 int		get_upper_map(char *line, t_map *data, int flag);
-t_map	*get_data(char *line, t_map *map, t_pos *pos);
+t_map	*get_data(char *line, t_map *map, t_player *pos);
 void	get_map(char *line, t_map *map);
 void 	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
@@ -146,13 +143,18 @@ int		valid_color(const char *str);
 int		check_surface(const char *line);
 void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
-void 	print_map(t_map *map, t_pos *pos);
+void 	print_map(t_map *map, t_player *pos);
 int		player_symbol(char c);
 
 int		key_click_handler(int keycode, t_mlx *m);
 int		key_hold_handler(int keycode, t_mlx *m);
-void	draw_blocks_2d(t_mlx *mlx);
 double	deg_to_rad(double x);
+void	draw_minimap(t_mlx *mlx);
 void	draw_rays_2d(t_mlx* m);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+// void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color);
+void	dda(t_mlx *m, t_point p1, t_point p2, int color);
+double	get_ray_len(double px, double py, double rx, double ry);
+double	fix_angle(double a);
 
 #endif
