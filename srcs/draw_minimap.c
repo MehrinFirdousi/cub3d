@@ -50,7 +50,7 @@ void draw_minimap(t_mlx *m)
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py, color);
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py + 1, color);
 				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py + 1, color);
-				dda(m, m->pos->px, m->pos->py, m->pos->px + (m->pos->pdx * 5), m->pos->py + (m->pos->pdy * 5), color);
+				// dda(m, m->pos->px, m->pos->py, m->pos->px + (m->pos->pdx * 5), m->pos->py + (m->pos->pdy * 5), color);
 			}
 			color = GRAY;
 		}

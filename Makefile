@@ -21,7 +21,10 @@ SRCS	=	srcs/main.c \
 			srcs/valid_map.c \
 			srcs/parse_utils.c \
 			srcs/key_handler.c \
-			srcs/ray_casting.c
+			srcs/draw_minimap.c \
+			srcs/draw_rays.c \
+			srcs/draw_utils.c
+			
 
 OBJS	=	${SRCS:.c=.o}
 
