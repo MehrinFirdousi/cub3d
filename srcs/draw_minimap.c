@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+
 void draw_minimap(t_mlx *m)
 {
 	int	i;
@@ -27,22 +28,23 @@ void draw_minimap(t_mlx *m)
 		j = -1;
 		while (++j < m->map->map_width)
 		{
-			x = j * BLOCK_SIZE;
-			y = i * BLOCK_SIZE;
+			x = j * 16;
+			y = i * 16;
 			if (m->map->map[i][j] == '1')
 				color = WHITE;
-			dda(m, (t_point){x + 1, y + 1}, \
-					(t_point){x + 1, y + BLOCK_SIZE - 1},
+			draw_square(m, (t_point){x, y}, 16, color);
+			/*dda(m, (t_point){x + 1, y + 1}, \
+					(t_point){x + 1, y + 16 - 1},
 					color);
-			dda(m, (t_point){x + 1, y + BLOCK_SIZE - 1}, \
-					(t_point){x + BLOCK_SIZE - 1, y + BLOCK_SIZE - 1},
+			dda(m, (t_point){x + 1, y + 16 - 1}, \
+					(t_point){x + 16 - 1, y + 16 - 1},
 					color);
-			dda(m, (t_point){x + BLOCK_SIZE - 1, y + BLOCK_SIZE - 1}, \
-					(t_point){x + BLOCK_SIZE - 1, y + 1},
+			dda(m, (t_point){x + 16 - 1, y + 16 - 1}, \
+					(t_point){x + 16 - 1, y + 1},
 					color);
-			dda(m, (t_point){x + BLOCK_SIZE - 1, y + 1}, \
+			dda(m, (t_point){x + 16 - 1, y + 1}, \
 					(t_point){x + 1, y + 1},
-					color);
+					color);*/
 			if (m->map->map[i][j] == 'N')
 			{
 				color = GREEN;
@@ -50,6 +52,7 @@ void draw_minimap(t_mlx *m)
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py, color);
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py + 1, color);
 				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py + 1, color);
+				dda(m,(t_point){m->pos->px, m->pos->py}, (t_point){m->pos->px + (m->pos->pdx * 5), m->pos->py + (m->pos->pdy * 5)}, color);
 				// dda(m, m->pos->px, m->pos->py, m->pos->px + (m->pos->pdx * 5), m->pos->py + (m->pos->pdy * 5), color);
 			}
 			color = GRAY;

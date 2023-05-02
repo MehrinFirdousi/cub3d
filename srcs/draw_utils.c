@@ -24,34 +24,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	}
 }
 
-// void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color)
-// {
-// 	int			i;
-// 	float		x;
-// 	float		y;
-// 	t_dda_dat	d;
-
-// 	d.dx = x2 - x1;
-// 	d.dy = y2 - y1;
-// 	d.dx_abs = abs(d.dx);
-// 	d.dy_abs = abs(d.dy);
-// 	if (d.dx_abs > d.dy_abs)
-// 		d.steps = d.dx_abs;
-// 	else
-// 		d.steps = d.dy_abs;
-// 	d.x_inc = d.dx / (float)d.steps;
-// 	d.y_inc = d.dy / (float)d.steps;
-// 	x = x1;
-// 	y = y1;
-// 	i = -1;
-// 	while (++i <= d.steps)
-// 	{
-// 		my_mlx_pixel_put(m->img, x, y, color);
-// 		x += d.x_inc;
-// 		y += d.y_inc;
-// 	}
-// }
-
 void	dda(t_mlx *m, t_point p1, t_point p2, int color)
 {
 	int			i;
@@ -77,6 +49,22 @@ void	dda(t_mlx *m, t_point p1, t_point p2, int color)
 		my_mlx_pixel_put(m->img, x, y, color);
 		x += d.x_inc;
 		y += d.y_inc;
+	}
+}
+
+void	draw_square(t_mlx *m, t_point start, int size, int color)
+{
+	t_point	end;
+	int		i;
+
+	i = -1;
+	end.x = start.x;
+	end.y = start.y + size;
+	while (++i < size)
+	{
+		start.x++;
+		end.x++;
+		dda(m, start, end, color);
 	}
 }
 

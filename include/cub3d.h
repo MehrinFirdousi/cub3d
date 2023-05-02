@@ -21,7 +21,8 @@
 # define WIN_WIDTH 1220
 # define WIN_HEIGHT 980
 # define ESC 53
-# define WHITE 16777215
+# define BLACK 0x00000000
+# define WHITE 0x00FFFFFF
 # define GREEN 65280
 # define TEAL 0X0014FFC0
 # define TEAL_D 0X0000D69D
@@ -29,7 +30,7 @@
 # define RED 0X00FF0000
 # define BLUE 0X000000FF
 # define STRAFE_SPEED 5
-# define TURN_SPEED 0.0349066 // 2 deg in rad
+# define TURN_SPEED 0.0523599 // 3 deg in rad
 // # define ONEDEG 0.0174533 // 1 deg in rad
 // # define ONEDEG 0.00872665 // 1 deg in rad
 # define ONEDEG 0.000858358649063299 // 1 deg in rad
@@ -129,6 +130,7 @@ typedef struct s_ray
 	double	y_step;
 	double	tan_ra;
 	int		dof;		// depth of field - how far to trace the ray before stopping
+	int		max_dof;	
 	double	ray_len;	// length of final ray 
 }	t_ray;
 
@@ -148,11 +150,14 @@ int		player_symbol(char c);
 
 int		key_click_handler(int keycode, t_mlx *m);
 int		key_hold_handler(int keycode, t_mlx *m);
+int		exit_free(t_mlx *m);
+
 double	deg_to_rad(double x);
 void	draw_minimap(t_mlx *mlx);
 void	draw_rays_2d(t_mlx* m);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-// void	dda(t_mlx *m, int x1, int y1, int x2, int y2, int color);
+
+void	draw_square(t_mlx *m, t_point start, int size, int color);
 void	dda(t_mlx *m, t_point p1, t_point p2, int color);
 double	get_ray_len(double px, double py, double rx, double ry);
 double	fix_angle(double a);

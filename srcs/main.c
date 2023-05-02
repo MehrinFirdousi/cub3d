@@ -12,17 +12,6 @@
 
 #include "cub3d.h"
 
-int	exit_free(t_mlx *m)
-{
-	mlx_destroy_image(m->mlx, m->img->img);
-	free(m->map->path_north);
-	free(m->map->path_south);
-	free(m->map->path_west );
-	free(m->map->path_east );	
-	ft_split_destroy(m->map->map);
-	exit(0);
-}
-
 double	deg_to_rad(double x)
 {
 	return (x * M_PI / 180.0);

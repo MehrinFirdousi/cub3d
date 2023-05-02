@@ -12,6 +12,17 @@
 
 #include "cub3d.h"
 
+int	exit_free(t_mlx *m)
+{
+	mlx_destroy_image(m->mlx, m->img->img);
+	free(m->map->path_north);
+	free(m->map->path_south);
+	free(m->map->path_west );
+	free(m->map->path_east );	
+	ft_split_destroy(m->map->map);
+	exit(0);
+}
+
 void	redraw_image(t_mlx *m)
 {
 	mlx_destroy_image(m->mlx, m->img->img);
@@ -25,13 +36,12 @@ void	redraw_image(t_mlx *m)
 
 int	key_click_handler(int keycode, t_mlx *m)
 {
-	printf("key clicked\n");
 	if (keycode == ESC)
 	{
-		printf("esc clicked\n");
-		mlx_destroy_image(m->mlx, m->img->img);
 		mlx_destroy_window(m->mlx, m->win);
-		exit(0);
+		exit_free(m);
+		// mlx_destroy_image(m->mlx, m->img->img);
+		// exit(0);
 	}
 	return (0);
 }
@@ -43,44 +53,37 @@ int	key_hold_handler(int keycode, t_mlx *m)
 		m->pos->pa -= TURN_SPEED;
 		if (m->pos->pa < 0)
 			m->pos->pa += 2 * M_PI;
-		m->pos->pdx = cos(m->pos->pa) * 5;
-		m->pos->pdy = sin(m->pos->pa) * 5;
+		m->pos->pdx = cos(m->pos->pa) * STRAFE_SPEED;
+		m->pos->pdy = sin(m->pos->pa) * STRAFE_SPEED;
 	}
-	if (keycode == RIGHT)
+	else if (keycode == RIGHT)
 	{
 		m->pos->pa += TURN_SPEED;
 		if (m->pos->pa > 2 * M_PI)
 			m->pos->pa -= 2 * M_PI;
-		m->pos->pdx = cos(m->pos->pa) * 5;
-		m->pos->pdy = sin(m->pos->pa) * 5;
+		m->pos->pdx = cos(m->pos->pa) * STRAFE_SPEED;
+		m->pos->pdy = sin(m->pos->pa) * STRAFE_SPEED;
 	}
-	if (keycode == S)
+	else if (keycode == S)
 	{
 		m->pos->px -= m->pos->pdx;
 		m->pos->py -= m->pos->pdy;
-		printf("S clicked, dx = %lf, dy = %lf\n", m->pos->pdx, m->pos->pdy);
 	}
 	else if (keycode == W)
 	{
 		m->pos->px += m->pos->pdx;
 		m->pos->py += m->pos->pdy;
-		printf("W clicked, dx = %lf, dy = %lf\n", m->pos->pdx, m->pos->pdy);
 	}
 	else if (keycode == A)
 	{
-		ft_printf("A clicked\n");
-		m->pos->px -= STRAFE_SPEED;
-		// m->pos->px -= m->pos->pdx;
-		// m->pos->py += m->pos->pdy;
+		m->pos->px += m->pos->pdy;
+		m->pos->py -= m->pos->pdx;
 	}
 	else if (keycode == D)
 	{
-		ft_printf("D clicked\n");
-		m->pos->px += STRAFE_SPEED;
-		// m->pos->px += m->pos->pdx;
-		// m->pos->py -= m->pos->pdy;
+		m->pos->px -= m->pos->pdy;
+		m->pos->py += m->pos->pdx;
 	}
-	
 	redraw_image(m);
 	return (0);
 }
