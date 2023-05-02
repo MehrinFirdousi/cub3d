@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:11:24 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:52:52 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	get_map(char *line, t_map *map)
 
 	map->map_width = mapx_len(line);
 	map->map_height = mapy_len(line);
+	if(map->map_height < 3 || map->map_height < 3)
+		put_error("Invalid map");
 	map->map = malloc(sizeof (char *) * (map->map_height + 1));
 
 	y = 0;

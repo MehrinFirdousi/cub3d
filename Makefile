@@ -6,7 +6,7 @@
 #    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/01 23:12:53 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/02 14:33:51 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc
+CC		=	gcc -fsanitize=address -g3
 
 MLX_DIR		=	mlx
 

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:09:29 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:33:34 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	parsing(int argc, char **argv, t_map *map, t_pos *pos)
 	rd = read_data(fd);
 	close(fd);
 	get_data(rd, map, pos);
-
 }

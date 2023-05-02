@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:12:26 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:33:36 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void check_valid_map(t_map *map)
 			{
 				if(player_symbol(map->map[y][x]))
 						map->player_cnt++;
-				if(map->map[y][x] == '0')
+				if(map->map[y][x] == '0' || player_symbol(map->map[y][x]))
 					is_closed(map->map, y, x);
 			}
 			else
