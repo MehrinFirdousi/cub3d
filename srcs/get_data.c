@@ -20,7 +20,15 @@ void	init_data(t_map *data)
 	data->path_east = NULL;
 }
 
-void get_player(t_map *map, t_player *pos)
+static void set_player_pos(t_map *map, t_player *pos, int x, int y)
+{
+	pos->px = x;
+	map->player_x = x;
+	pos->py = y;
+	map->player_y = x;
+}
+
+static void get_player(t_map *map, t_player *pos)
 {
 	int y;
 	int x;
@@ -41,11 +49,8 @@ void get_player(t_map *map, t_player *pos)
 					pos->pa = deg_to_rad(90);
 				if(map->map[y][x] == 'E')
 					pos->pa = deg_to_rad(0);
-				pos->px = x;
-				map->player_x = x;
-				pos->py = y;
-				map->player_y = x;
-				map->map[y][x] = 'P';	
+				map->map[y][x] = 'P';
+				set_player_pos(map, pos, x, y);
 			}
 		}	
 	}

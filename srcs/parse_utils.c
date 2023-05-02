@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 17:48:29 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 18:24:17 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,20 @@ void print_map(t_map *map, t_player *pos)
 		ft_printf("{%s}\n", map->map[i++]);
 }
 
-int	check_surface(const char *line, int *flag)
+int	check_surface(const char *line)
 {
-	printf("flag %d\n", *flag);
-	if (ft_strncmp(line, "F ", 2) == 0 && !*flag)
-	{
-		*flag = 1;
+	int i;
+	char c;
+
+	i = 0;
+	c = line[i];
+	while(line[i] && line[i] != '\n')
+		i++;
+	i++;	
+	if(line[i] == c)
+		put_error("Duplicate Sides");	
+	if (ft_strncmp(line, "F ", 2) == 0)
 		return (E_FLOOR);
-	}
 	if (ft_strncmp(line, "C ", 2) == 0)
 		return (E_CEIL);
 	put_error("Not valid color side");
