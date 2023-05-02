@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 17:42:39 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 18:34:47 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ static void validate_surface(int *colors, char *line, t_map *map, int *flag)
 
 	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
-		put_error("colo range 0 -> 255");
-	surface = check_surface(line, flag);
+		put_error("color range 0 -> 255");
+	surface = check_surface(line);
 	if (surface == E_FLOOR)
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
-	else if(surface == E_CEIL)
+	if(surface == E_CEIL)
 		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
 
 }
@@ -52,9 +52,7 @@ void	get_colors(char *line, t_map *map)
 	int		i;
 	char	*str;
 	int		*colors;
-	int 	flag;
 	
-	flag = 0;
 	colors = malloc(sizeof(int) * 3);
 
 	str = get_subline(&line[2]);
@@ -70,7 +68,8 @@ void	get_colors(char *line, t_map *map)
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] == ' ' || str[i] == ',')
 		put_error("Must be value of 3 color");
-	validate_surface(colors, line, map, &flag);
+	validate_surface(colors, line, map);
+	// printf("%d %d %d\n", colors[0], colors[1], colors[2]);
 	free(str);
 }
 

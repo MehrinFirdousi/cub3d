@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/02 17:59:58 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:36:22 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,24 @@ void	mlx_set_up(t_mlx *mlx, t_img *img, t_player *pos, t_map *map)
 
 int	main(int argc, char **argv)
 {
-	t_mlx	mlx;
-	t_img	img;
+	// t_mlx	mlx;
+	// t_img	img;
 	t_player	pos;
 	t_map	map;
 	
 	parsing(argc, argv, &map, &pos);
 	print_map(&map, &pos);
-	mlx_set_up(&mlx, &img, &pos, &map);
-	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
-	draw_rays_2d(&mlx);
-	draw_minimap(&mlx);
+	// mlx_set_up(&mlx, &img, &pos, &map);
+	// // my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
+	// draw_rays_2d(&mlx);
+	// draw_minimap(&mlx);
 	
-	mlx_key_hook(mlx.win, key_click_handler, &mlx);
-	mlx_hook(mlx.win, 2, 1L << 0, key_hold_handler, &mlx);
-	mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
+	// mlx_key_hook(mlx.win, key_click_handler, &mlx);
+	// mlx_hook(mlx.win, 2, 1L << 0, key_hold_handler, &mlx);
+	// mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
 	
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_loop(mlx.mlx);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+	// mlx_loop(mlx.mlx);
 
 	return (0);
 }
