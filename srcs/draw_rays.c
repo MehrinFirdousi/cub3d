@@ -88,7 +88,7 @@ static void	cast_ray(t_map *m, t_ray *r)
 	}
 }
 
-static void	draw_scene(t_mlx *m, t_ray *r, int ray_no, int color)
+static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
 {
 	double	line_height;
 	double	line_offset;
@@ -96,7 +96,7 @@ static void	draw_scene(t_mlx *m, t_ray *r, int ray_no, int color)
 						// used to fix unwanted fisheye effect
 
 	// 3d ray 
-	a_diff = fix_angle(m->pos->pa - r->ra);
+	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
@@ -106,10 +106,12 @@ static void	draw_scene(t_mlx *m, t_ray *r, int ray_no, int color)
 	dda(m, (t_point){ray_no, line_height + line_offset}, (t_point){ray_no, WIN_HEIGHT}, m->map->floor_color);
 	
 	// 2d ray for minimap
-	dda(m, (t_point){m->pos->px, m->pos->py}, (t_point){r->rx, r->ry}, color);
+	m->rays[ray_no].x = r->rx;
+	m->rays[ray_no].y = r->ry;
+	// dda(m, (t_point){m->p->px, m->p->py}, (t_point){r->rx, r->ry}, color);
 }
 
-void draw_rays_2d(t_mlx* m)
+void	draw_scene(t_mlx* m)
 {
 	double	ra; // ray angle
 	int		i;
@@ -117,23 +119,23 @@ void draw_rays_2d(t_mlx* m)
 	t_ray	v_ray;
 	
 	i = -1;
-	ra = fix_angle(m->pos->pa - ONEDEG * WIN_WIDTH / 2); // move the ray angle back by 30 degrees
+	ra = fix_angle(m->p->pa - ONEDEG * WIN_WIDTH / 2); // move the ray angle back by 30 degrees
 	h_ray.max_dof = m->map->map_height;
 	v_ray.max_dof = m->map->map_width;
 	while (++i < WIN_WIDTH)
 	{
 		h_ray.ra = ra;
 		v_ray.ra = ra;
-		check_horizontal_intersect(m->pos, &h_ray);
+		check_horizontal_intersect(m->p, &h_ray);
 		cast_ray(m->map, &h_ray);
-		h_ray.ray_len = get_ray_len(m->pos->px, m->pos->py, h_ray.rx, h_ray.ry);
-		check_vertical_intersect(m->pos, &v_ray);
+		h_ray.ray_len = get_ray_len(m->p->px, m->p->py, h_ray.rx, h_ray.ry);
+		check_vertical_intersect(m->p, &v_ray);
 		cast_ray(m->map, &v_ray);
-		v_ray.ray_len = get_ray_len(m->pos->px, m->pos->py, v_ray.rx, v_ray.ry);
+		v_ray.ray_len = get_ray_len(m->p->px, m->p->py, v_ray.rx, v_ray.ry);
 		if (h_ray.ray_len <= v_ray.ray_len) // ray hit a horizontal wall
-			draw_scene(m, &h_ray, i, TEAL);
+			draw_ray(m, &h_ray, i, TEAL);
 		else // ray hit a vertical wall
-			draw_scene(m, &v_ray, i, TEAL_D);
+			draw_ray(m, &v_ray, i, TEAL_D);
 		ra = fix_angle(ra + ONEDEG);
 	}
 }

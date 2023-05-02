@@ -1,2 +1,3 @@
 segfaults when map file doesn't have empty line at the end
 more than one player shouldnt be allowed by parsing
+are we using ft_malloc everywhere?

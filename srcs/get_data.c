@@ -20,15 +20,15 @@ void	init_data(t_map *data)
 	data->path_east = NULL;
 }
 
-static void set_player_pos(t_map *map, t_player *pos, int x, int y)
+static void set_player_pos(t_map *map, t_player *p, int x, int y)
 {
-	pos->px = x;
+	p->px = x;
 	map->player_x = x;
-	pos->py = y;
+	p->py = y;
 	map->player_y = y;
 }
 
-static void get_player(t_map *map, t_player *pos)
+static void get_player(t_map *map, t_player *p)
 {
 	int y;
 	int x;
@@ -42,21 +42,21 @@ static void get_player(t_map *map, t_player *pos)
 			if(player_symbol(map->map[y][x]))
 			{
 				if(map->map[y][x] == 'N')
-					pos->pa = deg_to_rad(270);
+					p->pa = deg_to_rad(270);
 				if(map->map[y][x] == 'W')
-					pos->pa = deg_to_rad(180);
+					p->pa = deg_to_rad(180);
 				if(map->map[y][x] == 'S')
-					pos->pa = deg_to_rad(90);
+					p->pa = deg_to_rad(90);
 				if(map->map[y][x] == 'E')
-					pos->pa = deg_to_rad(0);
+					p->pa = deg_to_rad(0);
 				map->map[y][x] = 'P';
-				set_player_pos(map, pos, x, y);
+				set_player_pos(map, p, x, y);
 			}
 		}	
 	}
 }
 
-t_map	*get_data(char *line, t_map *data, t_player *pos)
+t_map	*get_data(char *line, t_map *data, t_player *p)
 {
 	int i;
 	
@@ -64,6 +64,6 @@ t_map	*get_data(char *line, t_map *data, t_player *pos)
 	i = get_upper_map(line, data, 0);
 	i += get_upper_map(&line[i], data, 1);
 	get_map(&line[i], data);
-	get_player(data, pos);
+	get_player(data, p);
 	return (data);
 }

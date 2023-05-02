@@ -18,7 +18,8 @@ int	exit_free(t_mlx *m)
 	free(m->map->path_north);
 	free(m->map->path_south);
 	free(m->map->path_west );
-	free(m->map->path_east );	
+	free(m->map->path_east );
+	free(m->rays);
 	ft_split_destroy(m->map->map);
 	exit(0);
 }
@@ -29,61 +30,111 @@ void	redraw_image(t_mlx *m)
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
 									&(m->img->line_length), &(m->img->endian));
-	draw_rays_2d(m);
+	draw_scene(m);
 	draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 
-int	key_click_handler(int keycode, t_mlx *m)
+int	key_up_handler(int keycode, t_mlx *m)
 {
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(m->mlx, m->win);
 		exit_free(m);
-		// mlx_destroy_image(m->mlx, m->img->img);
-		// exit(0);
 	}
+	if (keycode == LEFT)
+		m->keys->left = false;
+	if (keycode == RIGHT)
+		m->keys->right = false;
+	if (keycode == S)
+		m->keys->s = false;
+	if (keycode == W)
+		m->keys->w = false;
+	if (keycode == A)
+		m->keys->a = false;
+	if (keycode == D)
+		m->keys->d = false;
 	return (0);
 }
 
-int	key_hold_handler(int keycode, t_mlx *m)
+int	key_down_handler(int keycode, t_mlx *m)
 {
 	if (keycode == LEFT)
+		m->keys->left = true;
+	if (keycode == RIGHT)
+		m->keys->right = true;
+	if (keycode == S)
+		m->keys->s = true;
+	if (keycode == W)
+		m->keys->w = true;
+	if (keycode == A)
+		m->keys->a = true;
+	if (keycode == D)
+		m->keys->d = true;
+	return (0);
+}
+
+bool	player_hit_wall(double px, double py, t_map *map)
+{
+	int	p_mapx;
+	int	p_mapy;
+
+	p_mapx = (int)px / BLOCK_SIZE;
+	p_mapy = (int)py / BLOCK_SIZE;
+	if (p_mapx >= 0 && p_mapy >= 0 && p_mapx < map->map_width && p_mapy < map->map_height \
+		&& map->map[p_mapy][p_mapx] == '1') // if we hit a wall
+		return (true);
+	return (false);
+}
+
+int	key_hold_handler(t_mlx *m)
+{
+	if (m->keys->left)
 	{
-		m->pos->pa -= TURN_SPEED;
-		if (m->pos->pa < 0)
-			m->pos->pa += 2 * M_PI;
-		m->pos->pdx = cos(m->pos->pa) * STRAFE_SPEED;
-		m->pos->pdy = sin(m->pos->pa) * STRAFE_SPEED;
+		m->p->pa -= TURN_SPEED;
+		if (m->p->pa < 0)
+			m->p->pa += 2 * M_PI;		
+		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED;
+		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED;
 	}
-	else if (keycode == RIGHT)
+	if (m->keys->right)
 	{
-		m->pos->pa += TURN_SPEED;
-		if (m->pos->pa > 2 * M_PI)
-			m->pos->pa -= 2 * M_PI;
-		m->pos->pdx = cos(m->pos->pa) * STRAFE_SPEED;
-		m->pos->pdy = sin(m->pos->pa) * STRAFE_SPEED;
+		m->p->pa += TURN_SPEED;
+		if (m->p->pa > 2 * M_PI)
+			m->p->pa -= 2 * M_PI;
+		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED;
+		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED;
 	}
-	else if (keycode == S)
+	if (m->keys->s)
 	{
-		m->pos->px -= m->pos->pdx;
-		m->pos->py -= m->pos->pdy;
+		if (player_hit_wall(m->p->px - m->p->pdx, m->p->py - m->p->pdy, m->map))
+			return (0);
+		m->p->px -= m->p->pdx;
+		m->p->py -= m->p->pdy;
 	}
-	else if (keycode == W)
+	if (m->keys->w)
 	{
-		m->pos->px += m->pos->pdx;
-		m->pos->py += m->pos->pdy;
+		if (player_hit_wall(m->p->px + m->p->pdx, m->p->py + m->p->pdy, m->map))
+			return (0);
+		m->p->px += m->p->pdx;
+		m->p->py += m->p->pdy;
 	}
-	else if (keycode == A)
+	if (m->keys->a)
 	{
-		m->pos->px += m->pos->pdy;
-		m->pos->py -= m->pos->pdx;
+		if (player_hit_wall(m->p->px + m->p->pdy, m->p->py - m->p->pdx, m->map))
+			return (0);
+		m->p->px += m->p->pdy;
+		m->p->py -= m->p->pdx;
 	}
-	else if (keycode == D)
+	if (m->keys->d)
 	{
-		m->pos->px -= m->pos->pdy;
-		m->pos->py += m->pos->pdx;
+		if (player_hit_wall(m->p->px - m->p->pdy, m->p->py + m->p->pdx, m->map))
+			return (0);
+		m->p->px -= m->p->pdy;
+		m->p->py += m->p->pdx;
 	}
-	redraw_image(m);
+	if (m->keys->left | m->keys->right | \
+		m->keys->s | m->keys->w | m->keys->a | m->keys->d)
+		redraw_image(m);
 	return (0);
 }
