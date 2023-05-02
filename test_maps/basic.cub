@@ -3,8 +3,10 @@ SO texture/xpm1.xpm
 WE texture/xpm2.xpm
 EA texture/xpm3.xpm
 
+
 F 83, 60, 60
-C 60, 83, 69
+C 83, 60, 60
+
 
 11111111
 10000001

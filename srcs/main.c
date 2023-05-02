@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/02 17:47:55 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:59:58 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mlx_set_up(t_mlx *mlx, t_img *img, t_player *pos, t_map *map)
 	img->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 								&img->line_length, &img->endian);
-	printf("px = %lf, py = %lf\n", pos->px, pos->py);
+	printf("player_x = %d, player_y = %d\n", map->player_x, map->player_y);
 	pos->px = (pos->px * MM_SIZE) + (MM_SIZE / 2);
 	pos->py = (pos->py * MM_SIZE) + (MM_SIZE / 2);
 	// pos->pa = deg_to_rad(270);

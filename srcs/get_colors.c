@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 14:55:08 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 17:42:39 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ static int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-static void validate_surface(int *colors, char *line, t_map *map)
+static void validate_surface(int *colors, char *line, t_map *map, int *flag)
 {
 	int surface;
 
 	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
 		put_error("colo range 0 -> 255");
-	surface = check_surface(line);
-	if (surface == 0)
+	surface = check_surface(line, flag);
+	if (surface == E_FLOOR)
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
-	else if(surface == 1)
+	else if(surface == E_CEIL)
 		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
 
 }
@@ -52,7 +52,9 @@ void	get_colors(char *line, t_map *map)
 	int		i;
 	char	*str;
 	int		*colors;
-
+	int 	flag;
+	
+	flag = 0;
 	colors = malloc(sizeof(int) * 3);
 
 	str = get_subline(&line[2]);
@@ -68,7 +70,7 @@ void	get_colors(char *line, t_map *map)
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] == ' ' || str[i] == ',')
 		put_error("Must be value of 3 color");
-	validate_surface(colors, line, map);
+	validate_surface(colors, line, map, &flag);
 	free(str);
 }
 

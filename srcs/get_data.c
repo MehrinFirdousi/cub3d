@@ -42,7 +42,10 @@ void get_player(t_map *map, t_player *pos)
 				if(map->map[y][x] == 'E')
 					pos->pa = deg_to_rad(0);
 				pos->px = x;
+				map->player_x = x;
 				pos->py = y;
+				map->player_y = y;
+				map->map[y][x] = 'P';	
 			}
 		}	
 	}

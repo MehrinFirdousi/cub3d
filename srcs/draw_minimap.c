@@ -47,7 +47,7 @@ void draw_minimap(t_mlx *m)
 					color);*/
 			if (m->map->map[i][j] == 'P')
 			{
-				printf("px = %lf, px = %lf, x = %d, y = %d\n", m->pos->px, m->pos->px, x, y);
+				// printf("px = %lf, py = %lf, x = %d, y = %d\n", m->pos->px, m->pos->py, x, y);
 				color = GREEN;
 				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py, color);
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py, color);

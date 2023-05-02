@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 17:22:23 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:57:39 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void fill_map(t_map *map)
 		{
 			if (map->map[y][x] == ' ')
 				map->map[y][x] = '1';
-			if (player_symbol(map->map[y][x]))
-				map->map[y][x] = 'P';
 			x++;
 		}
 		y++;

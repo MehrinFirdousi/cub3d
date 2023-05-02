@@ -29,13 +29,13 @@
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define BLUE 0X000000FF
-# define STRAFE_SPEED 5
-# define TURN_SPEED 0.0523599 // 3 deg in rad
+# define STRAFE_SPEED 2
+# define TURN_SPEED 0.0349066 // 2 deg in rad
 // # define ONEDEG 0.0174533 // 1 deg in rad
 // # define ONEDEG 0.00872665 // 1 deg in rad
 # define ONEDEG 0.000858358649063299 // 1 deg in rad
-# define BLOCK_SIZE 32
-# define MM_SIZE 32
+# define BLOCK_SIZE 16
+# define MM_SIZE 16
 // # define ONEDEG 0.00171671729638127 // 1 deg in rad
 # define W 13
 # define A 0
@@ -52,7 +52,9 @@ enum e_side
 	E_NORTH,
 	E_SOUTH,
 	E_WEST,
-	E_EAST
+	E_EAST,
+	E_FLOOR,
+	E_CEIL,
 };
 
 // typedef struct s_player
@@ -143,7 +145,7 @@ void	get_map(char *line, t_map *map);
 void 	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
-int		check_surface(const char *line);
+int		check_surface(const char *line, int *flag);
 void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
 void 	print_map(t_map *map, t_player *pos);
