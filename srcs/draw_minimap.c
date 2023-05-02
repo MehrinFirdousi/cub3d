@@ -45,7 +45,7 @@ void draw_minimap(t_mlx *m)
 			dda(m, (t_point){x + 32 - 1, y + 1}, \
 					(t_point){x + 1, y + 1},
 					color);*/
-			if (m->map->map[i][j] == 'N')
+			if (m->map->map[i][j] == 'P')
 			{
 				color = GREEN;
 				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py, color);
