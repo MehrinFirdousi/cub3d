@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/02 16:57:33 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:03:02 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mlx_set_up(t_mlx *mlx, t_img *img, t_player *pos, t_map *map)
 								&img->line_length, &img->endian);
 	pos->px = (pos->px * BLOCK_SIZE) + (BLOCK_SIZE / 2);
 	pos->py = (pos->py * BLOCK_SIZE) + (BLOCK_SIZE / 2);
-	pos->pa = deg_to_rad(270);
+	// pos->pa = deg_to_rad(270);
 	pos->pdx = cos(pos->pa) * 5;
 	pos->pdy = sin(pos->pa) * 5;
 	mlx->img = img;

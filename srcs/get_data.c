@@ -34,11 +34,11 @@ void get_player(t_map *map, t_player *pos)
 			if(player_symbol(map->map[y][x]))
 			{
 				if(map->map[y][x] == 'N')
-					pos->pa = deg_to_rad(90);
+					pos->pa = deg_to_rad(270);
 				if(map->map[y][x] == 'W')
 					pos->pa = deg_to_rad(180);
 				if(map->map[y][x] == 'S')
-					pos->pa = deg_to_rad(270);
+					pos->pa = deg_to_rad(90);
 				if(map->map[y][x] == 'E')
 					pos->pa = deg_to_rad(0);
 				pos->px = x;
