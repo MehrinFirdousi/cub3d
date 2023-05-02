@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 14:56:31 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 17:37:06 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void print_map(t_map *map, t_player *pos)
 int	check_surface(const char *line)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
-		return (0);
-	if (ft_strncmp(line, "C ", 1) == 0)
-		return (1);
+		return (E_FLOOR);
+	if (ft_strncmp(line, "C ", 2) == 0)
+		return (E_CEIL);
 	put_error("Not valid color side");
-	return (0);
+	return (-1);
 }

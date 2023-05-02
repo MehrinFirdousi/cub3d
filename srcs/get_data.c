@@ -31,7 +31,7 @@ void get_player(t_map *map, t_player *pos)
 		x = -1;
 		while(map->map[y][++x])
 		{
-			if(player_symbol(map->map[y][x]))
+			if(map->map[y][x] == 'P')
 			{
 				if(map->map[y][x] == 'N')
 					pos->pa = deg_to_rad(270);
@@ -42,7 +42,9 @@ void get_player(t_map *map, t_player *pos)
 				if(map->map[y][x] == 'E')
 					pos->pa = deg_to_rad(0);
 				pos->px = x;
+				map->player_x = x;
 				pos->py = y;
+				map->player_y = x;
 			}
 		}	
 	}

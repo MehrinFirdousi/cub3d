@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 14:55:08 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 17:22:02 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void validate_surface(int *colors, char *line, t_map *map)
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
 		put_error("colo range 0 -> 255");
 	surface = check_surface(line);
-	if (surface == 0)
+	if (surface == E_FLOOR)
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
-	else if(surface == 1)
+	else if(surface == E_CEIL)
 		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
 
 }

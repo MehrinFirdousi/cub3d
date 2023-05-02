@@ -51,7 +51,9 @@ enum e_side
 	E_NORTH,
 	E_SOUTH,
 	E_WEST,
-	E_EAST
+	E_EAST,
+	E_FLOOR,
+	E_CEIL,
 };
 
 // typedef struct s_player
