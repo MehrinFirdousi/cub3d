@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 22:56:36 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 14:55:08 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static char	*get_subline(const char *line)
 		put_error("No colors");
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
-		++i;
+		if(line[i])
+			++i;
 	return (ft_substr(line, 0, i));
 }
 
@@ -57,11 +58,15 @@ void	get_colors(char *line, t_map *map)
 	str = get_subline(&line[2]);
 	colors[0] = valid_color(str);
 	i = cur_index(str, ',');
+	if (!str[i])
+		put_error("Not valid colors!!");
 	colors[1] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
+	if (!str[i])
+		put_error("Not valid colors!!");
 	colors[2] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
-	if (str[i] != '\0')
+	if (str[i] == ' ' || str[i] == ',')
 		put_error("Must be value of 3 color");
 	validate_surface(colors, line, map);
 	free(str);

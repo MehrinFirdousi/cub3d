@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
+#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/01 23:12:53 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/02 16:57:25 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc
+CC		=	gcc -fsanitize=address -g3
 
 MLX_DIR		=	mlx
 
