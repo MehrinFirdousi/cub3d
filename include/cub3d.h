@@ -35,6 +35,7 @@
 // # define ONEDEG 0.00872665 // 1 deg in rad
 # define ONEDEG 0.000858358649063299 // 1 deg in rad
 # define BLOCK_SIZE 32
+# define MM_SIZE 32
 // # define ONEDEG 0.00171671729638127 // 1 deg in rad
 # define W 13
 # define A 0

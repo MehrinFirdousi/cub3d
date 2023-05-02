@@ -28,25 +28,26 @@ void draw_minimap(t_mlx *m)
 		j = -1;
 		while (++j < m->map->map_width)
 		{
-			x = j * 32;
-			y = i * 32;
+			x = j * MM_SIZE;
+			y = i * MM_SIZE;
 			if (m->map->map[i][j] == '1')
 				color = WHITE;
-			draw_square(m, (t_point){x, y}, 32, color);
+			draw_square(m, (t_point){x, y}, MM_SIZE, color);
 			/*dda(m, (t_point){x + 1, y + 1}, \
-					(t_point){x + 1, y + 32 - 1},
+					(t_point){x + 1, y + MM_SIZE - 1},
 					color);
-			dda(m, (t_point){x + 1, y + 32 - 1}, \
-					(t_point){x + 32 - 1, y + 32 - 1},
+			dda(m, (t_point){x + 1, y + MM_SIZE - 1}, \
+					(t_point){x + MM_SIZE - 1, y + MM_SIZE - 1},
 					color);
-			dda(m, (t_point){x + 32 - 1, y + 32 - 1}, \
-					(t_point){x + 32 - 1, y + 1},
+			dda(m, (t_point){x + MM_SIZE - 1, y + MM_SIZE - 1}, \
+					(t_point){x + MM_SIZE - 1, y + 1},
 					color);
-			dda(m, (t_point){x + 32 - 1, y + 1}, \
+			dda(m, (t_point){x + MM_SIZE - 1, y + 1}, \
 					(t_point){x + 1, y + 1},
 					color);*/
 			if (m->map->map[i][j] == 'P')
 			{
+				printf("px = %lf, px = %lf, x = %d, y = %d\n", m->pos->px, m->pos->px, x, y);
 				color = GREEN;
 				my_mlx_pixel_put(m->img, m->pos->px, m->pos->py, color);
 				my_mlx_pixel_put(m->img, m->pos->px + 1, m->pos->py, color);
@@ -59,3 +60,8 @@ void draw_minimap(t_mlx *m)
 		}
 	}
 }
+
+// void	draw_player(t_mlx *m)
+// {
+
+// }

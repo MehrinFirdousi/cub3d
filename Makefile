@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/02 16:57:25 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/02 17:42:35 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc -fsanitize=address -g3
+CC		=	gcc 
 
 MLX_DIR		=	mlx
 
