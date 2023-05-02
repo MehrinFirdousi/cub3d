@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 18:34:47 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:38:51 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-static void validate_surface(int *colors, char *line, t_map *map, int *flag)
+static void validate_surface(int *colors, char *line, t_map *map)
 {
 	int surface;
 

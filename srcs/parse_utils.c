@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 18:36:35 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:38:20 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void print_map(t_map *map, t_player *pos)
 		ft_printf("{%s}\n", map->map[i++]);
 }
 
-int	check_surface(const char *line, int *flag)
+int	check_surface(const char *line)
 {
 	int i;
 	char c;
