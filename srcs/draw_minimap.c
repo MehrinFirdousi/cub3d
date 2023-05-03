@@ -33,13 +33,13 @@ void	draw_player(t_mlx *m)
 	// printf("x = %lf, y = %lf, %lf, %lf\n", x, y, m->p->pdx * 10, m->p->pdy * 10);
 }
 
-void draw_minimap(t_mlx *m)
+void	draw_minimap(t_mlx *m)
 {
 	int	i;
 	int	j;
-	int x;
-	int y;
-	int color;
+	int	x;
+	int	y;
+	int	color;
 
 	i = -1;
 	color = GRAY;
