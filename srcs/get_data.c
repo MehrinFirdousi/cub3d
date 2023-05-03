@@ -64,9 +64,9 @@ t_map	*get_data(char *line, t_map *data, t_player *p)
 	
 	init_data(data);
 	i = 0;
-	while (line[i] == '\n')
-			++i;
-	while (line[i] == ' ')
+	// while (line[i] && line[i] == '\n')
+	// 		++i;
+	while (line[i] && ft_is_space(line[i]))
 			++i;
 	if(ft_strncmp(&line[i], "F ", 2) == 0 || ft_strncmp(&line[i], "C ", 2) == 0)
 	{
