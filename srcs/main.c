@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/02 22:03:43 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:14:56 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 	mlx_set_up(&mlx);
 	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_scene(&mlx);
-	draw_minimap(&mlx);
+	// draw_minimap(&mlx);
 	
 	mlx_key_hook(mlx.win, key_up_handler, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, key_down_handler, &mlx);

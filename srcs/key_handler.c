@@ -31,7 +31,11 @@ void	redraw_image(t_mlx *m)
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
 									&(m->img->line_length), &(m->img->endian));
 	draw_scene(m);
-	draw_minimap(m);
+	if (m->keys->tab)
+	{
+		
+	}
+		draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 
@@ -54,6 +58,11 @@ int	key_up_handler(int keycode, t_mlx *m)
 		m->keys->a = false;
 	if (keycode == D)
 		m->keys->d = false;
+	if (keycode == TAB)
+	{
+		printf("tab clicked %d\n", m->keys->tab);
+		m->keys->tab = !m->keys->tab;
+	}
 	return (0);
 }
 
@@ -107,34 +116,34 @@ int	key_hold_handler(t_mlx *m)
 	}
 	if (m->keys->s)
 	{
-		if (player_hit_wall(m->p->px - m->p->pdx, m->p->py - m->p->pdy, m->map))
-			return (0);
+		// if (player_hit_wall(m->p->px - m->p->pdx, m->p->py - m->p->pdy, m->map))
+		// 	return (0);
 		m->p->px -= m->p->pdx;
 		m->p->py -= m->p->pdy;
 	}
 	if (m->keys->w)
 	{
-		if (player_hit_wall(m->p->px + m->p->pdx, m->p->py + m->p->pdy, m->map))
-			return (0);
+		// if (player_hit_wall(m->p->px + m->p->pdx, m->p->py + m->p->pdy, m->map))
+			// return (0);
 		m->p->px += m->p->pdx;
 		m->p->py += m->p->pdy;
 	}
 	if (m->keys->a)
 	{
-		if (player_hit_wall(m->p->px + m->p->pdy, m->p->py - m->p->pdx, m->map))
-			return (0);
+		// if (player_hit_wall(m->p->px + m->p->pdy, m->p->py - m->p->pdx, m->map))
+			// return (0);
 		m->p->px += m->p->pdy;
 		m->p->py -= m->p->pdx;
 	}
 	if (m->keys->d)
 	{
-		if (player_hit_wall(m->p->px - m->p->pdy, m->p->py + m->p->pdx, m->map))
-			return (0);
+		// if (player_hit_wall(m->p->px - m->p->pdy, m->p->py + m->p->pdx, m->map))
+			// return (0);
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
 	if (m->keys->left | m->keys->right | \
-		m->keys->s | m->keys->w | m->keys->a | m->keys->d)
+		m->keys->s | m->keys->w | m->keys->a | m->keys->d | m->keys->tab)
 		redraw_image(m);
 	return (0);
 }

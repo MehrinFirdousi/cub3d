@@ -47,6 +47,7 @@
 #  define UP	126
 #  define RIGHT	124
 #  define DOWN	125
+#  define TAB	48
 
 enum e_side
 {
@@ -118,6 +119,7 @@ typedef struct s_keys
 	bool	d;
 	bool	left;
 	bool	right;
+	bool	tab;
 }	t_keys;
 
 typedef struct s_mlx
