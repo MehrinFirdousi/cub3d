@@ -17,8 +17,9 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
-# define WIN_WIDTH 1220
+# define WIN_WIDTH 1420
 # define WIN_HEIGHT 980
 # define ESC 53
 # define BLACK 0x00000000
@@ -29,12 +30,13 @@
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define BLUE 0X000000FF
-# define STRAFE_SPEED 5
-# define TURN_SPEED 0.0523599 // 3 deg in rad
+# define STRAFE_SPEED 0.8
+# define TURN_SPEED 0.0261799 // 2 deg in rad
 // # define ONEDEG 0.0174533 // 1 deg in rad
 // # define ONEDEG 0.00872665 // 1 deg in rad
 # define ONEDEG 0.000858358649063299 // 1 deg in rad
-# define BLOCK_SIZE 32
+# define BLOCK_SIZE 16
+# define MM_SIZE 16
 // # define ONEDEG 0.00171671729638127 // 1 deg in rad
 # define W 13
 # define A 0
@@ -55,13 +57,6 @@ enum e_side
 	E_FLOOR,
 	E_CEIL,
 };
-
-// typedef struct s_player
-// {
-// 	int		x;
-// 	int		y;
-// 	char	orientation;
-// }	t_player;
 
 typedef struct s_point
 {
@@ -112,15 +107,28 @@ typedef struct s_player
 	double	py;			// player's y coordinate
 	double	pdx;		// change in player's x based on player angle
 	double	pdy;		// change in player's y based on player angle
+
 }	t_player;
+
+typedef struct s_keys
+{
+	bool	w;
+	bool	a;
+	bool	s;
+	bool	d;
+	bool	left;
+	bool	right;
+}	t_keys;
 
 typedef struct s_mlx
 {
 	void		*mlx;
 	void		*win;
 	t_img		*img;
-	t_player	*pos;
+	t_player	*p;
 	t_map		*map;
+	t_keys		*keys;
+	t_point		*rays;
 }	t_mlx;
 
 typedef struct s_ray
@@ -137,9 +145,9 @@ typedef struct s_ray
 }	t_ray;
 
 /* -------> Parse <-------- */
-void	parsing(int argc, char **argv, t_map *map, t_player *pos);
+void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data, int flag);
-t_map	*get_data(char *line, t_map *map, t_player *pos);
+t_map	*get_data(char *line, t_map *map, t_player *p);
 void	get_map(char *line, t_map *map);
 void 	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
@@ -147,16 +155,18 @@ int		valid_color(const char *str);
 int		check_surface(const char *line);
 void	put_error(const char *error);
 void	get_colors(char *line, t_map *map);
-void 	print_map(t_map *map, t_player *pos);
+void 	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
 
-int		key_click_handler(int keycode, t_mlx *m);
-int		key_hold_handler(int keycode, t_mlx *m);
+int		key_up_handler(int keycode, t_mlx *m);
+int		key_down_handler(int keycode, t_mlx *m);
+int		key_hold_handler(t_mlx *m);
 int		exit_free(t_mlx *m);
 
 double	deg_to_rad(double x);
+void	draw_player(t_mlx *m);
 void	draw_minimap(t_mlx *mlx);
-void	draw_rays_2d(t_mlx* m);
+void	draw_scene(t_mlx* m);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 void	draw_square(t_mlx *m, t_point start, int size, int color);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 14:57:17 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/02 22:01:29 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*read_data(int fd)
 	return (result);
 }
 
-void	parsing(int argc, char **argv, t_map *map, t_player *pos)
+void	parsing(int argc, char **argv, t_map *map, t_player *p)
 {
 	int		fd;
 	char	*rd;
@@ -64,5 +64,5 @@ void	parsing(int argc, char **argv, t_map *map, t_player *pos)
 		put_error("invalid file | rights");
 	rd = read_data(fd);
 	close(fd);
-	get_data(rd, map, pos);
+	get_data(rd, map, p);
 }

@@ -60,7 +60,7 @@ void	draw_square(t_mlx *m, t_point start, int size, int color)
 	i = -1;
 	end.x = start.x;
 	end.y = start.y + size;
-	while (++i < size)
+	while (++i <= size)
 	{
 		start.x++;
 		end.x++;

@@ -1,2 +1,5 @@
 segfaults when map file doesn't have empty line at the end
+done//////
 more than one player shouldnt be allowed by parsing
+done//////
+are we using ft_malloc everywhere?
