@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 18:24:17 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/03 14:42:32 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	valid_color(const char *str)
 	i = 0;
 	while (ft_is_space(str[i]))
 		i++;
-	if (!ft_isdigit(str[i]))
-		return (-1);
 	num = 0;
 	while (ft_isdigit(str[i]))
 	{
@@ -76,6 +74,7 @@ int	check_surface(const char *line)
 	while(line[i] && line[i] != '\n')
 		i++;
 	i++;	
+	i += cur_index(&line[i], c);
 	if(line[i] == c)
 		put_error("Duplicate Sides");	
 	if (ft_strncmp(line, "F ", 2) == 0)

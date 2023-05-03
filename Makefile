@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/02 16:57:25 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/03 12:46:11 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CC		=	gcc -fsanitize=address -g3
 
 MLX_DIR		=	mlx
 
-CFLAGS	=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
 
 MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 

@@ -25,7 +25,7 @@ static void set_player_pos(t_map *map, t_player *pos, int x, int y)
 	pos->px = x;
 	map->player_x = x;
 	pos->py = y;
-	map->player_y = x;
+	map->player_y = y;
 }
 
 static void get_player(t_map *map, t_player *pos)
@@ -60,9 +60,23 @@ t_map	*get_data(char *line, t_map *data, t_player *pos)
 {
 	int i;
 	
+	(void)pos;
 	init_data(data);
-	i = get_upper_map(line, data, 0);
-	i += get_upper_map(&line[i], data, 1);
+	i = 0;
+	while (line[i] == '\n')
+			++i;
+	while (line[i] == ' ')
+			++i;
+	if(ft_strncmp(&line[i], "F ", 2) == 0 || ft_strncmp(&line[i], "C ", 2) == 0)
+	{
+		i = get_upper_map(&line[i], data, 1);
+		i += get_upper_map(&line[i], data, 0);
+	}
+	else
+	{
+		i = get_upper_map(line, data, 0);
+		i += get_upper_map(&line[i], data, 1);
+	}	
 	get_map(&line[i], data);
 	get_player(data, pos);
 	return (data);

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 17:53:47 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/03 13:02:13 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void check_valid_map(t_map *map)
 				if(map->map[y][x] == '0' || player_symbol(map->map[y][x]))
 					is_closed(map->map, y, x);
 			}
-			else
+			else{
+				printf("%d %d\n", y, x);
 				put_error("Undefined Symbole");
+			}
 		}
 	}
 	valid_player(map);
