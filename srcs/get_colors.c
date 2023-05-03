@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/03 23:47:23 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 00:09:15 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void check_duplicate_sides(char *line)
 	char c;
 
 	i = 0;
+	while(line[i] && line[i] == ' ')
+		i++;
 	c = line[i];
 	while(line[i] && line[i] != '\n')
 		i++;
