@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/02 17:42:35 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/03 14:49:07 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ LIBFT	=	libft/libft.a
 
 MLX		=	libmlx.dylib
 
-CC		=	gcc 
+CC		=	gcc -Wall -Werror -Wextra
 
 MLX_DIR		=	mlx
 
-CFLAGS	=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
 
 MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 
