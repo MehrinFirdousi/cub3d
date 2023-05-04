@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/02 18:36:16 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:35:12 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	get_map(char *line, t_map *map)
 	map->map_width = mapx_len(line);
 	map->map_height = mapy_len(line);
 	if(map->map_height < 3 || map->map_height < 3)
-		put_error("Invalid map");
+		put_error("Invalid map", map);
 	map->map = malloc(sizeof (char *) * (map->map_height + 1));
 
 	y = 0;

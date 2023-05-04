@@ -12,14 +12,6 @@
 
 #include "cub3d.h"
 
-void	init_data(t_map *data)
-{
-	data->path_north = NULL;
-	data->path_south = NULL;
-	data->path_west = NULL;
-	data->path_east = NULL;
-}
-
 static void set_player_pos(t_map *map, t_player *p, int x, int y)
 {
 	p->px = x;
@@ -58,11 +50,10 @@ static void get_player(t_map *map, t_player *p)
 	}
 }
 
-t_map	*get_data(char *line, t_map *data, t_player *p)
+void	get_data(char *line, t_map *data, t_player *p)
 {
 	int i;
 	
-	init_data(data);
 	i = 0;
 	// while (line[i] && line[i] == '\n')
 	// 		++i;
@@ -83,5 +74,4 @@ t_map	*get_data(char *line, t_map *data, t_player *p)
 	}	
 	get_map(&line[i], data);
 	get_player(data, p);
-	return (data);
 }

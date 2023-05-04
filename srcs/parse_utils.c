@@ -6,25 +6,25 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 14:47:50 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 18:36:14 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	valid_color(const char *str)
+int	valid_color(const char *str, t_map *map)
 {
 	int	num;
 	int i;
 	
 	i = 0;
 	if(!str[i])
-		put_error("NULL color");
+		put_error("NULL color", map);
 	while (str[i] == ' ')
 		i++;
 	num = 0;
 	if(!str[i])
-		put_error("NULL color");
+		put_error("NULL color", map);
 	while (ft_isdigit(str[i]))
 	{
 		num = num * 10 + (str[i++] - '0');
@@ -34,7 +34,7 @@ int	valid_color(const char *str)
 	while (str[i] == ' ')
 		++str;
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
-		put_error("Not valid colors");
+		put_error("Not valid colors", map);
 	return (num);
 }
 
@@ -48,11 +48,24 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-void	put_error(const char *error)
+void	put_error(const char *error, t_map *map)
 {
 	write(2, "ERROR\n", ft_strlen("ERROR\n"));
 	write(2, error, ft_strlen(error));
 	write(2, "\n", 1);
+	if(map->path_east)
+		free(map->path_east);
+	if(map->path_north)
+		free(map->path_north);
+	if(map->path_south)
+		free(map->path_south);
+	if(map->path_west)
+		free(map->path_west);
+	int i = 0;	
+	while(i < map->map_height)
+			free(map->map[i++]);
+	if(map->map_height > 0)		
+		free(map->map);
 	exit(1);
 }
 
@@ -68,7 +81,7 @@ void print_map(t_map *map, t_player *p)
 		ft_printf("{%s}\n", map->map[i++]);
 }
 
-int	check_surface(const char *line)
+int	check_surface(const char *line, t_map *map)
 {	
 	int i;
 
@@ -80,6 +93,6 @@ int	check_surface(const char *line)
 	else if (ft_strncmp(&line[i], "C ", 2) == 0)
 		return (E_CEIL);
 	else
-		put_error("Undefined side");
+		put_error("Undefined side", map);
 	return (-1);
 }

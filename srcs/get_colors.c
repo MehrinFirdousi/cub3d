@@ -6,20 +6,20 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 14:49:14 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 18:40:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*get_subline(const char *line)
+static char	*get_subline(const char *line, t_map *map)
 {
 	int		i;
 
 	while (*line == ' ')
 		++line;
 	if (*line == '\0')
-		put_error("No colors");
+		put_error("No colors", map);
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 		if(line[i])
@@ -38,8 +38,8 @@ static void validate_surface(int *colors, char *line, t_map *map)
 
 	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
-		put_error("color range 0 -> 255");
-	surface = check_surface(line);
+		put_error("color range 0 -> 255", map);
+	surface = check_surface(line, map);
 	if (surface == E_FLOOR)
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
 	else if(surface == E_CEIL)
@@ -47,7 +47,7 @@ static void validate_surface(int *colors, char *line, t_map *map)
 
 }
 
-static void check_duplicate_sides(char *line)
+static void check_duplicate_sides(char *line, t_map *map)
 {
 	int i;
 	char c;
@@ -58,13 +58,14 @@ static void check_duplicate_sides(char *line)
 	c = line[i];
 	while(line[i] && line[i] != '\n')
 		i++;
-	i++;
+	if(line[i])	
+		i++;
 	while(line[i] && line[i] == '\n')
 		i++;
 	while(line[i] && line[i] == ' ')
 		i++;
 	if(line[i] == c)
-		put_error("Duplicate Sides");	
+		put_error("Duplicate Sides", map);	
 }
 
 void	get_colors(char *line, t_map *map)
@@ -73,24 +74,24 @@ void	get_colors(char *line, t_map *map)
 	char	*str;
 	int		*colors;
 
-	check_duplicate_sides(line);
+	check_duplicate_sides(line, map);
 	i = 0;
 	colors = malloc(sizeof(int) * 3);
 	while(line[i] && line[i] == ' ')
 		i++;
-	str = get_subline(&line[i + 2]);
-	colors[0] = valid_color(str);
+	str = get_subline(&line[i + 2], map);
+	colors[0] = valid_color(str, map);
 	i = cur_index(str, ',');
 	if (!str[i])
-		put_error("Not valid colors!!");
-	colors[1] = valid_color(&str[i + 1]);
+		put_error("Not valid colors!!", map);
+	colors[1] = valid_color(&str[i + 1], map);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (!str[i])
-		put_error("Not valid colors!!");
-	colors[2] = valid_color(&str[i + 1]);
+		put_error("Not valid colors!!", map);
+	colors[2] = valid_color(&str[i + 1], map);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] != '\0')
-		put_error("Must be 3 color");
+		put_error("Must be 3 color", map);
 	printf("%d %d %d\n", colors[0], colors[1], colors[2]);	
 	validate_surface(colors, line, map);
 	free(str);
