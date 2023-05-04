@@ -6,13 +6,13 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 22:43:16 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:33:24 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	valid_color(const char *str, t_map *map)
+int	valid_color(const char *str)
 {
 	int	num;
 	int i;

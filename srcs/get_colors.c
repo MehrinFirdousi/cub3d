@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 22:48:55 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:35:48 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ void	get_colors(char *line, t_map *map)
 	while(line[i] && line[i] == ' ')
 		i++;
 	str = get_subline(&line[i + 2], map);
-	colors[0] = valid_color(str, map);
+	colors[0] = valid_color(str);
 	i = cur_index(str, ',');
 	if (!str[i])
 		free(str), free(colors), put_error("Not valid colors!!", map);
-	colors[1] = valid_color(&str[i + 1], map);
+	colors[1] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (!str[i])
 		free(str), free(colors), put_error("Not valid colors!!", map);
-	colors[2] = valid_color(&str[i + 1], map);
+	colors[2] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] != '\0')
 		free(str), free(colors), put_error("Must be 3 color", map);
