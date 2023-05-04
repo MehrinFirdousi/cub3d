@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 01:01:06 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 14:47:50 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int	valid_color(const char *str)
 	i = 0;
 	if(!str[i])
 		put_error("NULL color");
-	while (ft_is_space(str[i]))
+	while (str[i] == ' ')
 		i++;
 	num = 0;
+	if(!str[i])
+		put_error("NULL color");
 	while (ft_isdigit(str[i]))
 	{
 		num = num * 10 + (str[i++] - '0');
