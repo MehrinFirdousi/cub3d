@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/03 20:14:56 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:15:07 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void	mlx_set_up(t_mlx *m)
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
 	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel, \
 								&m->img->line_length, &m->img->endian);
+	m->img->bits_per_pixel >>= 3;
 	m->p->px = (m->p->px * MM_SIZE) + (MM_SIZE / 2);
 	m->p->py = (m->p->py * MM_SIZE) + (MM_SIZE / 2);
 	m->p->pdx = cos(m->p->pa) * 5;
 	m->p->pdy = sin(m->p->pa) * 5;
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	ft_bzero(m->keys, sizeof(t_keys));
+	m->keys->tab = true;
 }
 
 int	main(int argc, char **argv)
@@ -49,9 +51,8 @@ int	main(int argc, char **argv)
 	mlx.keys = &keys;
 	
 	mlx_set_up(&mlx);
-	// my_mlx_pixel_put(&img, 5, 5, 0x00FF0000); // 0,255,0,0
 	draw_scene(&mlx);
-	// draw_minimap(&mlx);
+	draw_minimap(&mlx);
 	
 	mlx_key_hook(mlx.win, key_up_handler, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, key_down_handler, &mlx);

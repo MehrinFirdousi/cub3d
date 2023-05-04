@@ -1,18 +1,19 @@
-NO texture/xpm.xpm
-SO texture/xpm1.xpm
-WE texture/xpm2.xpm
-EA texture/xpm3.xpm
+NO game_textures/xpm.xpm
+SO game_textures/xpm1.xpm
+WE game_textures/xpm2.xpm
+EA game_textures/xpm3.xpm
 
 
 
 C 83, 60, 60
 F 83, 60, 61
 
+   1    
 11111111
-10000001
+10100001
 1000S001
 10000001
 10000001
-10000001
+10001001
 10000001
 11111111
