@@ -30,7 +30,7 @@
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define BLUE 0X000000FF
-# define STRAFE_SPEED 0.8
+# define STRAFE_SPEED 1
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 // # define ONEDEG 0.0174533 // 1 deg in rad
 // # define ONEDEG 0.00872665 // 1 deg in rad
@@ -48,6 +48,7 @@
 #  define RIGHT	124
 #  define DOWN	125
 #  define TAB	48
+#  define SHIFT	257
 
 enum e_side
 {
@@ -120,6 +121,8 @@ typedef struct s_keys
 	bool	left;
 	bool	right;
 	bool	tab;
+	bool	shift;
+	double	speed;
 }	t_keys;
 
 typedef struct s_mlx

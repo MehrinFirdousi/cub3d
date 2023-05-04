@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/04 18:46:08 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 18:48:13 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	mlx_set_up(t_mlx *m)
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	ft_bzero(m->keys, sizeof(t_keys));
 	m->keys->tab = true;
+	m->keys->speed = 1;
 }
 
 void	init_data(t_map *data)

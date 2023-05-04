@@ -44,14 +44,14 @@ static void	check_vertical_intersect(t_player *p, t_ray *r)
 	r->tan_ra = -tan(r->ra);
 	if (r->ra > M_PI / 2 && r->ra < 3 * M_PI / 2) // looking left - >90 and <270
 	{
-		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) - 0.0001; // rounding the ray's y position to the nearest BLOCK_SIZEth value
+		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) - 0.0001; // rounding the ray's x position to the nearest BLOCK_SIZEth value
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = -BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
 	}
 	else if (r->ra < M_PI / 2 || r->ra > 3 * M_PI / 2) // looking right
 	{
-		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE; // rounding the ray's y position to the nearest BLOCK_SIZEth value
+		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE; // rounding the ray's x position to the nearest BLOCK_SIZEth value
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
