@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/03 14:47:02 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 01:01:06 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	valid_color(const char *str)
 	int i;
 	
 	i = 0;
+	if(!str[i])
+		put_error("NULL color");
 	while (ft_is_space(str[i]))
 		i++;
 	num = 0;
@@ -65,22 +67,17 @@ void print_map(t_map *map, t_player *p)
 }
 
 int	check_surface(const char *line)
-{
+{	
 	int i;
-	char c;
 
 	i = 0;
-	c = line[i];
-	while(line[i] && line[i] != '\n')
+	while(line[i] && line[i] == ' ')
 		i++;
-	i++;	
-	i += cur_index(&line[i], c);
-	if(line[i] == c)
-		put_error("Duplicate Sides");	
-	if (ft_strncmp(line, "F ", 2) == 0)
+	if (ft_strncmp(&line[i], "F ", 2) == 0)
 		return (E_FLOOR);
-	if (ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(&line[i], "C ", 2) == 0)
 		return (E_CEIL);
-	put_error("Not valid color side");
+	else
+		put_error("Undefined side");
 	return (-1);
 }
