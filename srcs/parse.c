@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/03 19:58:03 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 15:03:10 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,28 @@ static void	is_valid_file(const char *file_name)
 		put_error("invalid file");
 }
 
-static char	*read_data(int fd)
+static char *read_file(int fd)
 {
-	int		rd;
-	char	buff[1 + 1];
+	int i;
+	char *line;
+	char *result;
 	char	*text;
-	char	*result;
-
+	
+	i = 0;
 	text = ft_strdup("");
-	if (!text)
-		put_error("allocating memory err");
-	rd = read(fd, buff, 1);
-	if (rd == 0)
-		put_error("is empty");
-	while (*buff != '\0' && rd > 0)
+	while (1)
 	{
-		buff[rd] = '\0';
-		result = ft_strjoin(text, buff);
-		if (!result)
-			put_error("allocating memory err");
+		line = get_next_line(fd);
+		if (!line)
+			break;
+		result = ft_strjoin(text, line);
 		free(text);
 		text = result;
-		rd = read(fd, buff, 1);
+		i++;
 	}
-	if (rd < 0)
-		put_error("read file error");
-	return (result);
+	if(!result)
+		return put_error("Is Empty"), NULL;
+	return result;
 }
 
 void	parsing(int argc, char **argv, t_map *map, t_player *p)
@@ -62,7 +58,7 @@ void	parsing(int argc, char **argv, t_map *map, t_player *p)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		put_error("invalid file | rights");
-	rd = read_data(fd);
+	rd = read_file(fd);
 	close(fd);
 	get_data(rd, map, p);
 }
