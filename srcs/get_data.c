@@ -62,7 +62,7 @@ void	get_data(char *line, t_map *data, t_player *p)
 	if(ft_strncmp(&line[i], "F ", 2) == 0 || ft_strncmp(&line[i], "C ", 2) == 0)
 	{
 		i = get_upper_map(&line[i], data, 1);
-		i += get_upper_map(&line[i], data, 0);
+		i += get_upper_map(&line[i], data,  0);
 	}
 	else
 	{

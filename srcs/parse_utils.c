@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 18:36:14 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 22:43:16 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	valid_color(const char *str, t_map *map)
 	
 	i = 0;
 	if(!str[i])
-		put_error("NULL color", map);
+		return -1;
 	while (str[i] == ' ')
 		i++;
 	num = 0;
 	if(!str[i])
-		put_error("NULL color", map);
+		return -1;
 	while (ft_isdigit(str[i]))
 	{
 		num = num * 10 + (str[i++] - '0');
@@ -34,7 +34,7 @@ int	valid_color(const char *str, t_map *map)
 	while (str[i] == ' ')
 		++str;
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
-		put_error("Not valid colors", map);
+		return -1;
 	return (num);
 }
 
@@ -48,11 +48,8 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-void	put_error(const char *error, t_map *map)
+void free_malloced(t_map *map)
 {
-	write(2, "ERROR\n", ft_strlen("ERROR\n"));
-	write(2, error, ft_strlen(error));
-	write(2, "\n", 1);
 	if(map->path_east)
 		free(map->path_east);
 	if(map->path_north)
@@ -61,11 +58,21 @@ void	put_error(const char *error, t_map *map)
 		free(map->path_south);
 	if(map->path_west)
 		free(map->path_west);
+	if(map->file)
+		free(map->file);
 	int i = 0;	
 	while(i < map->map_height)
 			free(map->map[i++]);
-	if(map->map_height > 0)		
+	if(map->map_height)		
 		free(map->map);
+}
+
+void	put_error(const char *error, t_map *map)
+{
+	write(2, "ERROR\n", ft_strlen("ERROR\n"));
+	write(2, error, ft_strlen(error));
+	write(2, "\n", 1);
+	free_malloced(map);
 	exit(1);
 }
 

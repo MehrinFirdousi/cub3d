@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 18:46:23 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 22:03:13 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	parsing(int argc, char **argv, t_map *map, t_player *p)
 		put_error("invalid file | rights", map);
 	rd = read_file(fd, map);
 	close(fd);
+	map->file = rd;
 	get_data(rd, map, p);
 }

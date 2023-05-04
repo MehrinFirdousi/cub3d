@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/04 18:48:13 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:31:57 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_data(t_map *data)
 	data->path_south = NULL;
 	data->path_west = NULL;
 	data->path_east = NULL;
+	data->file = NULL;
 }
 
 int	main(int argc, char **argv)

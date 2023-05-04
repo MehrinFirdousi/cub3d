@@ -85,6 +85,7 @@ typedef struct s_map
 	char	*path_south;
 	char	*path_west ;
 	char	*path_east ;
+	char 	*file;
 	char	**map;
 	int		map_width;
 	int		map_height;
@@ -162,6 +163,7 @@ void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
 void 	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
+void	free_malloced(t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);

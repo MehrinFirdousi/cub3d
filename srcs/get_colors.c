@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 18:40:53 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/04 22:48:55 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ static int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-static void validate_surface(int *colors, char *line, t_map *map)
+static void validate_surface(int *colors, char *line, char *str, t_map *map)
 {
 	int surface;
 
 	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
 		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
-		put_error("color range 0 -> 255", map);
+		free(colors), free(str), put_error("color range 0 -> 255", map);
 	surface = check_surface(line, map);
 	if (surface == E_FLOOR)
-		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
+		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
 	else if(surface == E_CEIL)
-		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
+		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
 
 }
 
@@ -65,7 +65,7 @@ static void check_duplicate_sides(char *line, t_map *map)
 	while(line[i] && line[i] == ' ')
 		i++;
 	if(line[i] == c)
-		put_error("Duplicate Sides", map);	
+		put_error("Duplicate Sides", map);
 }
 
 void	get_colors(char *line, t_map *map)
@@ -74,8 +74,8 @@ void	get_colors(char *line, t_map *map)
 	char	*str;
 	int		*colors;
 
-	check_duplicate_sides(line, map);
 	i = 0;
+	check_duplicate_sides(line, map);
 	colors = malloc(sizeof(int) * 3);
 	while(line[i] && line[i] == ' ')
 		i++;
@@ -83,17 +83,17 @@ void	get_colors(char *line, t_map *map)
 	colors[0] = valid_color(str, map);
 	i = cur_index(str, ',');
 	if (!str[i])
-		put_error("Not valid colors!!", map);
+		free(str), free(colors), put_error("Not valid colors!!", map);
 	colors[1] = valid_color(&str[i + 1], map);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (!str[i])
-		put_error("Not valid colors!!", map);
+		free(str), free(colors), put_error("Not valid colors!!", map);
 	colors[2] = valid_color(&str[i + 1], map);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] != '\0')
-		put_error("Must be 3 color", map);
+		free(str), free(colors), put_error("Must be 3 color", map);
 	printf("%d %d %d\n", colors[0], colors[1], colors[2]);	
-	validate_surface(colors, line, map);
+	validate_surface(colors, line, str, map);
 	free(str);
 }
 
