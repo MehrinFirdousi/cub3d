@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 18:51:17 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 21:40:26 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,29 @@ static int	mapx_len(const char *line, t_map *map)
 			n = i++;
 	}
 	// printf("cnnnt %d\n", cnt);
-	return (max);
+	return (max - 1);
 }
 
-static int	mapy_len(const char *line)
+static int	mapy_len(const char *line, t_map *map)
 {
 	int	i;
 	int	cnt;
+	int len;
 
 	i = -1;
-	cnt = 0;
-	while (line[++i])
+	cnt = 1;
+	len = ft_strlen(line) - 1;	
+	while(line[len] && ft_is_space(line[len]))
+		len--;
+	while(line[i] && ft_is_space(line[i]))
+		i++;
+	while (++i < len)
 		if (line[i] == '\n')
+		{
+			if(line[i + 1] == '\n')
+				printf("cnt %d\n", cnt), put_error("Empty line", map);
 			cnt++;
+		}
 	return (cnt + 1);
 }
 
@@ -83,7 +93,7 @@ void	get_map(char *line, t_map *map)
 	int		y;
 	
 	map->map_width = mapx_len(line, map);
-	map->map_height = mapy_len(line);
+	map->map_height = mapy_len(line, map);
 	if(map->map_height < 3 || map->map_height < 3)
 	{
 		if(map->path_east)
@@ -111,7 +121,8 @@ void	get_map(char *line, t_map *map)
 		while (i < map->map_width)
 			map->map[y][i++] = ' ';
 		map->map[y++][i] = '\0';
-		line++;
+		if(*line)
+			line++;
 	}
 	map->map[y] = NULL;
 	check_valid_map(map);

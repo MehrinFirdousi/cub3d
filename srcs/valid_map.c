@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 16:38:17 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 22:08:59 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void check_valid_map(t_map *map)
 	int y;
 	int x;
 
-	y = -1;
 	map->player_cnt = 0;
+	y = -1;
 	while (++y < map->map_height)
 	{
 		x = -1;
