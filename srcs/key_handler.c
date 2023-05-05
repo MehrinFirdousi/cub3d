@@ -108,13 +108,49 @@ bool	player_hit_wall(double px, double py, t_map *map)
 	return (false);
 }
 
+void	player_hit_wall2(t_player *p, t_map *map)
+{
+	int	px_cur; // player's x position in the map
+	int	py_cur; // player's y position in the map
+	int	x_offset;
+	int	y_offset;
+	int	px_next;
+	int	py_next;
+
+	px_cur = p->px / BLOCK_SIZE;
+	py_cur = p->py / BLOCK_SIZE;
+	x_offset = 20;
+	y_offset = 20;
+	if (px_cur < 0)
+		x_offset = -20;
+	if (py_cur < 0)
+		y_offset = -20;
+	px_next = (p->px + x_offset) / BLOCK_SIZE;
+	py_next = (p->py + y_offset) / BLOCK_SIZE;
+	if (px_cur >= 0 && py_cur >= 0 && px_cur < map->map_width && py_cur < map->map_height)
+	{
+		printf("%d, %d\n%d, %d\n", py_cur, px_next, py_next, px_cur);
+		if (map->map[py_cur][px_next] == '0')
+		{
+			printf("hello1\n");
+			p->px += p->pdx;
+		}
+		if (map->map[py_next][px_cur] == '0')
+		{
+			printf("hello2\n");
+			p->py += p->pdy;
+		}
+	}
+
+}
+
 int	key_hold_handler(t_mlx *m)
 {
 	if (m->keys->left)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
 		if (m->p->pa < 0)
-			m->p->pa += 2 * M_PI;		
+			m->p->pa += 2 * M_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	}
@@ -139,6 +175,9 @@ int	key_hold_handler(t_mlx *m)
 			return (0);
 		m->p->px += m->p->pdx;
 		m->p->py += m->p->pdy;
+		// printf("before %lf %lf\n", m->p->px, m->p->py);
+		// player_hit_wall2(m->p, m->map);
+		// printf("after %lf %lf\n", m->p->px, m->p->py);
 	}
 	if (m->keys->a)
 	{

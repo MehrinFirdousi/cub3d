@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/04 14:22:22 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:13:23 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	mlx_set_up(t_mlx *m)
 	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel, \
 								&m->img->line_length, &m->img->endian);
 	m->img->bits_per_pixel >>= 3;
-	m->p->px = (m->p->px * MM_SIZE) + (MM_SIZE / 2);
-	m->p->py = (m->p->py * MM_SIZE) + (MM_SIZE / 2);
-	m->p->pdx = cos(m->p->pa) * 5;
-	m->p->pdy = sin(m->p->pa) * 5;
-	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	ft_bzero(m->keys, sizeof(t_keys));
 	m->keys->tab = true;
 	m->keys->speed = 1;
+	m->p->px = (m->p->px * MM_SIZE) + (MM_SIZE / 2);
+	m->p->py = (m->p->py * MM_SIZE) + (MM_SIZE / 2);
+	m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
+	m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
+	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 }
 
 int	main(int argc, char **argv)
