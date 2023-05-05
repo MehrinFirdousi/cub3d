@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/05 22:09:02 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 22:15:22 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,53 @@ double	deg_to_rad(double x)
 	return (x * M_PI / 180.0);
 }
 
+void	print_colors(t_texture *texture)
+{
+	int i;
+	int	*colors;
+	int	count;
+
+	colors = (int *)texture->addr;
+	i = -1;
+	count = texture->width * texture->height;
+	while (++i < count)
+	{
+		printf("%d - %d\n", i, colors[i]);
+	}
+}
+
+void	get_textures_from_xpm(t_mlx *m)
+{
+	t_texture	*n;
+	t_texture	*s;
+	t_texture	*e;
+	t_texture	*w;
+
+	n = &m->map->n_texture;
+	s = &m->map->s_texture;
+	e = &m->map->e_texture;
+	w = &m->map->w_texture;
+	n->img = mlx_xpm_file_to_image(m->mlx, n->path, &n->width, &n->height);
+	if (n->img)
+		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length, &n->endian);
+	s->img = mlx_xpm_file_to_image(m->mlx, s->path, &s->width, &s->height);
+	if (s->img)
+		s->addr = mlx_get_data_addr(s->img, &s->bits_per_pixel, &s->line_length, &s->endian);
+	e->img = mlx_xpm_file_to_image(m->mlx, e->path, &e->width, &e->height);
+	if (e->img)
+		e->addr = mlx_get_data_addr(e->img, &e->bits_per_pixel, &e->line_length, &e->endian);
+	w->img = mlx_xpm_file_to_image(m->mlx, w->path, &w->width, &w->height);
+	if (w->img)
+		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length, &w->endian);
+}
+
 void	mlx_set_up(t_mlx *m)
 {
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
-	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel, 
-								&m->img->line_length, &m->img->endian);
+	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel,
+			&m->img->line_length, &m->img->endian);
 	m->img->bits_per_pixel >>= 3;
 	ft_bzero(m->keys, sizeof(t_keys));
 	m->keys->tab = true;
@@ -33,6 +73,14 @@ void	mlx_set_up(t_mlx *m)
 	m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
+
+	// temp - remove once t_texture path (lhs below) is used in parsing
+	m->map->n_texture.path = m->map->path_north;
+	m->map->s_texture.path = m->map->path_south;
+	m->map->e_texture.path = m->map->path_east;
+	m->map->w_texture.path = m->map->path_west;
+	// temp end
+	get_textures_from_xpm(m);
 }
 
 void	init_data(t_map *data)
@@ -53,6 +101,7 @@ int	main(int argc, char **argv)
 	t_player	p;
 	t_map		map;
 	t_keys		keys;
+	
 	init_data(&map);
 	parsing(argc, argv, &map, &p);
 	print_map(&map, &p);
@@ -72,6 +121,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, map.s_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
 	return (0);
