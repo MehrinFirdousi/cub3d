@@ -6,13 +6,13 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 22:43:18 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 18:51:17 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	mapx_len(const char *line)
+static int	mapx_len(const char *line, t_map *map)
 {
 	int	i;
 	int	n;
@@ -27,7 +27,11 @@ static int	mapx_len(const char *line)
 	while (line[i] != '\0')
 	{
 		while (line[i] && line[i] != '\n')
+		{
+			if (!defined_symbol(line[i]))
+				put_error("Undefined Symbole", map);
 			i++;
+		}
 		cnt++;
 		// if(i >= len - 1) //stop i if exceeds null 
 		// 	return max;
@@ -77,13 +81,13 @@ void	get_map(char *line, t_map *map)
 {
 	int		i;
 	int		y;
-
-	map->map_width = mapx_len(line);
+	
+	map->map_width = mapx_len(line, map);
 	map->map_height = mapy_len(line);
 	if(map->map_height < 3 || map->map_height < 3)
 	{
 		if(map->path_east)
-		free(map->path_east);
+			free(map->path_east);
 		if(map->path_north)
 			free(map->path_north);
 		if(map->path_south)

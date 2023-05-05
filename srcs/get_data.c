@@ -54,24 +54,10 @@ void	get_data(char *line, t_map *data, t_player *p)
 {
 	int i;
 	
-	i = 0;
-	// while (line[i] && line[i] == '\n')
-	// 		++i;
-	while (line[i] && ft_is_space(line[i]))
-			++i;
-	if(ft_strncmp(&line[i], "F ", 2) == 0 || ft_strncmp(&line[i], "C ", 2) == 0)
-	{
-		i = get_upper_map(line, data, 1);
-		i += get_upper_map(&line[i], data,  0);
-	}
-	else
-	{
-		i = get_upper_map(line, data, 0);
-		// if(ft_strncmp(&line[i], "WE ", 2) == 0 || ft_strncmp(&line[i], "NO ", 2) == 0
-		// 	|| ft_strncmp(&line[i], "SO ", 2) == 0 || ft_strncmp(&line[i], "EA ", 2) == 0)
-		// 		put_error("Duplicate Sides"); just in case of other error not efficient
-		i += get_upper_map(&line[i], data, 1);
-	}	
+	i = get_upper_map(line, data);
+	if(is_texture(&line[i]))
+		put_error("duplicate_sides", data);
+	while (line[--i] != '\n');
 	get_map(&line[i], data);
 	get_player(data, p);
 }

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 23:33:24 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 15:18:32 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ void print_map(t_map *map, t_player *p)
 	printf("py == %lf\n", p->py);
 	printf("px == %lf\n", p->px);
 	printf("pa == %lf\n", p->pa);
+	printf("{%s}\n", map->path_east);
+	printf("{%s}\n", map->path_north);
+	printf("{%s}\n", map->path_south);
+	printf("{%s}\n", map->path_west);
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }

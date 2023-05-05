@@ -70,28 +70,53 @@ static void	get_paths(const char *line, t_map *data)
 		put_error("Side not recognized", data);
 }
 
-int	get_upper_map(char *line, t_map *data, int flag)
+int is_texture(char *line)
+{
+	 if(ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "NO ", 3) == 0
+			|| ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+				return (1);
+	return (0);			
+}
+int is_color(char *line)
+{
+	 if(ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0)
+				return (1);
+	return (0);			
+}
+
+int	get_upper_map(char *line, t_map *data)
 {
 	int	i;
 	int	count_line;
+	int	count_color;
 
 	i = 0;
 	count_line = 0;
+	count_color = 0;
 	while (line[i] != '\0')
 	{
 		while (line[i] && ft_is_space(line[i]))
 			++i;
-		if (count_line == 4 && !flag)
+		if (count_line == 4 && is_texture(&line[i]))
 			return (i);
-		if (count_line == 2 && flag)
+		if (count_color == 2 && is_color(&line[i]))
 			return (i);
-		if(!flag)
+		if(is_texture(&line[i]))
+		{
 			get_paths(&line[i], data);
-		if (flag)
+			count_line++;
+		}
+		else if (is_color(&line[i]))
+		{
 			get_colors(&line[i], data);	
-		++count_line;
+			count_color++;
+		}
+		else
+			break ;
 		i += cur_index(&line[i], '\n');
 	}
+	if(count_color != 2 || count_line != 4)
+		put_error("Wrong amount of data", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);
 	return (i);
