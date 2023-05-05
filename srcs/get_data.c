@@ -22,26 +22,26 @@ static void set_player_pos(t_map *map, t_player *p, int x, int y)
 	map->player_y = y;
 }
 
-static void get_player(t_map *map, t_player *p)
+static void	get_player(t_map *map, t_player *p)
 {
-	int y;
-	int x;
-	
+	int	y;
+	int	x;
+
 	y = -1;
-	while(map->map[++y])
+	while (map->map[++y])
 	{
 		x = -1;
-		while(map->map[y][++x])
+		while (map->map[y][++x])
 		{
-			if(player_symbol(map->map[y][x]))
+			if (player_symbol(map->map[y][x]))
 			{
-				if(map->map[y][x] == 'N')
+				if (map->map[y][x] == 'N')
 					p->pa = deg_to_rad(270);
-				if(map->map[y][x] == 'W')
+				if (map->map[y][x] == 'W')
 					p->pa = deg_to_rad(180);
-				if(map->map[y][x] == 'S')
+				if (map->map[y][x] == 'S')
 					p->pa = deg_to_rad(90);
-				if(map->map[y][x] == 'E')
+				if (map->map[y][x] == 'E')
 					p->pa = deg_to_rad(0);
 				map->map[y][x] = 'P';
 				set_player_pos(map, p, x, y);
@@ -52,8 +52,8 @@ static void get_player(t_map *map, t_player *p)
 
 void	get_data(char *line, t_map *data, t_player *p)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	// while (line[i] && line[i] == '\n')
 	// 		++i;

@@ -34,7 +34,7 @@
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 // # define ONEDEG 0.0174533 // 1 deg in rad
 // # define ONEDEG 0.00872665 // 1 deg in rad
-# define ONEDEG 0.000858358649063299 // 1 deg in rad
+# define ONEDEG 0.000858358649063299 // 0.5 deg in rad
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
 // # define ONEDEG 0.00171671729638127 // 1 deg in rad
@@ -43,12 +43,12 @@
 # define S 1
 # define D 2
 
-#  define LEFT	123
-#  define UP	126
-#  define RIGHT	124
-#  define DOWN	125
-#  define TAB	48
-#  define SHIFT	257
+# define LEFT	123
+# define UP	126
+# define RIGHT	124
+# define DOWN	125
+# define TAB	48
+# define SHIFT	257
 
 enum e_side
 {
@@ -77,23 +77,6 @@ typedef struct s_dda_dat
 	float	y_inc;
 }				t_dda_dat;
 
-typedef struct s_map
-{
-	int		ceil_color;
-	int		floor_color;
-	char	*path_north;
-	char	*path_south;
-	char	*path_west ;
-	char	*path_east ;
-	char 	*file;
-	char	**map;
-	int		map_width;
-	int		map_height;
-	int		player_cnt;
-	int		player_x;
-	int		player_y;
-}	t_map;
-
 typedef struct s_img
 {
 	void	*img;
@@ -102,6 +85,41 @@ typedef struct s_img
 	int		line_length;
 	int		endian;
 }				t_img;
+
+typedef struct s_texture
+{
+	char	*path;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+	int		cur_x;
+}	t_texture;
+
+typedef struct s_map
+{
+	int			ceil_color;
+	int			floor_color;
+	char		*path_north; // remove and use n_texture.path instead
+	char		*path_south;
+	char		*path_west;
+	char		*path_east;
+	t_texture	n_texture;
+	t_texture	s_texture;
+	t_texture	e_texture;
+	t_texture	w_texture;
+	char 		*file;
+	char		**map;
+	int			map_width;
+	int			map_height;
+	int			player_cnt;
+	int			player_x;
+	int			player_y;
+}	t_map;
+
 
 typedef struct s_player
 {

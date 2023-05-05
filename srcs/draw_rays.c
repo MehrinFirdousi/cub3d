@@ -88,27 +88,75 @@ static void	cast_ray(t_map *m, t_ray *r)
 	}
 }
 
+// static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
+// {
+// 	double	line_height;
+// 	double	line_offset;
+// 	double	a_diff;		// angle difference between player angle and ray angle
+// 						// used to fix unwanted fisheye effect
+
+// 	// 3d ray 
+// 	a_diff = fix_angle(m->p->pa - r->ra);
+// 	r->ray_len = r->ray_len * cos(a_diff);
+// 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
+// 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
+// 	// dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, ray_no, line_offset, ray_no, line_height + line_offset, color);
+// 	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);
+// 	dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, color);
+// 	dda(m, (t_point){ray_no, line_height + line_offset}, (t_point){ray_no, WIN_HEIGHT}, m->map->floor_color);
+	
+// 	// 2d ray for minimap
+// 	m->rays[ray_no].x = r->rx;
+// 	m->rays[ray_no].y = r->ry;
+// 	// dda(m, (t_point){m->p->px, m->p->py}, (t_point){r->rx, r->ry}, color);
+// }
+
+static void	draw_vertical_line(t_mlx *m, t_point p, int y_end, t_texture *texture)
+{
+	int	y;
+	int	i;
+	int	j;
+	int	*colors;
+	int	repeat_rate;
+
+	colors = (int *)texture->addr;
+	i = -1;
+	y = p.y - 1;
+	repeat_rate = (y_end - p.y) / texture->height;
+	while (++y < y_end && y < WIN_HEIGHT && ++i < texture->height)
+	{
+		j = -1;
+		my_mlx_pixel_put(m->img, p.x, y, colors[i * texture->width]);
+		// while (++j < repeat_rate)
+			// my_mlx_pixel_put(m->img, p.x, ++y, colors[i * texture->width]);
+	}
+}
+
 static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
 {
 	double	line_height;
 	double	line_offset;
 	double	a_diff;		// angle difference between player angle and ray angle
 						// used to fix unwanted fisheye effect
-
+	int		i;
 	// 3d ray 
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
-	// dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, ray_no, line_offset, ray_no, line_height + line_offset, color);
-	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);
-	dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, color);
+	i = line_offset - 1;
+	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);	
+	// while (++i < line_height + line_offset && i < WIN_HEIGHT)
+	// {
+	// 	my_mlx_pixel_put(m->img, ray_no, i, color);
+	// }
+	draw_vertical_line(m, (t_point){ray_no, line_offset}, line_height + line_offset, &m->map->s_texture);
 	dda(m, (t_point){ray_no, line_height + line_offset}, (t_point){ray_no, WIN_HEIGHT}, m->map->floor_color);
 	
+	(void)color;
 	// 2d ray for minimap
 	m->rays[ray_no].x = r->rx;
 	m->rays[ray_no].y = r->ry;
-	// dda(m, (t_point){m->p->px, m->p->py}, (t_point){r->rx, r->ry}, color);
 }
 
 void	draw_scene(t_mlx* m)
@@ -136,6 +184,6 @@ void	draw_scene(t_mlx* m)
 			draw_ray(m, &h_ray, i, TEAL);
 		else // ray hit a vertical wall
 			draw_ray(m, &v_ray, i, TEAL_D);
-		ra = fix_angle(ra + ONEDEG);
+		ra = fix_angle(ra + ONEDEG); 
 	}
 }
