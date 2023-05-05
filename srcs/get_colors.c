@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 23:35:48 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 23:40:30 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,9 @@ static void check_duplicate_sides(char *line, t_map *map)
 	while(line[i] && line[i] == ' ')
 		i++;
 	c = line[i];
-	while(line[i] && line[i] != '\n')
-		i++;
-	if(line[i])	
-		i++;
-	while(line[i] && line[i] == '\n')
-		i++;
-	while(line[i] && line[i] == ' ')
-		i++;
-	if(line[i] == c)
-		put_error("Duplicate Sides", map);
+	while(line[++i])
+		if(line[i] == c)
+			put_error("Duplicate Sides", map);
 }
 
 void	get_colors(char *line, t_map *map)
