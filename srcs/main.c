@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/05 16:13:23 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:18:40 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mlx_set_up(t_mlx *m)
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
-	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel, \
+	m->img->addr = mlx_get_data_addr(m->img->img, &m->img->bits_per_pixel, 
 								&m->img->line_length, &m->img->endian);
 	m->img->bits_per_pixel >>= 3;
 	ft_bzero(m->keys, sizeof(t_keys));
@@ -35,6 +35,17 @@ void	mlx_set_up(t_mlx *m)
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 }
 
+void	init_data(t_map *data)
+{
+	data->map_height = 0;
+	data->map_width = 0;
+	data->path_north = NULL;
+	data->path_south = NULL;
+	data->path_west = NULL;
+	data->path_east = NULL;
+	data->file = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
@@ -42,7 +53,7 @@ int	main(int argc, char **argv)
 	t_player	p;
 	t_map		map;
 	t_keys		keys;
-
+	init_data(&map);
 	parsing(argc, argv, &map, &p);
 	print_map(&map, &p);
 	

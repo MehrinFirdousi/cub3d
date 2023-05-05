@@ -12,22 +12,22 @@
 
 #include "cub3d.h"
 
-static void is_valid_path(char *path)
+static void is_valid_path(char *path, t_map *map)
 {
 	int fd;
 	
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		put_error("Bad texture's file");
+		free(path), put_error("Bad texture's file", map);
 }
 
-static char	*path_substr(const char *line)
+static char	*path_substr(const char *line, t_map *map)
 {
 	int		i;
 	while (ft_is_space(*line))
 		++line;
 	if (*line == '\0')
-		put_error("No path");
+		put_error("No path", map);
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 		++i;
@@ -52,10 +52,10 @@ static void	get_paths(const char *line, t_map *data)
 	char	*path;
 	char	*tmp_path;
 
-	tmp_path = path_substr(&line[3]);
+	tmp_path = path_substr(&line[3], data);
 	path = ft_strtrim(tmp_path, " \t");
 	free(tmp_path);
-	is_valid_path(path);
+	is_valid_path(path, data);
 	flag = -1;	
 	update_flag(&flag, line);
 	if (flag == E_NORTH && !data->path_north)
@@ -67,7 +67,7 @@ static void	get_paths(const char *line, t_map *data)
 	else if (flag == E_EAST && !data->path_east)
 		data->path_east = path;
 	else
-		put_error("Side not recognized");
+		put_error("Side not recognized", data);
 }
 
 int	get_upper_map(char *line, t_map *data, int flag)
@@ -79,7 +79,7 @@ int	get_upper_map(char *line, t_map *data, int flag)
 	count_line = 0;
 	while (line[i] != '\0')
 	{
-		while (line[i] == '\n')
+		while (line[i] && ft_is_space(line[i]))
 			++i;
 		if (count_line == 4 && !flag)
 			return (i);
@@ -93,6 +93,6 @@ int	get_upper_map(char *line, t_map *data, int flag)
 		i += cur_index(&line[i], '\n');
 	}
 	if (line[i] == '\0')
-		put_error("Map is missing one or more data");
+		put_error("Map is missing one or more data", data);
 	return (i);
 }

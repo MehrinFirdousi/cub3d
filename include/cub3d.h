@@ -85,6 +85,7 @@ typedef struct s_map
 	char	*path_south;
 	char	*path_west ;
 	char	*path_east ;
+	char 	*file;
 	char	**map;
 	int		map_width;
 	int		map_height;
@@ -152,16 +153,17 @@ typedef struct s_ray
 /* -------> Parse <-------- */
 void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data, int flag);
-t_map	*get_data(char *line, t_map *map, t_player *p);
+void	get_data(char *line, t_map *map, t_player *p);
 void	get_map(char *line, t_map *map);
 void 	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
-int		check_surface(const char *line);
-void	put_error(const char *error);
+int		check_surface(const char *line, t_map *map);
+void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
 void 	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
+void	free_malloced(t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);
