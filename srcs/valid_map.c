@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/04 15:38:25 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/05 16:38:17 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int player_symbol(char c)
 		return 1;
 	return 0;			
 }
-static int defined_symbol(char c)
+int defined_symbol(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
 			|| c == 'E' || c == 'S' || c == 'W')
@@ -37,13 +37,13 @@ static void valid_player(t_map *map)
 static void is_closed(t_map *m, int y, int x)
 {
 	if (y == 0 || m->map[y - 1][x] == ' ')
-		put_error("Map must be closed", m);
+		printf("%d %d-\n", x, y), put_error("Map must be closed", m);
 	if (!m->map[y + 1] || m->map[y + 1][x] == ' ')
-		put_error("Map must be closed", m);
+		printf("%d %d--\n", x, y), put_error("Map must be closed", m);;
 	if (x == 0 || m->map[y][x - 1] == ' ')
-		put_error("Map must be closed", m);
+		printf("%d %d---\n", x, y), put_error("Map must be closed", m);;
 	if (m->map[y][x + 1] == ' ' || !m->map[y][x + 1])
-		put_error("Map must be closed", m);
+		printf("%d %d----\n", x, y), put_error("Map must be closed", m);;
 }
 
 void check_valid_map(t_map *map)
