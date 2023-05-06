@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/05 22:15:22 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 14:50:37 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	init_data(t_map *data)
 {
 	data->map_height = 0;
 	data->map_width = 0;
+	data->floor_color = -1;
+	data->floor_color = -1;
 	data->path_north = NULL;
 	data->path_south = NULL;
 	data->path_west = NULL;
