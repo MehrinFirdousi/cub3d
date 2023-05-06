@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 21:21:54 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 23:34:42 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void print_map(t_map *map, t_player *p)
 	int i;
 
 	i = 0;
+	printf("height == %d\n", map->map_height);
+	printf("width == %d\n", map->map_width);
 	printf("py == %lf\n", p->py);
 	printf("px == %lf\n", p->px);
 	printf("pa == %lf\n", p->pa);

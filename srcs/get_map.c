@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 15:31:20 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 23:38:59 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,24 @@ static int	mapy_len(const char *line, t_map *map)
 	int	cnt;
 	int len;
 
-	i = -1;
+	i = 0;
 	cnt = 1;
 	len = ft_strlen(line) - 1;	
 	while(line[len] && ft_is_space(line[len]))
 		len--;
 	while(line[i] && ft_is_space(line[i]))
 		i++;
-	while (++i < len)
+	while (i < len)
+	{	
 		if (line[i] == '\n')
 		{
 			if(line[i + 1] == '\n')
 				printf("cnt %d\n", cnt), put_error("Empty line", map);
 			cnt++;
 		}
-	return (cnt + 1);
+		i++;
+	}
+	return (cnt);
 }
 
 void fill_map(t_map *map)
@@ -115,6 +118,8 @@ void	get_map(char *line, t_map *map)
 	check_mini_map(line, map);	
 	map->map = malloc(sizeof (char *) * (map->map_height + 1));
 	y = 0;
+	while(*line && *line == '\n')
+		line++;
 	while (y < map->map_height)
 	{
 		map->map[y] = (char *) malloc(sizeof (char) * (map->map_width + 1));
