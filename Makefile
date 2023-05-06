@@ -59,7 +59,7 @@ clean:
 			rm -f ${OBJS}
 			rm -f ${MLX}
 			${MAKE} -C libft clean
-#			${MAKE} -C mlx clean
+			${MAKE} -C ${MLX_DIR} clean
 
 fclean:		clean
 			rm -f ${NAME}
