@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/05 16:15:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/06 15:33:49 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,39 +33,25 @@ HEADER	=	include
 
 LIBFT	=	libft/libft.a
 
-# MLX		=	libmlx.dylib
+MLX		=	libmlx.dylib
 
-CC		=	gcc
+CC		=	gcc -Wall -Werror -Wextra -fsanitize=address
 
-# MLX_DIR		=	mlx
+MLX_DIR		=	mlx
 
-# CFLAGS	=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
+CFLAGS	=	-I ${HEADER} -I ${MLX_DIR} -Ofast
 
-# MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
-
-OS		:=	$(shell uname)
-
-ifeq ($(OS),Linux)
-	MLX			=	libmlx.a
-	MLX_DIR		=	mlx_linux
-	CFLAGS		=	-Wall -Wextra -I${HEADER} -I/usr/include -I ${MLX_DIR} -O3 -Ofast
-	MLX_FLAGS	=	-Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lm -lXext -lX11 -lz
-else
-	MLX			=	libmlx.dylib
-	MLX_DIR		=	mlx
-	CFLAGS		=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
-	MLX_FLAGS	=	-L. -lmlx -framework OpenGL -framework AppKit
-endif
+MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 
 ${NAME}:	${LIBFT} ${MLX} ${OBJS}
-			${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${MLX_FLAGS} -o ${NAME} 
+			${CC} ${CFLAGS} ${MLX_FLAGS} ${OBJS} ${LIBFT} -o ${NAME}
 
 ${LIBFT}:
 			${MAKE} -C libft
 
 ${MLX}:
-			${MAKE} -C ${MLX_DIR}
-			mv ${MLX_DIR}/${MLX} .
+			${MAKE} -C mlx
+			mv mlx/libmlx.dylib .
 
 all:		${NAME}
 
@@ -81,4 +67,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean rea
+.PHONY:		all clean fclean re

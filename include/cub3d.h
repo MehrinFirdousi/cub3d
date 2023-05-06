@@ -21,7 +21,6 @@
 
 # define WIN_WIDTH 1420
 # define WIN_HEIGHT 980
-# define ESC 53
 # define BLACK 0x00000000
 # define WHITE 0x00FFFFFF
 # define GREEN 65280
@@ -38,18 +37,34 @@
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
 // # define ONEDEG 0.00171671729638127 // 1 deg in rad
-# define W 13
-# define A 0
-# define S 1
-# define D 2
 
-# define LEFT	123
-# define UP	126
-# define RIGHT	124
-# define DOWN	125
-# define TAB	48
-# define SHIFT	257
+# ifdef __APPLE__
+#  define ESC 53
+#  define W 13
+#  define A 0
+#  define S 1
+#  define D 2
+#  define LEFT	123
+#  define UP	126
+#  define RIGHT	124
+#  define DOWN	125
+#  define TAB	48
+#  define SHIFT	257
 
+# else
+#  define ESC 65307
+#  define W		119
+#  define A		97
+#  define S		115
+#  define D		100
+#  define LEFT	65361
+#  define UP	65362
+#  define RIGHT	65363
+#  define DOWN	65364
+#  define TAB	65289
+#  define SHIFT	65505
+
+# endif
 enum e_side
 {
 	E_NORTH,
