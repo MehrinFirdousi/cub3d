@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 15:36:06 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 21:21:54 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	valid_color(const char *str)
 	i = 0;
 	if(!str[i])
 		return -1;
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	num = 0;
 	if(!str[i])
@@ -31,7 +31,7 @@ int	valid_color(const char *str)
 		if(num > 255)
 			return -1;
 	}
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')
 		++str;
 	if (str[i] != '\0' && str[i] != ',' && str[i] != '\n')
 		return -1;
