@@ -76,8 +76,8 @@ double	get_ray_len(double px, double py, double rx, double ry)
 double	fix_angle(double a)
 {
 	if (a < 0)
-		a += 2 * M_PI;
-	else if (a > 2 * M_PI)
-		a -= 2 * M_PI;
+		a += TWO_PI;
+	else if (a > TWO_PI)
+		a -= TWO_PI;
 	return (a);
 }

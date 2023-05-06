@@ -150,15 +150,15 @@ int	key_hold_handler(t_mlx *m)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
 		if (m->p->pa < 0)
-			m->p->pa += 2 * M_PI;
+			m->p->pa += TWO_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	}
 	if (m->keys->right)
 	{
 		m->p->pa += (TURN_SPEED * m->keys->speed);
-		if (m->p->pa > 2 * M_PI)
-			m->p->pa -= 2 * M_PI;
+		if (m->p->pa > TWO_PI)
+			m->p->pa -= TWO_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	}

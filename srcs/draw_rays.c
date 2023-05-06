@@ -88,72 +88,94 @@ static void	cast_ray(t_map *m, t_ray *r)
 	}
 }
 
-// static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
-// {
-// 	double	line_height;
-// 	double	line_offset;
-// 	double	a_diff;		// angle difference between player angle and ray angle
-// 						// used to fix unwanted fisheye effect
-
-// 	// 3d ray 
-// 	a_diff = fix_angle(m->p->pa - r->ra);
-// 	r->ray_len = r->ray_len * cos(a_diff);
-// 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
-// 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
-// 	// dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, ray_no, line_offset, ray_no, line_height + line_offset, color);
-// 	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);
-// 	dda(m, (t_point){ray_no, line_offset}, (t_point){ray_no, line_height + line_offset}, color);
-// 	dda(m, (t_point){ray_no, line_height + line_offset}, (t_point){ray_no, WIN_HEIGHT}, m->map->floor_color);
-	
-// 	// 2d ray for minimap
-// 	m->rays[ray_no].x = r->rx;
-// 	m->rays[ray_no].y = r->ry;
-// 	// dda(m, (t_point){m->p->px, m->p->py}, (t_point){r->rx, r->ry}, color);
-// }
-
-static void	draw_vertical_line(t_mlx *m, t_point p, int y_end, t_texture *texture)
+/*t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
 {
-	int	y;
-	int	i;
-	int	j;
-	int	*colors;
-	int	repeat_rate;
-
-	colors = (int *)texture->addr;
-	i = -1;
-	y = p.y - 1;
-	repeat_rate = (y_end - p.y) / texture->height;
-	while (++y < y_end && y < WIN_HEIGHT && ++i < texture->height)
+	if (ra > deg_to_rad(225) && ra < deg_to_rad(315))
 	{
-		j = -1;
-		my_mlx_pixel_put(m->img, p.x, y, colors[i * texture->width]);
-		// while (++j < repeat_rate)
-			// my_mlx_pixel_put(m->img, p.x, ++y, colors[i * texture->width]);
+		// printf("player facing north\n");
+		if (!is_vertical)
+			return (&map->n_texture);
+		if (is_vertical && is_left)
+			return (&map->w_texture);
+		if (is_vertical && !is_left)
+			return (&map->e_texture);
 	}
-}
+	else if (ra > deg_to_rad(45) && ra < deg_to_rad(135))
+	{
+		// printf("player facing south\n");
+		if (!is_vertical)
+			return (&map->s_texture);
+		if (is_vertical && is_left)
+			return (&map->e_texture);
+		if (is_vertical && !is_left)
+			return (&map->w_texture);
+	}
+	else if (ra > deg_to_rad(135) && ra < deg_to_rad(225))
+	{
+		// printf("player facing west\n");
+		if (is_vertical)
+			return (&map->w_texture);
+		if (!is_vertical && is_left)
+			return (&map->s_texture);
+		if (!is_vertical && !is_left)
+			return (&map->n_texture);
+	}
+	// if ((ra > deg_to_rad(0) && ra < deg_to_rad(45)) || (ra > deg_to_rad(315) && ra < deg_to_rad(360)))
+	else
+	{
+		// printf("player facing east\n");
+		if (is_vertical)
+			return (&map->e_texture);
+		if (!is_vertical && is_left)
+			return (&map->n_texture);
+		if (!is_vertical && !is_left)
+			return (&map->s_texture);
+	}
+}*/
 
-static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
+static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 {
 	double	line_height;
 	double	line_offset;
 	double	a_diff;		// angle difference between player angle and ray angle
 						// used to fix unwanted fisheye effect
 	int		i;
+	double	ty_step;
+	double	ty;
+	double	tx;
+	int		*colors;
+	int		color;
+	t_texture	*t;
+	
+	// t = get_texture(r->ra, vertical, ((ray_no < WIN_WIDTH / 2)), m->map);
+	t = &m->map->w_texture;
 	// 3d ray 
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
-	i = line_offset - 1;
 	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);	
-	// while (++i < line_height + line_offset && i < WIN_HEIGHT)
-	// {
-	// 	my_mlx_pixel_put(m->img, ray_no, i, color);
-	// }
-	draw_vertical_line(m, (t_point){ray_no, line_offset}, line_height + line_offset, &m->map->s_texture);
+	
+	colors = (int *)t->addr;
+	ty = 0;
+	if (vertical)
+		tx = (int)(r->ry * (t->width / BLOCK_SIZE)) % t->width;
+	else
+		tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
+	ty_step = (double)t->height / line_height;
+	i = line_offset - 1;
+	while (++i < line_height + line_offset && i < WIN_HEIGHT)
+	{
+		color = colors[(int)(ty) * t->width + (int)tx];
+		if (vertical)
+			color = (color & 0xfefefe) >> 1;
+		my_mlx_pixel_put(m->img, ray_no, i, color);
+		ty += ty_step;
+	}
+
+	// draw_vertical_line(m, (t_point){ray_no, line_offset}, line_height + line_offset, &m->map->w_texture);
 	dda(m, (t_point){ray_no, line_height + line_offset}, (t_point){ray_no, WIN_HEIGHT}, m->map->floor_color);
 	
-	(void)color;
 	// 2d ray for minimap
 	m->rays[ray_no].x = r->rx;
 	m->rays[ray_no].y = r->ry;
@@ -161,11 +183,11 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, int color)
 
 void	draw_scene(t_mlx* m)
 {
-	double	ra; // ray angle
-	int		i;
-	t_ray	h_ray;
-	t_ray	v_ray;
-	
+	double		ra; // ray angle
+	int			i;
+	t_ray		h_ray;
+	t_ray		v_ray;
+
 	i = -1;
 	ra = fix_angle(m->p->pa - ONEDEG * WIN_WIDTH / 2); // move the ray angle back by 30 degrees
 	h_ray.max_dof = m->map->map_height;
@@ -181,9 +203,9 @@ void	draw_scene(t_mlx* m)
 		cast_ray(m->map, &v_ray);
 		v_ray.ray_len = get_ray_len(m->p->px, m->p->py, v_ray.rx, v_ray.ry);
 		if (h_ray.ray_len <= v_ray.ray_len) // ray hit a horizontal wall
-			draw_ray(m, &h_ray, i, TEAL);
+			draw_ray(m, &h_ray, i, false);
 		else // ray hit a vertical wall
-			draw_ray(m, &v_ray, i, TEAL_D);
-		ra = fix_angle(ra + ONEDEG); 
+			draw_ray(m, &v_ray, i, true);
+		ra = fix_angle(ra + ONEDEG);
 	}
 }

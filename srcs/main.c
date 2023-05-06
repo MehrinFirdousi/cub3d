@@ -91,8 +91,8 @@ int	mousemove(int x, int y, t_mlx *m)
 	if (x > ox)
 	{
 		m->p->pa += (TURN_SPEED * m->keys->speed);
-		if (m->p->pa > 2 * M_PI)
-			m->p->pa -= 2 * M_PI;
+		if (m->p->pa > TWO_PI)
+			m->p->pa -= TWO_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->px += m->p->pdy;
@@ -102,7 +102,7 @@ int	mousemove(int x, int y, t_mlx *m)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
 		if (m->p->pa < 0)
-			m->p->pa += 2 * M_PI;
+			m->p->pa += TWO_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->px -= m->p->pdy;
@@ -140,7 +140,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	mlx_hook(mlx.win, 6, 0, mousemove, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, map.s_texture.img, 0, 0);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
 	return (0);
