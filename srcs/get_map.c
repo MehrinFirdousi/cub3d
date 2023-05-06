@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 21:40:26 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 15:31:20 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	mapx_len(const char *line, t_map *map)
 		while (line[i] && line[i] != '\n')
 		{
 			if (!defined_symbol(line[i]))
-				put_error("Undefined Symbole", map);
+				put_error("Undefined Symbol", map);
 			i++;
 		}
 		cnt++;
@@ -87,11 +87,8 @@ void fill_map(t_map *map)
 	}		
 }
 
-void	get_map(char *line, t_map *map)
+static void check_mini_map(char *line, t_map *map)
 {
-	int		i;
-	int		y;
-	
 	map->map_width = mapx_len(line, map);
 	map->map_height = mapy_len(line, map);
 	if(map->map_height < 3 || map->map_height < 3)
@@ -108,9 +105,15 @@ void	get_map(char *line, t_map *map)
 			free(map->file); 
 		ft_printf("ERROR\nInvalid map\n"), exit(1);
 	}
-		
-	map->map = malloc(sizeof (char *) * (map->map_height + 1));
+}
 
+void	get_map(char *line, t_map *map)
+{
+	int		i;
+	int		y;
+	
+	check_mini_map(line, map);	
+	map->map = malloc(sizeof (char *) * (map->map_height + 1));
 	y = 0;
 	while (y < map->map_height)
 	{

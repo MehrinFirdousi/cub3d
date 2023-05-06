@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 15:18:32 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 15:36:06 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-void free_malloced(t_map *map)
+static void free_malloced(t_map *map)
 {
 	if(map->path_east)
 		free(map->path_east);

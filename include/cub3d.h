@@ -181,10 +181,11 @@ void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
 void 	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
-void	free_malloced(t_map *map);
 int		is_texture(char *line);
 int 	is_color(char *line);
 int 	defined_symbol(char c);
+void	is_valid_xpm(const char *path, t_map *map);
+void 	is_valid_path(char *path, t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);

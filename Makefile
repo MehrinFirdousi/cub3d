@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/05 16:15:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/06 15:33:49 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS	=	srcs/main.c \
 			srcs/get_map.c \
 			srcs/valid_map.c \
 			srcs/parse_utils.c \
+			srcs/extra_parse_utils.c \
 			srcs/key_handler.c \
 			srcs/draw_minimap.c \
 			srcs/draw_rays.c \
