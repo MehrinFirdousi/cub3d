@@ -33,15 +33,7 @@ HEADER	=	include
 
 LIBFT	=	libft/libft.a
 
-# MLX		=	libmlx.dylib
-
 CC		=	gcc
-
-# MLX_DIR		=	mlx
-
-# CFLAGS	=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
-
-# MLX_FLAGS	= -L. -lmlx -framework OpenGL -framework AppKit
 
 OS		:=	$(shell uname)
 
@@ -71,9 +63,9 @@ all:		${NAME}
 
 clean:
 			rm -f ${OBJS}
-#			rm -f ${MLX}
-#			${MAKE} -C libft clean
-#			${MAKE} -C ${MLX_DIR} clean
+			rm -f ${MLX}
+			${MAKE} -C libft clean
+			${MAKE} -C ${MLX_DIR} clean
 
 fclean:		clean
 			rm -f ${NAME}
