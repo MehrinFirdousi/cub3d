@@ -12,6 +12,16 @@
 
 #include "cub3d.h"
 
+static void	is_valid_xpm(const char *path, t_map *map)
+{
+	int			index;
+	const int	exten = 4;
+	index = (int) ft_strlen(path) - exten;
+	if (index < 0 || 
+			ft_strncmp(".xpm", (char *)(path + index), exten + 1))
+		put_error("invalid xpm file", map);
+}
+
 static void is_valid_path(char *path, t_map *map)
 {
 	int fd;
@@ -19,6 +29,7 @@ static void is_valid_path(char *path, t_map *map)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		free(path), put_error("Bad texture's file", map);
+	is_valid_xpm(path, map);
 }
 
 static char	*path_substr(const char *line, t_map *map)
@@ -67,7 +78,7 @@ static void	get_paths(const char *line, t_map *data)
 	else if (flag == E_EAST && !data->path_east)
 		data->path_east = path;
 	else
-		put_error("Side not recognized", data);
+		put_error("Invalid path side", data);
 }
 
 int is_texture(char *line)
@@ -116,7 +127,7 @@ int	get_upper_map(char *line, t_map *data)
 		i += cur_index(&line[i], '\n');
 	}
 	if(count_color != 2 || count_line != 4)
-		put_error("Wrong amount of data", data);
+		put_error("Invalid data", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);
 	return (i);

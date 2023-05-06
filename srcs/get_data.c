@@ -55,8 +55,8 @@ void	get_data(char *line, t_map *data, t_player *p)
 	int i;
 	
 	i = get_upper_map(line, data);
-	if(is_texture(&line[i]))
-		put_error("duplicate_sides", data);
+	if(is_texture(&line[i]) || is_color(&line[i]))
+		put_error("Duplicate_sides", data);
 	while (line[--i] != '\n');
 	get_map(&line[i], data);
 	get_player(data, p);

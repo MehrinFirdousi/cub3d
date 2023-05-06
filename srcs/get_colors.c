@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 23:40:30 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 14:52:12 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,18 @@ static void validate_surface(int *colors, char *line, char *str, t_map *map)
 		free(colors), free(str), put_error("color range 0 -> 255", map);
 	surface = check_surface(line, map);
 	if (surface == E_FLOOR)
+	{
+		if(map->floor_color > -1)
+			put_error("Duplicate colors sides", map);
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
+	}
 	else if(surface == E_CEIL)
+	{
+		if(map->ceil_color > -1)
+			put_error("Duplicate colors sides", map);	
 		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
+	}
 
-}
-
-static void check_duplicate_sides(char *line, t_map *map)
-{
-	int i;
-	char c;
-
-	i = 0;
-	while(line[i] && line[i] == ' ')
-		i++;
-	c = line[i];
-	while(line[++i])
-		if(line[i] == c)
-			put_error("Duplicate Sides", map);
 }
 
 void	get_colors(char *line, t_map *map)
@@ -68,7 +62,6 @@ void	get_colors(char *line, t_map *map)
 	int		*colors;
 
 	i = 0;
-	check_duplicate_sides(line, map);
 	colors = malloc(sizeof(int) * 3);
 	while(line[i] && line[i] == ' ')
 		i++;
