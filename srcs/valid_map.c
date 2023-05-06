@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/05 22:08:59 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 16:56:38 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void check_valid_map(t_map *map)
 	int y;
 	int x;
 
-	map->player_cnt = 0;
 	y = -1;
 	while (++y < map->map_height)
 	{
@@ -67,7 +66,7 @@ void check_valid_map(t_map *map)
 			}
 			else{
 				printf("%d %d\n", y, x);
-				put_error("Undefined Symbole", map);
+				put_error("Undefined Symbol", map);
 			}
 		}
 	}

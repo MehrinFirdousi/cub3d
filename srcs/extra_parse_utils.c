@@ -6,11 +6,25 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:28:16 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 15:33:52 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 15:50:30 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_data(t_map *data)
+{
+	data->map_height = 0;
+	data->map_width = 0;
+	data->player_cnt = 0;
+	data->floor_color = -1;
+	data->ceil_color = -1;
+	data->path_north = NULL;
+	data->path_south = NULL;
+	data->path_west = NULL;
+	data->path_east = NULL;
+	data->file = NULL;
+}
 
 int is_texture(char *line)
 {

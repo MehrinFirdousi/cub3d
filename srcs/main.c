@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/06 14:50:37 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/06 17:20:15 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,6 @@ void	mlx_set_up(t_mlx *m)
 	m->map->w_texture.path = m->map->path_west;
 	// temp end
 	get_textures_from_xpm(m);
-}
-
-void	init_data(t_map *data)
-{
-	data->map_height = 0;
-	data->map_width = 0;
-	data->floor_color = -1;
-	data->floor_color = -1;
-	data->path_north = NULL;
-	data->path_south = NULL;
-	data->path_west = NULL;
-	data->path_east = NULL;
-	data->file = NULL;
 }
 
 int	main(int argc, char **argv)

@@ -169,6 +169,7 @@ typedef struct s_ray
 }	t_ray;
 
 /* -------> Parse <-------- */
+void	init_data(t_map *data);
 void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data);
 void	get_data(char *line, t_map *map, t_player *p);
