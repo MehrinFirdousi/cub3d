@@ -119,10 +119,6 @@ typedef struct s_map
 {
 	int			ceil_color;
 	int			floor_color;
-	char		*path_north; // remove and use n_texture.path instead
-	char		*path_south;
-	char		*path_west;
-	char		*path_east;
 	t_texture	n_texture;
 	t_texture	s_texture;
 	t_texture	e_texture;

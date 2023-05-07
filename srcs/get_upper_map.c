@@ -49,14 +49,14 @@ static void	get_paths(const char *line, t_map *data)
 	is_valid_path(path, data);
 	flag = -1;	
 	update_flag(&flag, line);
-	if (flag == E_NORTH && !data->path_north)
-		data->path_north = path;
-	else if (flag == E_SOUTH && !data->path_south)
-		data->path_south = path;
-	else if (flag == E_WEST && !data->path_west)
-		data->path_west = path;
-	else if (flag == E_EAST && !data->path_east)
-		data->path_east = path;
+	if (flag == E_NORTH && !data->n_texture.path)
+		data->n_texture.path = path;
+	else if (flag == E_SOUTH && !data->s_texture.path)
+		data->s_texture.path = path;
+	else if (flag == E_WEST && !data->w_texture.path)
+		data->w_texture.path = path;
+	else if (flag == E_EAST && !data->e_texture.path)
+		data->e_texture.path = path;
 	else
 		put_error("Invalid path side", data);
 }

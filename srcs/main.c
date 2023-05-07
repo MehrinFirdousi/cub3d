@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/07 21:23:52 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:33:03 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,6 @@ void	mlx_set_up(t_mlx *m)
 	m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
-
-	// temp - remove once t_texture path (lhs below) is used in parsing
-	m->map->n_texture.path = m->map->path_north;
-	m->map->s_texture.path = m->map->path_south;
-	m->map->e_texture.path = m->map->path_east;
-	m->map->w_texture.path = m->map->path_west;
 	// temp end
 	get_textures_from_xpm(m);
 }

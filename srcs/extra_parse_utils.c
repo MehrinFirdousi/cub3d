@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:28:16 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 21:07:33 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:28:38 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	init_data(t_map *data)
 	data->player_cnt = 0;
 	data->floor_color = -1;
 	data->ceil_color = -1;
-	data->path_north = NULL;
-	data->path_south = NULL;
-	data->path_west = NULL;
-	data->path_east = NULL;
+	data->n_texture.path = NULL;
+	data->s_texture.path = NULL;
+	data->w_texture.path = NULL;
+	data->e_texture.path = NULL;
 	data->file = NULL;
 }
 

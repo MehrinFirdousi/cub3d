@@ -15,10 +15,10 @@
 int	exit_free(t_mlx *m)
 {
 	mlx_destroy_image(m->mlx, m->img->img);
-	free(m->map->path_north);
-	free(m->map->path_south);
-	free(m->map->path_west );
-	free(m->map->path_east );
+	free(m->map->n_texture.path);
+	free(m->map->s_texture.path);
+	free(m->map->w_texture.path);
+	free(m->map->e_texture.path);
 	free(m->rays);
 	ft_split_destroy(m->map->map);
 	exit(0);
