@@ -205,6 +205,7 @@ void	is_valid_xpm(const char *path, t_map *map);
 void 	is_valid_path(char *path, t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
+int		mouse_move(int x, int y, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);
 int		key_hold_handler(t_mlx *m);
 int		exit_free(t_mlx *m);

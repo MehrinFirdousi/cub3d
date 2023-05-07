@@ -108,6 +108,65 @@ bool	player_hit_wall(double px, double py, t_map *map)
 	return (false);
 }
 
+int	mouse_move(int x, int y, t_mlx *m)
+{
+	static int	ox;
+	static int	mouse_left;
+	static int	mouse_right;
+
+	(void)y;
+	if (m->keys->s)
+	{
+		if (player_hit_wall(m->p->px - 3 * m->p->pdx, m->p->py - 3 * m->p->pdy, m->map))
+			return (0);
+		m->p->px -= m->p->pdx;
+		m->p->py -= m->p->pdy;
+	}
+	if (m->keys->w)
+	{
+		if (player_hit_wall(m->p->px + 3 * m->p->pdx, m->p->py + 3 * m->p->pdy, m->map))
+			return (0);
+		m->p->px += m->p->pdx;
+		m->p->py += m->p->pdy;
+		// printf("before %lf %lf\n", m->p->px, m->p->py);
+		// player_hit_wall2(m->p, m->map);
+		// printf("after %lf %lf\n", m->p->px, m->p->py);
+	}
+	if (m->keys->a)
+	{
+		if (player_hit_wall(m->p->px + 3 * m->p->pdy, m->p->py - 3 * m->p->pdx, m->map))
+			return (0);
+		m->p->px += m->p->pdy;
+		m->p->py -= m->p->pdx;
+	}
+	if (m->keys->d)
+	{
+		if (player_hit_wall(m->p->px - 3 * m->p->pdy, m->p->py + 3 * m->p->pdx, m->map))
+			return (0);
+		m->p->px -= m->p->pdy;
+		m->p->py += m->p->pdx;
+	}
+	if (x > ox)
+	{
+		mouse_right = 1;
+		m->p->pa += (0.03 * m->keys->speed);
+		m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+		m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+	}
+	if (x < ox)
+	{
+		mouse_left = 1;
+		m->p->pa -= (0.03 * m->keys->speed);
+		m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+		m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+	}
+	ox = x;
+	if (mouse_right | mouse_left | \
+		m->keys->s | m->keys->w | m->keys->a | m->keys->d)
+		redraw_image(m);
+	return (0);
+}
+
 void	player_hit_wall2(t_player *p, t_map *map)
 {
 	int	px_cur; // player's x position in the map
@@ -146,7 +205,7 @@ void	player_hit_wall2(t_player *p, t_map *map)
 
 int	key_hold_handler(t_mlx *m)
 {
-	if (m->keys->left)
+		if (m->keys->left)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
 		if (m->p->pa < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/07 13:30:37 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/07 21:23:52 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,36 +83,6 @@ void	mlx_set_up(t_mlx *m)
 	get_textures_from_xpm(m);
 }
 
-int	mousemove(int x, int y, t_mlx *m)
-{
-	static int	ox;
-
-	(void)y;
-	if (x > ox)
-	{
-		m->p->pa += (TURN_SPEED * m->keys->speed);
-		if (m->p->pa > TWO_PI)
-			m->p->pa -= TWO_PI;
-		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
-		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
-		m->p->px += m->p->pdy;
-		m->p->py -= m->p->pdx;
-	}
-	if (x < ox)
-	{
-		m->p->pa -= (TURN_SPEED * m->keys->speed);
-		if (m->p->pa < 0)
-			m->p->pa += TWO_PI;
-		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
-		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
-		m->p->px -= m->p->pdy;
-		m->p->py += m->p->pdx;
-	}
-	ox = x;
-	m->p->pa = fix_angle(m->p->pa);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
@@ -137,10 +107,10 @@ int	main(int argc, char **argv)
 	mlx_key_hook(mlx.win, key_up_handler, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, key_down_handler, &mlx);
 	mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
+	mlx_hook(mlx.win, 6, 0, mouse_move, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
-	// mlx_hook(mlx.win, 6, 0, mousemove, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
 	return (0);
