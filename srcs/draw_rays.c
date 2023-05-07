@@ -88,7 +88,7 @@ static void	cast_ray(t_map *m, t_ray *r)
 	}
 }
 
-/*t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
+t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
 {
 	if (ra > deg_to_rad(225) && ra < deg_to_rad(315))
 	{
@@ -131,7 +131,10 @@ static void	cast_ray(t_map *m, t_ray *r)
 		if (!is_vertical && !is_left)
 			return (&map->s_texture);
 	}
-}*/
+	// (void)is_vertical;
+	// (void)is_left;
+	return (&map->n_texture);
+}
 
 static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 {
@@ -147,14 +150,17 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	int		color;
 	t_texture	*t;
 	
-	// t = get_texture(r->ra, vertical, ((ray_no < WIN_WIDTH / 2)), m->map);
-	t = &m->map->w_texture;
+	if (ray_no == 0)
+		t = &m->map->n_texture;
+	else
+		t = get_texture(r->ra, vertical, (m->rays[ray_no - 1].y > r->ry), m->map);
+		// t = get_texture(r->ra, vertical, ((ray_no < WIN_WIDTH / 2)), m->map);
 	// 3d ray 
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
-	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);	
+	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);
 	
 	colors = (int *)t->addr;
 	ty = 0;
@@ -166,7 +172,7 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	i = line_offset - 1;
 	while (++i < line_height + line_offset && i < WIN_HEIGHT)
 	{
-		color = colors[(int)(ty) * t->width + (int)tx];
+		color = colors[((int)(ty) * t->width + (int)tx) % (t->width * t->height)];
 		if (vertical)
 			color = (color & 0xfefefe) >> 1;
 		my_mlx_pixel_put(m->img, ray_no, i, color);

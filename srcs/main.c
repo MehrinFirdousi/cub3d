@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/06 21:34:03 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/07 13:30:37 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx.win, 2, 1L << 0, key_down_handler, &mlx);
 	mlx_hook(mlx.win, 17, 0, exit_free, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
-	mlx_hook(mlx.win, 6, 0, mousemove, &mlx);
+	// mlx_hook(mlx.win, 6, 0, mousemove, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
