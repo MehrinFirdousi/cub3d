@@ -31,13 +31,10 @@
 # define BLUE 0X000000FF
 # define STRAFE_SPEED 1
 # define TURN_SPEED 0.0261799 // 2 deg in rad
-// # define ONEDEG 0.0174533 // 1 deg in rad
-// # define ONEDEG 0.00872665 // 1 deg in rad
-# define ONEDEG 0.000858358649063299 // 0.5 deg in rad
+# define ANGLE_STEP 0.000858358649063299 // 0.5 deg in rad
 # define TWO_PI 6.28318531
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
-// # define ONEDEG 0.00171671729638127 // 1 deg in rad
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -66,6 +63,7 @@
 #  define SHIFT	65505
 
 # endif
+
 enum e_side
 {
 	E_NORTH,
@@ -74,6 +72,14 @@ enum e_side
 	E_EAST,
 	E_FLOOR,
 	E_CEIL,
+};
+
+enum e_dir
+{
+	E_N,
+	E_E,
+	E_S,
+	E_W,
 };
 
 typedef struct s_point
@@ -112,7 +118,8 @@ typedef struct s_texture
 	int		endian;
 	int		width;
 	int		height;
-	int		cur_x;
+	double	ty;
+	double	tx;
 }	t_texture;
 
 typedef struct s_map
@@ -127,7 +134,7 @@ typedef struct s_map
 	t_texture	s_texture;
 	t_texture	e_texture;
 	t_texture	w_texture;
-	char 		*file;
+	char		*file;
 	char		**map;
 	int			map_width;
 	int			map_height;
@@ -136,14 +143,21 @@ typedef struct s_map
 	int			player_y;
 }	t_map;
 
-
+/**
+ * @brief 
+ *	// pa	- player angle
+ *	// px	- player's x coordinate
+ *	// py	- player's y coordinate
+ *	// pdx	- change in player's x based on player angle
+ *	// pdy	- change in player's y based on player angle
+ */
 typedef struct s_player
 {
-	double	pa;			// player angle
-	double	px;			// player's x coordinate
-	double	py;			// player's y coordinate
-	double	pdx;		// change in player's x based on player angle
-	double	pdy;		// change in player's y based on player angle
+	double	pa;	
+	double	px;	
+	double	py;	
+	double	pdx;
+	double	pdy;
 
 }	t_player;
 
@@ -173,15 +187,16 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	double	ra; // ray angle 
+	double	ra;
 	double	rx;
 	double	ry;
 	double	x_step;
 	double	y_step;
 	double	tan_ra;
-	int		dof;		// depth of field - how far to trace the ray before stopping
+	int		dof;
 	int		max_dof;	
-	double	ray_len;	// length of final ray 
+	double	ray_len;
+	bool	vertical;
 }	t_ray;
 
 /* -------> Parse <-------- */
@@ -190,19 +205,19 @@ void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data);
 void	get_data(char *line, t_map *map, t_player *p);
 void	get_map(char *line, t_map *map);
-void 	check_valid_map(t_map *map);
+void	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
 int		check_surface(const char *line, t_map *map);
 void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
-void 	print_map(t_map *map, t_player *p);
+void	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
 int		is_texture(char *line);
-int 	is_color(char *line);
-int 	defined_symbol(char c);
+int		is_color(char *line);
+int		defined_symbol(char c);
 void	is_valid_xpm(const char *path, t_map *map);
-void 	is_valid_path(char *path, t_map *map);
+void	is_valid_path(char *path, t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);
@@ -212,7 +227,8 @@ int		exit_free(t_mlx *m);
 double	deg_to_rad(double x);
 void	draw_player(t_mlx *m);
 void	draw_minimap(t_mlx *mlx);
-void	draw_scene(t_mlx* m);
+void	draw_scene(t_mlx *m);
+void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 void	draw_square(t_mlx *m, t_point start, int size, int color);

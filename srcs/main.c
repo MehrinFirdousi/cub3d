@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/07 13:30:37 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/07 21:22:28 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,20 @@ void	get_textures_from_xpm(t_mlx *m)
 	w = &m->map->w_texture;
 	n->img = mlx_xpm_file_to_image(m->mlx, n->path, &n->width, &n->height);
 	if (n->img)
-		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length, &n->endian);
+		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length,
+				&n->endian);
 	s->img = mlx_xpm_file_to_image(m->mlx, s->path, &s->width, &s->height);
 	if (s->img)
-		s->addr = mlx_get_data_addr(s->img, &s->bits_per_pixel, &s->line_length, &s->endian);
+		s->addr = mlx_get_data_addr(s->img, &s->bits_per_pixel, &s->line_length,
+				&s->endian);
 	e->img = mlx_xpm_file_to_image(m->mlx, e->path, &e->width, &e->height);
 	if (e->img)
-		e->addr = mlx_get_data_addr(e->img, &e->bits_per_pixel, &e->line_length, &e->endian);
+		e->addr = mlx_get_data_addr(e->img, &e->bits_per_pixel, &e->line_length,
+				&e->endian);
 	w->img = mlx_xpm_file_to_image(m->mlx, w->path, &w->width, &w->height);
 	if (w->img)
-		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length, &w->endian);
+		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
+				&w->endian);
 }
 
 void	mlx_set_up(t_mlx *m)
@@ -140,7 +144,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	// mlx_hook(mlx.win, 6, 0, mousemove, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, map.e_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 
 	return (0);
