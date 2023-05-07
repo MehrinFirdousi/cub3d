@@ -88,16 +88,16 @@ static void	cast_ray(t_map *m, t_ray *r)
 	}
 }
 
-t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
+t_texture	*get_texture(double ra, bool is_vertical, bool y_dec, bool x_dec, t_map *map)
 {
 	if (ra > deg_to_rad(225) && ra < deg_to_rad(315))
 	{
 		// printf("player facing north\n");
 		if (!is_vertical)
 			return (&map->n_texture);
-		if (is_vertical && is_left)
+		if (is_vertical && y_dec)
 			return (&map->w_texture);
-		if (is_vertical && !is_left)
+		if (is_vertical && !y_dec)
 			return (&map->e_texture);
 	}
 	else if (ra > deg_to_rad(45) && ra < deg_to_rad(135))
@@ -105,9 +105,9 @@ t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
 		// printf("player facing south\n");
 		if (!is_vertical)
 			return (&map->s_texture);
-		if (is_vertical && is_left)
+		if (is_vertical && !y_dec)
 			return (&map->e_texture);
-		if (is_vertical && !is_left)
+		if (is_vertical && y_dec)
 			return (&map->w_texture);
 	}
 	else if (ra > deg_to_rad(135) && ra < deg_to_rad(225))
@@ -115,9 +115,9 @@ t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
 		// printf("player facing west\n");
 		if (is_vertical)
 			return (&map->w_texture);
-		if (!is_vertical && is_left)
+		if (!is_vertical && x_dec)
 			return (&map->s_texture);
-		if (!is_vertical && !is_left)
+		if (!is_vertical && !x_dec)
 			return (&map->n_texture);
 	}
 	// if ((ra > deg_to_rad(0) && ra < deg_to_rad(45)) || (ra > deg_to_rad(315) && ra < deg_to_rad(360)))
@@ -126,9 +126,9 @@ t_texture	*get_texture(double ra, bool is_vertical, bool is_left, t_map *map)
 		// printf("player facing east\n");
 		if (is_vertical)
 			return (&map->e_texture);
-		if (!is_vertical && is_left)
+		if (!is_vertical && !x_dec)
 			return (&map->n_texture);
-		if (!is_vertical && !is_left)
+		if (!is_vertical && x_dec)
 			return (&map->s_texture);
 	}
 	// (void)is_vertical;
@@ -150,10 +150,6 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	int		color;
 	t_texture	*t;
 	
-	if (ray_no == 0)
-		t = &m->map->n_texture;
-	else
-		t = get_texture(r->ra, vertical, (m->rays[ray_no - 1].y > r->ry), m->map);
 		// t = get_texture(r->ra, vertical, ((ray_no < WIN_WIDTH / 2)), m->map);
 	// 3d ray 
 	a_diff = fix_angle(m->p->pa - r->ra);
@@ -162,21 +158,28 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	line_offset = WIN_HEIGHT / 2 - line_height / 2;
 	dda(m, (t_point){ray_no, 0}, (t_point){ray_no, line_offset}, m->map->ceil_color);
 	
-	colors = (int *)t->addr;
-	ty = 0;
-	if (vertical)
-		tx = (int)(r->ry * (t->width / BLOCK_SIZE)) % t->width;
-	else
-		tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
-	ty_step = (double)t->height / line_height;
 	i = line_offset - 1;
-	while (++i < line_height + line_offset && i < WIN_HEIGHT)
+	if (ray_no == 0)
+		while (++i < line_height + line_offset && i < WIN_HEIGHT)
+			my_mlx_pixel_put(m->img, ray_no, i, TEAL);
+	else
 	{
-		color = colors[((int)(ty) * t->width + (int)tx) % (t->width * t->height)];
+		t = get_texture(r->ra, vertical, (m->rays[ray_no - 1].y > r->ry), (m->rays[ray_no - 1].x > r->rx), m->map);
+		colors = (int *)t->addr;
+		ty = 0;
 		if (vertical)
-			color = (color & 0xfefefe) >> 1;
-		my_mlx_pixel_put(m->img, ray_no, i, color);
-		ty += ty_step;
+			tx = (int)(r->ry * (t->width / BLOCK_SIZE)) % t->width;
+		else
+			tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
+		ty_step = (double)t->height / line_height;
+		while (++i < line_height + line_offset && i < WIN_HEIGHT)
+		{
+			color = colors[((int)(ty) * t->width + (int)tx) % (t->width * t->height)];
+			if (vertical)
+				color = (color & 0xfefefe) >> 1;
+			my_mlx_pixel_put(m->img, ray_no, i, color);
+			ty += ty_step;
+		}
 	}
 
 	// draw_vertical_line(m, (t_point){ray_no, line_offset}, line_height + line_offset, &m->map->w_texture);

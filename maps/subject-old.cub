@@ -1,10 +1,10 @@
-NO game_textures/brick_windows.xpm
-SO game_textures/plaster_windows.xpm
-WE game_textures/brick_wall.xpm
-EA game_textures/plaster_wall.xpm
+NO game_textures/green-wall.xpm
+SO game_textures/green-wall.xpm
+WE game_textures/green-wall.xpm
+EA game_textures/green-wall.xpm
 
-C 45, 11, 11
-F 72, 64, 60
+C 59, 84, 84
+F 83, 60, 60
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001
