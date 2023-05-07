@@ -96,6 +96,17 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	double	line_offset;
 	double	a_diff;
 
+
+
+	double	dy;
+	double	raFix;
+	double	tx;
+	double	ty;
+	t_texture *t;
+	int		*colors;
+	int		color;
+
+
 	r->vertical = vertical;
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
@@ -107,8 +118,22 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	if (ray_no > 0)
 		draw_texture(m, r, (t_point){ray_no, line_offset}, line_height);
 	i = line_height + line_offset - 1;
+	// while (++i < WIN_HEIGHT)
+		// my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
+	
+	
+	t = &m->map->e_texture;
+	colors = (int *)t->addr;
+	raFix = cos(a_diff);
 	while (++i < WIN_HEIGHT)
-		my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
+	{
+		dy = i - (WIN_HEIGHT / 2);
+		tx = m->p->px * (t->width / BLOCK_SIZE) + cos(r->ra) * (WIN_HEIGHT / 2) * t->width / dy / raFix;
+		ty = m->p->py * (t->width / BLOCK_SIZE) - sin(r->ra) * (WIN_HEIGHT / 2) * t->width / dy / raFix;
+		color = colors[((int)(ty) * t->width + (int)tx)
+			% (t->width * t->height)];
+		my_mlx_pixel_put(m->img, ray_no, i, color);
+	}
 	m->rays[ray_no].x = r->rx;
 	m->rays[ray_no].y = r->ry;
 }
