@@ -126,10 +126,6 @@ typedef struct s_map
 {
 	int			ceil_color;
 	int			floor_color;
-	char		*path_north; // remove and use n_texture.path instead
-	char		*path_south;
-	char		*path_west;
-	char		*path_east;
 	t_texture	n_texture;
 	t_texture	s_texture;
 	t_texture	e_texture;
@@ -220,6 +216,7 @@ void	is_valid_xpm(const char *path, t_map *map);
 void	is_valid_path(char *path, t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
+int		mouse_move(int x, int y, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);
 int		key_hold_handler(t_mlx *m);
 int		exit_free(t_mlx *m);

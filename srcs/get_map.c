@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 23:38:59 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:34:38 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ static void check_mini_map(char *line, t_map *map)
 	map->map_height = mapy_len(line, map);
 	if(map->map_height < 3 || map->map_height < 3)
 	{
-		if(map->path_east)
-			free(map->path_east);
-		if(map->path_north)
-			free(map->path_north);
-		if(map->path_south)
-			free(map->path_south);
-		if(map->path_west)
-			free(map->path_west);
+		if(map->n_texture.path)
+			free(map->n_texture.path);
+		if(map->s_texture.path)
+			free(map->s_texture.path);
+		if(map->w_texture.path)
+			free(map->w_texture.path);
+		if(map->e_texture.path)
+			free(map->e_texture.path);
 		if(map->file)
 			free(map->file); 
 		ft_printf("ERROR\nInvalid map\n"), exit(1);

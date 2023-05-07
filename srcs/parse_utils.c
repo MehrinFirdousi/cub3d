@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 23:34:42 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:35:06 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	cur_index(const char *str, char c)
 
 static void free_malloced(t_map *map)
 {
-	if(map->path_east)
-		free(map->path_east);
-	if(map->path_north)
-		free(map->path_north);
-	if(map->path_south)
-		free(map->path_south);
-	if(map->path_west)
-		free(map->path_west);
+	if(map->n_texture.path)
+		free(map->n_texture.path);
+	if(map->s_texture.path)
+		free(map->s_texture.path);
+	if(map->w_texture.path)
+		free(map->w_texture.path);
+	if(map->e_texture.path)
+		free(map->e_texture.path);
 	if(map->file)
 		free(map->file);
 	int i = 0;	
@@ -86,10 +86,10 @@ void print_map(t_map *map, t_player *p)
 	printf("py == %lf\n", p->py);
 	printf("px == %lf\n", p->px);
 	printf("pa == %lf\n", p->pa);
-	printf("{%s}\n", map->path_east);
-	printf("{%s}\n", map->path_north);
-	printf("{%s}\n", map->path_south);
-	printf("{%s}\n", map->path_west);
+	printf("{%s}\n", map->n_texture.path);
+	printf("{%s}\n", map->s_texture.path);
+	printf("{%s}\n", map->w_texture.path);
+	printf("{%s}\n", map->e_texture.path);
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }
