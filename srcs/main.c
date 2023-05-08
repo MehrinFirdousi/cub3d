@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/07 21:53:04 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:55:12 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ void	get_textures_from_xpm(t_mlx *m)
 	t_texture	*s;
 	t_texture	*e;
 	t_texture	*w;
+	t_texture	*floor;
 
 	n = &m->map->n_texture;
 	s = &m->map->s_texture;
 	e = &m->map->e_texture;
 	w = &m->map->w_texture;
+	floor = &m->map->floor_texture;
+
 	n->img = mlx_xpm_file_to_image(m->mlx, n->path, &n->width, &n->height);
 	if (n->img)
 		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length,
@@ -59,6 +62,11 @@ void	get_textures_from_xpm(t_mlx *m)
 	if (w->img)
 		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
 				&w->endian);
+	floor->img = mlx_xpm_file_to_image(m->mlx, "game_textures/sea.xpm", &floor->width, &floor->height);
+	if (floor->img)
+		floor->addr = mlx_get_data_addr(floor->img, &floor->bits_per_pixel, &floor->line_length,
+				&floor->endian);
+	
 }
 
 void	mlx_set_up(t_mlx *m)

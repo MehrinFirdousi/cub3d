@@ -130,6 +130,7 @@ typedef struct s_map
 	t_texture	s_texture;
 	t_texture	e_texture;
 	t_texture	w_texture;
+	t_texture	floor_texture;
 	char		*file;
 	char		**map;
 	int			map_width;
