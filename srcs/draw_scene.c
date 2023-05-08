@@ -118,8 +118,8 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
 	if (ray_no > 0)
 		draw_texture(m, r, (t_point){ray_no, line_offset}, line_height);
 	i = line_height + line_offset - 1;
-	while (++i < WIN_HEIGHT)
-		my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
+	// while (++i < WIN_HEIGHT)
+	// 	my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
 	
 	
 	t = &m->map->floor_texture;
