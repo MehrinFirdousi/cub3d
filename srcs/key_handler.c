@@ -29,7 +29,7 @@ void	redraw_image(t_mlx *m)
 	mlx_destroy_image(m->mlx, m->img->img);
 	m->img->img = mlx_new_image(m->mlx, WIN_WIDTH, WIN_HEIGHT);
 	m->img->addr = mlx_get_data_addr(m->img->img, &(m->img->bits_per_pixel), \
-									&(m->img->line_length), &(m->img->endian));
+							&(m->img->line_length), &(m->img->endian));
 	m->img->bits_per_pixel >>= 3;
 	draw_scene(m);
 	if (m->keys->tab)

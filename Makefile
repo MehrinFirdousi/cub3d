@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
+#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/06 18:13:22 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/07 21:19:31 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS	=	srcs/main.c \
 			srcs/extra_parse_utils.c \
 			srcs/key_handler.c \
 			srcs/draw_minimap.c \
-			srcs/draw_rays.c \
+			srcs/draw_scene.c \
+			srcs/draw_texture.c \
 			srcs/draw_utils.c
 			
 

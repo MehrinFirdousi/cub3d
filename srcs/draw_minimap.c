@@ -12,24 +12,14 @@
 
 #include "cub3d.h"
 
-void	draw_fov(t_mlx *m)
+static void	draw_fov(t_mlx *m)
 {
 	int	ray_no;
 
 	ray_no = -1;
 	while (++ray_no < WIN_WIDTH)
-		dda(m, (t_point){m->p->px, m->p->py}, (t_point){m->rays[ray_no].x, m->rays[ray_no].y}, TEAL);
-}
-
-void	draw_player(t_mlx *m)
-{
-	double	x;
-	double	y;
-
-	x = m->p->px + 3;
-	y = m->p->py;
-	draw_square(m, (t_point){m->p->px, m->p->py}, 3, GREEN);
-	// dda(m,(t_point){x, y}, (t_point){x + m->p->pdx * 10, y + m->p->pdy * 10}, GREEN);
+		dda(m, (t_point){m->p->px, m->p->py},
+			(t_point){m->rays[ray_no].x, m->rays[ray_no].y}, TEAL);
 }
 
 void	draw_minimap(t_mlx *m)
@@ -55,6 +45,6 @@ void	draw_minimap(t_mlx *m)
 			color = GRAY;
 		}
 	}
-	draw_player(m);
+	draw_square(m, (t_point){m->p->px, m->p->py}, 3, GREEN);
 	draw_fov(m);
 }
