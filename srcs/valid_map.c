@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/08 15:14:55 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/08 20:13:40 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int player_symbol(char c)
 int defined_symbol(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
-			|| c == 'E' || c == 'S' || c == 'W')
+			|| c == 'E' || c == 'S' || c == 'W' || c == 'D')
 				return 1;
 	return 0;			
 }
@@ -44,6 +44,18 @@ static void is_closed(t_map *m, int y, int x)
 		printf("%d %d---\n", x, y), put_error("Map must be closed", m);;
 	if (m->map[y][x + 1] == ' ' || !m->map[y][x + 1])
 		printf("%d %d----\n", x, y), put_error("Map must be closed", m);;
+}
+
+static void is_walled(t_map *m, int y, int x)
+{
+	if (y == 0 || m->map[y - 1][x] != '1')
+		printf("%d %d-\n", x, y), put_error("Doors must be walled", m);
+	if (!m->map[y + 1] || m->map[y + 1][x] != '1')
+		printf("%d %d--\n", x, y), put_error("Doors must be walled", m);;
+	if (x == 0 || m->map[y][x - 1] != '1')
+		printf("%d %d---\n", x, y), put_error("Doors must be walled", m);;
+	if (m->map[y][x + 1] != '1' || !m->map[y][x + 1])
+		printf("%d %d----\n", x, y), put_error("Doors must be walled", m);;
 }
 
 void check_empty_line(t_map *map)
@@ -79,6 +91,8 @@ void check_valid_map(t_map *map)
 						map->player_cnt++;
 				if(map->map[y][x] == '0' || player_symbol(map->map[y][x]))
 					is_closed(map, y, x);
+				if(map->map[y][x] == 'D')	
+					is_walled(map, y, x);
 			}
 			else{
 				printf("%d %d\n", y, x);
