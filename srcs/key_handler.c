@@ -37,7 +37,21 @@ void	redraw_image(t_mlx *m)
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 
-// t_point	get_cur_block(t_mlx *)
+bool	open_door(t_mlx *m)
+{
+	int	r_mapx;
+	int	r_mapy;
+
+	r_mapx = (int)m->rays[WIN_WIDTH / 2].x / BLOCK_SIZE;
+	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
+	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height \
+		&& m->map->map[r_mapy][r_mapx] == '1') // if we hit a wall
+	{
+		m->map->map[r_mapy][r_mapx] = '0';
+		return (true);
+	}
+	return (false);
+}
 
 int	key_up_handler(int keycode, t_mlx *m)
 {
@@ -70,11 +84,9 @@ int	key_up_handler(int keycode, t_mlx *m)
 		m->keys->tab = !m->keys->tab;
 		redraw_image(m);
 	}
-	// if (keycode == E)
-	// {
-	// 	m->keys->e = !m->keys->e;
-	// 	redraw_image(m);
-	// }
+	if (keycode == E)
+		if (open_door(m))
+			redraw_image(m);
 	// printf("keycode = %d\n", keycode);
 	return (0);
 }
@@ -213,7 +225,7 @@ int	mouse_move(int x, int y, t_mlx *m)
 
 int	key_hold_handler(t_mlx *m)
 {
-		if (m->keys->left)
+	if (m->keys->left)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
 		if (m->p->pa < 0)

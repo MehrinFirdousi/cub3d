@@ -42,7 +42,7 @@
 #  define A 0
 #  define S 1
 #  define D 2
-// #  define E 14
+#  define E 14
 #  define LEFT	123
 #  define UP	126
 #  define RIGHT	124
@@ -164,7 +164,6 @@ typedef struct s_keys
 	bool	a;
 	bool	s;
 	bool	d;
-	bool	e;
 	bool	left;
 	bool	right;
 	bool	tab;

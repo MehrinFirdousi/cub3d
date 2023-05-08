@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:52 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/08 17:13:13 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:00:37 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height)
 	// else
 		while (++i < l_height + p.y && i < WIN_HEIGHT)
 		{
-			color = colors[((int)(t->ty) * t->width + (int)t->tx)
-				% (t->width * t->height)];
+			color = colors[abs(((int)(t->ty) * t->width + (int)t->tx)
+				% (t->width * t->height))];
 			if (r->vertical)
 				color = (color & 0xfefefe) >> 1;
 			my_mlx_pixel_put(m->img, p.x, i, color);
