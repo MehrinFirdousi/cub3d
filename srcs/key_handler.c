@@ -134,7 +134,6 @@ int	mouse_move(int x, int y, t_mlx *m)
 	static int	mouse_left;
 	static int	mouse_right;
 
-	(void)y;
 	if (m->keys->s)
 	{
 		if (player_hit_wall(m->p->px - 3 * m->p->pdx, m->p->py - 3 * m->p->pdy, m->map))
@@ -166,19 +165,22 @@ int	mouse_move(int x, int y, t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
-	if (x > ox)
+	if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
-		mouse_right = 1;
-		m->p->pa += (0.03 * m->keys->speed);
-		m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-		m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
-	}
-	if (x < ox)
-	{
-		mouse_left = 1;
-		m->p->pa -= (0.03 * m->keys->speed);
-		m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-		m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+		if (x > ox)
+		{
+			mouse_right = 1;
+			m->p->pa += (0.05 * m->keys->speed);
+			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+		}
+		if (x < ox)
+		{
+			mouse_left = 1;
+			m->p->pa -= (0.05 * m->keys->speed);
+			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+		}
 	}
 	ox = x;
 	if (mouse_right | mouse_left | \
