@@ -37,6 +37,8 @@ void	redraw_image(t_mlx *m)
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
 }
 
+// t_point	get_cur_block(t_mlx *)
+
 int	key_up_handler(int keycode, t_mlx *m)
 {
 	if (keycode == ESC)
@@ -68,6 +70,12 @@ int	key_up_handler(int keycode, t_mlx *m)
 		m->keys->tab = !m->keys->tab;
 		redraw_image(m);
 	}
+	// if (keycode == E)
+	// {
+	// 	m->keys->e = !m->keys->e;
+	// 	redraw_image(m);
+	// }
+	// printf("keycode = %d\n", keycode);
 	return (0);
 }
 
@@ -167,41 +175,41 @@ int	mouse_move(int x, int y, t_mlx *m)
 	return (0);
 }
 
-void	player_hit_wall2(t_player *p, t_map *map)
-{
-	int	px_cur; // player's x position in the map
-	int	py_cur; // player's y position in the map
-	int	x_offset;
-	int	y_offset;
-	int	px_next;
-	int	py_next;
+// void	player_hit_wall2(t_player *p, t_map *map)
+// {
+// 	int	px_cur; // player's x position in the map
+// 	int	py_cur; // player's y position in the map
+// 	int	x_offset;
+// 	int	y_offset;
+// 	int	px_next;
+// 	int	py_next;
 
-	px_cur = p->px / BLOCK_SIZE;
-	py_cur = p->py / BLOCK_SIZE;
-	x_offset = 20;
-	y_offset = 20;
-	if (px_cur < 0)
-		x_offset = -20;
-	if (py_cur < 0)
-		y_offset = -20;
-	px_next = (p->px + x_offset) / BLOCK_SIZE;
-	py_next = (p->py + y_offset) / BLOCK_SIZE;
-	if (px_cur >= 0 && py_cur >= 0 && px_cur < map->map_width && py_cur < map->map_height)
-	{
-		printf("%d, %d\n%d, %d\n", py_cur, px_next, py_next, px_cur);
-		if (map->map[py_cur][px_next] == '0')
-		{
-			printf("hello1\n");
-			p->px += p->pdx;
-		}
-		if (map->map[py_next][px_cur] == '0')
-		{
-			printf("hello2\n");
-			p->py += p->pdy;
-		}
-	}
+// 	px_cur = p->px / BLOCK_SIZE;
+// 	py_cur = p->py / BLOCK_SIZE;
+// 	x_offset = 20;
+// 	y_offset = 20;
+// 	if (px_cur < 0)
+// 		x_offset = -20;
+// 	if (py_cur < 0)
+// 		y_offset = -20;
+// 	px_next = (p->px + x_offset) / BLOCK_SIZE;
+// 	py_next = (p->py + y_offset) / BLOCK_SIZE;
+// 	if (px_cur >= 0 && py_cur >= 0 && px_cur < map->map_width && py_cur < map->map_height)
+// 	{
+// 		printf("%d, %d\n%d, %d\n", py_cur, px_next, py_next, px_cur);
+// 		if (map->map[py_cur][px_next] == '0')
+// 		{
+// 			printf("hello1\n");
+// 			p->px += p->pdx;
+// 		}
+// 		if (map->map[py_next][px_cur] == '0')
+// 		{
+// 			printf("hello2\n");
+// 			p->py += p->pdy;
+// 		}
+// 	}
 
-}
+// }
 
 int	key_hold_handler(t_mlx *m)
 {
