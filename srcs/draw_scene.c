@@ -67,18 +67,40 @@ static void	check_vertical_intersect(t_player *p, t_ray *r)
 }
 
 // casts a ray till it hits a wall
-static void	cast_ray(t_map *m, t_ray *r)
+static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 {
 	int	mx;
 	int	my;
 
+	r->door_status = 0;
+	r->vertical = is_vertical;
 	while (r->dof < r->max_dof)
 	{
 		mx = (int)r->rx / BLOCK_SIZE;
 		my = (int)r->ry / BLOCK_SIZE;
 		if (mx >= 0 && my >= 0 && mx < m->map_width && my < m->map_height \
 			&& m->map[my][mx] == '1')
+		{
+			if (is_vertical)
+			{
+				if (mx >= 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height -1 \
+					&& (m->map[my + 1][mx] == 'O' || m->map[my][mx + 1] == 'O'))
+					r->door_status = 2;
+			}
+			else
+			{
+				if (mx > 0 && my > 0 && mx < m->map_width && my < m->map_height \
+					&& (m->map[my - 1][mx] == 'O' || m->map[my][mx - 1] == 'O'))
+					r->door_status = 2;
+			}
 			break ;
+		}
+		if (mx >= 0 && my >= 0 && mx < m->map_width && my < m->map_height \
+			&& m->map[my][mx] == 'D')
+		{
+			r->door_status = 1;
+			break;
+		}
 		else
 		{
 			r->rx += r->x_step;
@@ -89,14 +111,14 @@ static void	cast_ray(t_map *m, t_ray *r)
 }
 
 // draws one vertical line from the ray, constituting the 3d scene
-static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool vertical)
+static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool is_vertical)
 {
 	int		i;
 	double	line_height;
 	double	line_offset;
 	double	a_diff;
 
-	r->vertical = vertical;
+	r->vertical = is_vertical;
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
@@ -129,10 +151,10 @@ void	draw_scene(t_mlx *m)
 		h_ray.ra = ra;
 		v_ray.ra = ra;
 		check_horizontal_intersect(m->p, &h_ray);
-		cast_ray(m->map, &h_ray);
+		cast_ray(m->map, &h_ray, false);
 		h_ray.ray_len = get_ray_len(m->p->px, m->p->py, h_ray.rx, h_ray.ry);
 		check_vertical_intersect(m->p, &v_ray);
-		cast_ray(m->map, &v_ray);
+		cast_ray(m->map, &v_ray, true);
 		v_ray.ray_len = get_ray_len(m->p->px, m->p->py, v_ray.rx, v_ray.ry);
 		if (h_ray.ray_len <= v_ray.ray_len)
 			draw_ray(m, &h_ray, i, false);

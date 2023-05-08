@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/08 19:18:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/08 22:19:10 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ HEADER	=	include
 
 LIBFT	=	libft/libft.a
 
-CC		=	gcc -fsanitize=address -g3
+# CC		=	gcc -fsanitize=address,undefined,float-divide-by-zero -g3
+CC		=	gcc
 
 OS		:=	$(shell uname)
 
