@@ -165,8 +165,12 @@ int	mouse_move(int x, int y, t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
+	if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
+		mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
+		printf("inside x == %d\n", x);
+		mlx_mouse_hide();
 		if (x > ox)
 		{
 			mouse_right = 1;
