@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/07 21:34:38 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/08 14:59:00 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	mapy_len(const char *line, t_map *map)
 
 	i = 0;
 	cnt = 1;
+	(void)map;
 	len = ft_strlen(line) - 1;	
 	while(line[len] && ft_is_space(line[len]))
 		len--;
@@ -60,11 +61,7 @@ static int	mapy_len(const char *line, t_map *map)
 	while (i < len)
 	{	
 		if (line[i] == '\n')
-		{
-			if(line[i + 1] == '\n')
-				printf("cnt %d\n", cnt), put_error("Empty line", map);
 			cnt++;
-		}
 		i++;
 	}
 	return (cnt);
