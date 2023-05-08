@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/08 19:40:14 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:17:57 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	get_textures_from_xpm(t_mlx *m)
 	t_texture	*s;
 	t_texture	*e;
 	t_texture	*w;
+	t_texture	*door_open;
 
 	n = &m->map->n_texture;
 	s = &m->map->s_texture;
 	e = &m->map->e_texture;
 	w = &m->map->w_texture;
+	door_open = &m->map->c_door_texture;
 	n->img = mlx_xpm_file_to_image(m->mlx, n->path, &n->width, &n->height);
 	if (n->img)
 		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length,
@@ -59,6 +61,10 @@ void	get_textures_from_xpm(t_mlx *m)
 	if (w->img)
 		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
 				&w->endian);
+	door_open->img = mlx_xpm_file_to_image(m->mlx, "game_textures/door.xpm", &door_open->width, &door_open->height);
+	if (door_open->img)
+		door_open->addr = mlx_get_data_addr(door_open->img, &door_open->bits_per_pixel, &door_open->line_length,
+				&door_open->endian);
 }
 
 void	mlx_set_up(t_mlx *m)
@@ -104,7 +110,7 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx.win, 6, 0, mouse_move, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->e_texture.img, 0, 0);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->c_door_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 	return (0);
 }

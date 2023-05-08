@@ -45,9 +45,9 @@ bool	open_door(t_mlx *m)
 	r_mapx = (int)m->rays[WIN_WIDTH / 2].x / BLOCK_SIZE;
 	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
 	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height \
-		&& m->map->map[r_mapy][r_mapx] == '1') // if we hit a wall
+		&& m->map->map[r_mapy][r_mapx] == 'D') // if we hit a wall
 	{
-		m->map->map[r_mapy][r_mapx] = '0';
+		m->map->map[r_mapy][r_mapx] = 'O';
 		return (true);
 	}
 	return (false);

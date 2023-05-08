@@ -26,9 +26,10 @@
 # define GREEN 65280
 # define TEAL 0X0014FFC0
 # define TEAL_D 0X0000D69D
+# define BLUE 0X008DB1CE
 # define GRAY 0X00808080
 # define RED 0X00FF0000
-# define BLUE 0X000000FF
+# define ORANGE 0X00CEA18D
 # define STRAFE_SPEED 1
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 # define ANGLE_STEP 0.000858358649063299 // 0.5 deg in rad
@@ -131,6 +132,7 @@ typedef struct s_map
 	t_texture	s_texture;
 	t_texture	e_texture;
 	t_texture	w_texture;
+	t_texture	c_door_texture;
 	char		*file;
 	char		**map;
 	int			map_width;
@@ -191,9 +193,10 @@ typedef struct s_ray
 	double	y_step;
 	double	tan_ra;
 	int		dof;
-	int		max_dof;	
+	int		max_dof;
 	double	ray_len;
 	bool	vertical;
+	int		door_status;
 }	t_ray;
 
 /* -------> Parse <-------- */

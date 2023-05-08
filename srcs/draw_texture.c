@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:52 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/08 19:00:37 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:36:45 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height)
 	int			color;
 
 	i = p.y - 1;
-	t = get_texture(m, r, p);
+	if (r->door_status == 1)
+		t = &m->map->c_door_texture;
+	else
+		t = get_texture(m, r, p);
 	colors = (int *)t->addr;
 	t->ty = 0;
 	if (r->vertical)
@@ -57,24 +60,13 @@ void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height)
 	else
 		t->tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
 	ty_step = (double)t->height / l_height;
-	// if (p.x > 300 && p.x < 400)
-	// 	while (++i < (l_height + p.y) / 2 && i < WIN_HEIGHT)
-	// 	{
-	// 		color = colors[((int)(t->ty) * t->width + (int)t->tx)
-	// 			% (t->width * t->height)];
-	// 		if (r->vertical)
-	// 			color = (color & 0xfefefe) >> 1;
-	// 		my_mlx_pixel_put(m->img, p.x, i, color);
-	// 		t->ty += ty_step;
-	// 	}
-	// else
-		while (++i < l_height + p.y && i < WIN_HEIGHT)
-		{
-			color = colors[abs(((int)(t->ty) * t->width + (int)t->tx)
-				% (t->width * t->height))];
-			if (r->vertical)
-				color = (color & 0xfefefe) >> 1;
-			my_mlx_pixel_put(m->img, p.x, i, color);
-			t->ty += ty_step;
-		}
+	while (++i < l_height + p.y && i < WIN_HEIGHT)
+	{
+		color = colors[abs(((int)(t->ty) * t->width + (int)t->tx)
+			% (t->width * t->height))];
+		if (r->vertical)
+			color = (color & 0xfefefe) >> 1;
+		my_mlx_pixel_put(m->img, p.x, i, color);
+		t->ty += ty_step;
+	}
 }

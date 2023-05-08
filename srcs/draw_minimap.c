@@ -40,7 +40,18 @@ void	draw_minimap(t_mlx *m)
 			x = j * MM_SIZE;
 			y = i * MM_SIZE;
 			if (m->map->map[i][j] == '1')
+			{
 				color = WHITE;
+				if (j >= 0 && i >= 0 && j < m->map->map_width - 1 && i < m->map->map_height - 1 \
+					&& (m->map->map[i + 1][j] == 'O' || m->map->map[i][j + 1] == 'O'))
+					color = ORANGE;
+				if (j > 0 && i > 0 && j < m->map->map_width && i < m->map->map_height \
+					&& (m->map->map[i - 1][j] == 'O' || m->map->map[i][j - 1] == 'O'))
+					color = ORANGE;
+			}
+			if (m->map->map[i][j] == 'D')
+				color = BLUE;
+			
 			draw_square(m, (t_point){x, y}, MM_SIZE, color);
 			color = GRAY;
 		}
