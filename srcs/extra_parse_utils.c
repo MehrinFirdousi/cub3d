@@ -6,24 +6,25 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:28:16 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/07 21:28:38 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/09 16:52:06 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_data(t_map *data)
+int player_symbol(char c)
 {
-	data->map_height = 0;
-	data->map_width = 0;
-	data->player_cnt = 0;
-	data->floor_color = -1;
-	data->ceil_color = -1;
-	data->n_texture.path = NULL;
-	data->s_texture.path = NULL;
-	data->w_texture.path = NULL;
-	data->e_texture.path = NULL;
-	data->file = NULL;
+	if (c == 'N' || c == 'E' || c == 'S'|| c == 'W')
+		return 1;
+	return 0;			
+}
+
+int defined_symbol(char c)
+{
+	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
+			|| c == 'E' || c == 'S' || c == 'W' || c == 'D')
+				return 1;
+	return 0;			
 }
 
 int is_texture(char *line)
@@ -41,16 +42,6 @@ int is_color(char *line)
 	return (0);			
 }
 
-void	is_valid_xpm(const char *path, t_map *map)
-{
-	int			index;
-	const int	exten = 4;
-	index = (int) ft_strlen(path) - exten;
-	if (index < 0 || 
-			ft_strncmp(".xpm", (char *)(path + index), exten + 1))
-		put_error("invalid xpm file", map);
-}
-
 void is_valid_path(char *path, t_map *map)
 {
 	int fd;
@@ -58,5 +49,5 @@ void is_valid_path(char *path, t_map *map)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		free(path), put_error("Bad texture's file", map);
-	is_valid_xpm(path, map);
+	is_valid_file(path, ".xpm", map);
 }

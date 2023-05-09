@@ -6,25 +6,11 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/08 21:38:42 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/09 16:42:25 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int player_symbol(char c)
-{
-	if (c == 'N' || c == 'E' || c == 'S'|| c == 'W')
-		return 1;
-	return 0;			
-}
-int defined_symbol(char c)
-{
-	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
-			|| c == 'E' || c == 'S' || c == 'W' || c == 'D')
-				return 1;
-	return 0;			
-}
 
 static void valid_player(t_map *map)
 {

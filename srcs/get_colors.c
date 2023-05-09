@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/06 15:51:27 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/09 16:41:03 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,3 @@ void	get_colors(char *line, t_map *map)
 	validate_surface(colors, line, str, map);
 	free(str);
 }
-

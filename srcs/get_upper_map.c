@@ -12,87 +12,44 @@
 
 #include "cub3d.h"
 
-static char	*path_substr(const char *line, t_map *map)
+static int is_valid_data(int *i, char *line, t_map *data)
 {
-	int		i;
-	while (ft_is_space(*line))
-		++line;
-	if (*line == '\0')
-		put_error("No path", map);
-	i = 0;
-	while (line[i] != '\0' && line[i] != '\n')
-		++i;
-	return (ft_substr(line, 0, i));
-}
-
-static void update_flag(int *flag, const char *line)
-{
-	if (!ft_strncmp(line, "NO ", 3))
-		*flag = (E_NORTH);
-	if (!ft_strncmp(line, "SO ", 3))
-		*flag = (E_SOUTH);
-	if (!ft_strncmp(line, "WE ", 3))
-		*flag = (E_WEST);
-	if (!ft_strncmp(line, "EA ", 3))
-		*flag = (E_EAST);
-}
-
-static void	get_paths(const char *line, t_map *data)
-{
-	int		flag;
-	char	*path;
-	char	*tmp_path;
-
-	tmp_path = path_substr(&line[3], data);
-	path = ft_strtrim(tmp_path, " \t");
-	free(tmp_path);
-	is_valid_path(path, data);
-	flag = -1;	
-	update_flag(&flag, line);
-	if (flag == E_NORTH && !data->n_texture.path)
-		data->n_texture.path = path;
-	else if (flag == E_SOUTH && !data->s_texture.path)
-		data->s_texture.path = path;
-	else if (flag == E_WEST && !data->w_texture.path)
-		data->w_texture.path = path;
-	else if (flag == E_EAST && !data->e_texture.path)
-		data->e_texture.path = path;
-	else
-		put_error("Invalid path side", data);
+	while (line[*i] != '\0')
+	{
+		while (line[*i] && ft_is_space(line[*i]))
+			(*i)++;
+		if (data->texture_cnt == 4 && is_texture(&line[*i]))
+			return 0;
+		if (data->color_cnt == 2 && is_color(&line[*i]))
+			return 0;
+		if(is_texture(&line[*i]))
+		{
+			get_paths(&line[*i], data);
+			data->texture_cnt++;
+		}
+		else if (is_color(&line[*i]))
+		{
+			get_colors(&line[*i], data);	
+			data->color_cnt++;
+		}
+		else
+			break ;
+		*i += cur_index(&line[*i], '\n');
+	}
+	return (*i);
 }
 
 int	get_upper_map(char *line, t_map *data)
 {
 	int	i;
-	int	count_line;
-	int	count_color;
 
 	i = 0;
-	count_line = 0;
-	count_color = 0;
-	while (line[i] != '\0')
-	{
-		while (line[i] && ft_is_space(line[i]))
-			++i;
-		if (count_line == 4 && is_texture(&line[i]))
-			return (i);
-		if (count_color == 2 && is_color(&line[i]))
-			return (i);
-		if(is_texture(&line[i]))
-		{
-			get_paths(&line[i], data);
-			count_line++;
-		}
-		else if (is_color(&line[i]))
-		{
-			get_colors(&line[i], data);	
-			count_color++;
-		}
-		else
-			break ;
-		i += cur_index(&line[i], '\n');
-	}
-	if(count_color != 2 || count_line != 4)
+	data->texture_cnt = 0;
+	data->color_cnt = 0;
+
+	if (!is_valid_data(&i, line, data))
+		return i;
+	if(data->color_cnt != 2 || data->texture_cnt != 4)
 		put_error("Invalid data", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);
