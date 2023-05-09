@@ -49,7 +49,11 @@ bool	open_door(t_mlx *m)
 		if (m->map->map[r_mapy][r_mapx] == 'D')
 			m->map->map[r_mapy][r_mapx] = 'O';
 		// else if (m->map->map[r_mapy][r_mapx] == 'O')
-		// 	m->map->map[r_mapy][r_mapx] = 'D';
+		// {
+		// 	m->map->map[r_mapy][r_mapx] = '1';
+		// 	if (m->map->map[r_mapy + 1][r_mapx] == '')
+		// }
+			m->map->map[r_mapy][r_mapx] = 'D';
 		return (true);
 	}
 	return (false);

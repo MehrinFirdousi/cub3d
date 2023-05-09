@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:52 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/08 22:35:30 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:50:42 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height)
 	if (r->door_status == 1)
 		t = &m->map->c_door_texture;
 	else if (r->door_status == 2 && r->vertical)
+		t = &m->map->c_door_texture;
+	else if (r->door_status == 3 && !r->vertical)
 		t = &m->map->c_door_texture;
 	else
 		t = get_texture(m, r, p);

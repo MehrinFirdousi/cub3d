@@ -83,15 +83,15 @@ static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 		{
 			if (is_vertical)
 			{
-				if (mx >= 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height -1 \
-					&& (m->map[my + 1][mx] == 'O' || m->map[my][mx + 1] == 'O'))
+				if (mx > 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height \
+					&& (m->map[my][mx + 1] == 'O' || m->map[my][mx - 1] == 'O'))
 					r->door_status = 2;
 			}
 			else
 			{
-				if (mx > 0 && my > 0 && mx < m->map_width && my < m->map_height \
-					&& (m->map[my - 1][mx] == 'O' || m->map[my][mx - 1] == 'O'))
-					r->door_status = 2;
+				if (mx >= 0 && my > 0 && mx < m->map_width && my < m->map_height - 1 \
+					&& (m->map[my + 1][mx] == 'O' || m->map[my - 1][mx] == 'O'))
+					r->door_status = 3;
 			}
 			break ;
 		}

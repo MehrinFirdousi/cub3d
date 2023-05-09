@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/08 21:17:57 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:40:08 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx.win, 6, 0, mouse_move, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->c_door_texture.img, 0, 0);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->c_door_texture.img, 0, 0);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
