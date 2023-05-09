@@ -194,14 +194,14 @@ int	mouse_move(int x, int y, t_mlx *m)
 		if (x > ox)
 		{
 			mouse_right = 1;
-			m->p->pa += (0.05 * m->keys->speed);
+			m->p->pa += (0.03 * m->keys->speed);
 			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
 			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
 		}
 		if (x < ox)
 		{
 			mouse_left = 1;
-			m->p->pa -= (0.05 * m->keys->speed);
+			m->p->pa -= (0.03 * m->keys->speed);
 			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
 			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
 		}

@@ -12,6 +12,20 @@
 
 #include "cub3d.h"
 
+void	init_data(t_map *data)
+{
+	data->map_height = 0;
+	data->map_width = 0;
+	data->player_cnt = 0;
+	data->floor_color = -1;
+	data->ceil_color = -1;
+	data->n_texture.path = NULL;
+	data->s_texture.path = NULL;
+	data->w_texture.path = NULL;
+	data->e_texture.path = NULL;
+	data->file = NULL;
+}
+
 static void set_player_pos(t_map *map, t_player *p, int x, int y)
 {
 	p->px = x;
@@ -56,7 +70,7 @@ void	get_data(char *line, t_map *data, t_player *p)
 	
 	i = get_upper_map(line, data);
 	if(is_texture(&line[i]) || is_color(&line[i]))
-		put_error("Duplicate_sides", data);
+		put_error("Duplicate data sides", data);
 	while (line[--i] != '\n');
 	get_map(&line[i], data);
 	get_player(data, p);

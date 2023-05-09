@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/09 20:42:35 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/09 20:45:55 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS	=	srcs/main.c \
 			srcs/get_data.c \
 			srcs/parse.c \
 			srcs/get_upper_map.c \
+			srcs/get_textures.c \
 			srcs/get_colors.c \
 			srcs/get_map.c \
 			srcs/valid_map.c \

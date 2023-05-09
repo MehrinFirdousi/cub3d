@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/08 14:59:00 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/09 16:41:33 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	mapx_len(const char *line, t_map *map)
 	n = 0;
 	max = 0;
 	cnt = 0;
-	// int len =(int)ft_strlen(line);
 	while (line[i] != '\0')
 	{
 		while (line[i] && line[i] != '\n')
@@ -33,14 +32,11 @@ static int	mapx_len(const char *line, t_map *map)
 			i++;
 		}
 		cnt++;
-		// if(i >= len - 1) //stop i if exceeds null 
-		// 	return max;
 		if (i - n > max)
 			max = i - n;
 		if(line[i])
 			n = i++;
 	}
-	// printf("cnnnt %d\n", cnt);
 	return (max - 1);
 }
 
