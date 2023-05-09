@@ -134,15 +134,6 @@ typedef struct s_map
 	t_texture	e_texture;
 	t_texture	w_texture;
 	t_texture	c_door_texture;
-	char		*door;
-	char		*f1;
-	char		*f2;
-	char		*f3;
-	char		*f4;
-	char		*f5;
-	char		*f6;
-	char		*f7;
-	char		*f8;
 	t_texture	torch[8];
 	int			torch_frame;
 	char		*file;

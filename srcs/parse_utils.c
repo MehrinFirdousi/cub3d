@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 00:09:24 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 00:39:39 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,15 @@ void print_map(t_map *map, t_player *p)
 	printf("{%s}\n", map->s_texture.path);
 	printf("{%s}\n", map->w_texture.path);
 	printf("{%s}\n", map->e_texture.path);
-	printf("Door {%s}\n", map->door);
-	printf("F1 {%s}\n", map->f1);
-	printf("F2 {%s}\n", map->f2);
-	printf("F3 {%s}\n", map->f3);
-	printf("F4 {%s}\n", map->f4);
-	printf("F5 {%s}\n", map->f5);
-	printf("F6 {%s}\n", map->f6);
-	printf("F7 {%s}\n", map->f7);
-	printf("F8 {%s}\n", map->f8);
+	printf("Door {%s}\n", map->c_door_texture.path);
+	printf("T1 {%s}\n", map->torch[0].path);
+	printf("T2 {%s}\n", map->torch[1].path);
+	printf("T3 {%s}\n", map->torch[2].path);
+	printf("T4 {%s}\n", map->torch[3].path);
+	printf("T5 {%s}\n", map->torch[4].path);
+	printf("T6 {%s}\n", map->torch[5].path);
+	printf("T7 {%s}\n", map->torch[6].path);
+	printf("T8 {%s}\n", map->torch[7].path);
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }

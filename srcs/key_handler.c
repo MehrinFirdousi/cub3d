@@ -303,7 +303,7 @@ int	key_hold_handler(t_mlx *m)
 		redraw_image(m);
 		frame_count = 0;
 	}
-	printf("fps %d\n", frame_count);
+	// printf("fps %d\n", frame_count);
 	frame_count++;
 	if (m->keys->left | m->keys->right | \
 		m->keys->s | m->keys->w | m->keys->a | m->keys->d | m->keys->shift)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/09 19:52:10 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:50:24 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	get_textures_from_xpm(t_mlx *m)
 	if (w->img)
 		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
 				&w->endian);
-	door_open->img = mlx_xpm_file_to_image(m->mlx, "game_textures/door.xpm", &door_open->width, &door_open->height);
+	door_open->img = mlx_xpm_file_to_image(m->mlx, door_open->path, &door_open->width, &door_open->height);
 	if (door_open->img)
 		door_open->addr = mlx_get_data_addr(door_open->img, &door_open->bits_per_pixel, &door_open->line_length,
 				&door_open->endian);
@@ -69,14 +69,17 @@ void	get_textures_from_xpm(t_mlx *m)
 
 void	get_torch_sprite(t_mlx *m)
 {
-	m->map->torch[0].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel1.xpm", &m->map->torch[0].width, &m->map->torch[0].height);
-	m->map->torch[1].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel2.xpm", &m->map->torch[1].width, &m->map->torch[1].height);
-	m->map->torch[2].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel3.xpm", &m->map->torch[2].width, &m->map->torch[2].height);
-	m->map->torch[3].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel4.xpm", &m->map->torch[3].width, &m->map->torch[3].height);
-	m->map->torch[4].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel5.xpm", &m->map->torch[4].width, &m->map->torch[4].height);
-	m->map->torch[5].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel6.xpm", &m->map->torch[5].width, &m->map->torch[5].height);
-	m->map->torch[6].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel7.xpm", &m->map->torch[6].width, &m->map->torch[6].height);
-	m->map->torch[7].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel8.xpm", &m->map->torch[7].width, &m->map->torch[7].height);
+	t_texture	*t;
+
+	t = &m->map->torch[0];
+	t[0].img = mlx_xpm_file_to_image(m->mlx, t[0].path, &t[0].width, &t[0].height);
+	t[1].img = mlx_xpm_file_to_image(m->mlx, t[1].path, &t[1].width, &t[1].height);
+	t[2].img = mlx_xpm_file_to_image(m->mlx, t[2].path, &t[2].width, &t[2].height);
+	t[3].img = mlx_xpm_file_to_image(m->mlx, t[3].path, &t[3].width, &t[3].height);
+	t[4].img = mlx_xpm_file_to_image(m->mlx, t[4].path, &t[4].width, &t[4].height);
+	t[5].img = mlx_xpm_file_to_image(m->mlx, t[5].path, &t[5].width, &t[5].height);
+	t[6].img = mlx_xpm_file_to_image(m->mlx, t[6].path, &t[6].width, &t[6].height);
+	t[7].img = mlx_xpm_file_to_image(m->mlx, t[7].path, &t[7].width, &t[7].height);
 }
 
 void	mlx_set_up(t_mlx *m)

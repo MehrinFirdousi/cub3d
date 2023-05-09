@@ -5,6 +5,17 @@ EA game_textures/brick_ivy.xpm
 
 C 45, 11, 11
 F 72, 64, 60
+
+DO game_textures/door.xpm
+T1 game_textures/torch-pixel1.xpm
+T2 game_textures/torch-pixel2.xpm
+T3 game_textures/torch-pixel3.xpm
+T4 game_textures/torch-pixel4.xpm
+T5 game_textures/torch-pixel5.xpm
+T6 game_textures/torch-pixel6.xpm
+T7 game_textures/torch-pixel7.xpm
+T8 game_textures/torch-pixel8.xpm
+
         1111111111111111111111111
         1000000001D10000000000001
         1011000000000000000000001

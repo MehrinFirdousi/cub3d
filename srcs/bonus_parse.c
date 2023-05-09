@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 23:55:41 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 00:42:46 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ static void bonus_update_flag(int *flag, const char *line)
 {
 	if (ft_strncmp(line, "DO ", 3) == 0)
 		*flag = (9);
-	if (ft_strncmp(line, "F1 ", 3) == 0)
+	if (ft_strncmp(line, "T1 ", 3) == 0)
 		*flag = (1);
-	if (ft_strncmp(line, "F2 ", 3) == 0)
+	if (ft_strncmp(line, "T2 ", 3) == 0)
 		*flag = (2);
-	if (ft_strncmp(line, "F3 ", 3) == 0)
+	if (ft_strncmp(line, "T3 ", 3) == 0)
 		*flag = (3);
-	if (ft_strncmp(line, "F4 ", 3) == 0)
+	if (ft_strncmp(line, "T4 ", 3) == 0)
 		*flag = (4);
-	if (ft_strncmp(line, "F5 ", 3) == 0)
+	if (ft_strncmp(line, "T5 ", 3) == 0)
 		*flag = (5);
-	if (ft_strncmp(line, "F6 ", 3) == 0)
+	if (ft_strncmp(line, "T6 ", 3) == 0)
 		*flag = (6);
-	if (ft_strncmp(line, "F7 ", 3) == 0)
+	if (ft_strncmp(line, "T7 ", 3) == 0)
 		*flag = (7);
-	if (ft_strncmp(line, "F8 ", 3) == 0)
+	if (ft_strncmp(line, "T8 ", 3) == 0)
 		*flag = (8);
 }
 
@@ -60,35 +60,35 @@ void	get_textures1(const char *line, t_map *data)
 	is_valid_path(path, data);
 	flag = 0;	
 	bonus_update_flag(&flag, line);
-	if (flag == 9 && !data->door)
-		data->door = path;
-	else if (flag == 1 && !data->f1)
-		data->f1 = path;
-	else if (flag == 2 && !data->f2)
-		data->f2 = path;
-	else if (flag == 3 && !data->f3)
-		data->f3 = path;
-	else if (flag == 4 && !data->f4)
-		data->f4 = path;
-	else if (flag == 5 && !data->f5)
-		data->f5 = path;
-	else if (flag == 6 && !data->f6)
-		data->f6 = path;
-	else if (flag == 7 && !data->f7)
-		data->f7 = path;
-	else if (flag == 8 && !data->f8)
-		data->f8 = path;	
+	if (flag == 9 && !data->c_door_texture.path)
+		data->c_door_texture.path = path;
+	else if (flag == 1 && !data->torch[0].path)
+		data->torch[0].path = path;
+	else if (flag == 2 && !data->torch[1].path)
+		data->torch[1].path = path;
+	else if (flag == 3 && !data->torch[2].path)
+		data->torch[2].path = path;
+	else if (flag == 4 && !data->torch[3].path)
+		data->torch[3].path = path;
+	else if (flag == 5 && !data->torch[4].path)
+		data->torch[4].path = path;
+	else if (flag == 6 && !data->torch[5].path)
+		data->torch[5].path = path;
+	else if (flag == 7 && !data->torch[6].path)
+		data->torch[6].path = path;
+	else if (flag == 8 && !data->torch[7].path)
+		data->torch[7].path = path;	
 	else
 		put_error("Dublicate flame side", data);
 }
 
 int is_extra_texture(char *line)
 {
-	 if(ft_strncmp(line, "DO ", 3) == 0 || ft_strncmp(line, "F1 ", 3) == 0
-			|| ft_strncmp(line, "F2 ", 3) == 0 || ft_strncmp(line, "F3 ", 3) == 0
-			|| ft_strncmp(line, "F4 ", 3) == 0 || ft_strncmp(line, "F5 ", 3) == 0
-			|| ft_strncmp(line, "F6 ", 3) == 0 || ft_strncmp(line, "F7 ", 3) == 0
-			|| ft_strncmp(line, "F8 ", 3) == 0)
+	 if(ft_strncmp(line, "DO ", 3) == 0 || ft_strncmp(line, "T1 ", 3) == 0
+			|| ft_strncmp(line, "T2 ", 3) == 0 || ft_strncmp(line, "T3 ", 3) == 0
+			|| ft_strncmp(line, "T4 ", 3) == 0 || ft_strncmp(line, "T5 ", 3) == 0
+			|| ft_strncmp(line, "T6 ", 3) == 0 || ft_strncmp(line, "T7 ", 3) == 0
+			|| ft_strncmp(line, "T8 ", 3) == 0)
 				return (1);
 	return (0);			
 }
