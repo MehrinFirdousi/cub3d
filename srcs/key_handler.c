@@ -46,6 +46,7 @@ bool	open_door(t_mlx *m)
 	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
 	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height)
 	{
+		printf("e clicked\n");
 		if (m->map->map[r_mapy][r_mapx] == 'D')
 			m->map->map[r_mapy][r_mapx] = 'O';
 		// else if (m->map->map[r_mapy][r_mapx] == 'O')
@@ -53,7 +54,7 @@ bool	open_door(t_mlx *m)
 		// 	m->map->map[r_mapy][r_mapx] = '1';
 		// 	if (m->map->map[r_mapy + 1][r_mapx] == '')
 		// }
-			m->map->map[r_mapy][r_mapx] = 'D';
+			// m->map->map[r_mapy][r_mapx] = 'D';
 		return (true);
 	}
 	return (false);
@@ -175,7 +176,7 @@ int	mouse_move(int x, int y, t_mlx *m)
 		mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
-		printf("inside x == %d\n", x);
+		// printf("inside x == %d\n", x);
 		mlx_mouse_hide();
 		if (x > ox)
 		{
