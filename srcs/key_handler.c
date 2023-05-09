@@ -15,6 +15,11 @@
 int	exit_free(t_mlx *m)
 {
 	mlx_destroy_image(m->mlx, m->img->img);
+	// mlx_destroy_image(m->mlx, m->map->n_texture.img);
+	// mlx_destroy_image(m->mlx, m->map->s_texture.img);
+	// mlx_destroy_image(m->mlx, m->map->w_texture.img);
+	// mlx_destroy_image(m->mlx, m->map->e_texture.img);
+	// mlx_destroy_image(m->mlx, m->map->c_door_texture.img);
 	free(m->map->n_texture.path);
 	free(m->map->s_texture.path);
 	free(m->map->w_texture.path);
@@ -35,6 +40,7 @@ void	redraw_image(t_mlx *m)
 	if (m->keys->tab)
 		draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
+	mlx_put_image_to_window(m->mlx, m->win, m->map->torch[m->map->torch_frame].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.5);
 }
 
 bool	open_door(t_mlx *m)
@@ -46,15 +52,23 @@ bool	open_door(t_mlx *m)
 	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
 	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height)
 	{
-		printf("e clicked\n");
+		printf("e cliwked\n");
 		if (m->map->map[r_mapy][r_mapx] == 'D')
 			m->map->map[r_mapy][r_mapx] = 'O';
-		// else if (m->map->map[r_mapy][r_mapx] == 'O')
-		// {
-		// 	m->map->map[r_mapy][r_mapx] = '1';
-		// 	if (m->map->map[r_mapy + 1][r_mapx] == '')
-		// }
-			// m->map->map[r_mapy][r_mapx] = 'D';
+		if (m->map->map[r_mapy][r_mapx] == '1')
+		{
+			if (r_mapx > 0 && r_mapy > 0 && r_mapx < m->map->map_width - 1 && r_mapy < m->map->map_height - 1)
+			{
+				if (m->map->map[r_mapy][r_mapx + 1] == 'O')
+					m->map->map[r_mapy][r_mapx + 1] = 'D';
+				if (m->map->map[r_mapy][r_mapx - 1] == 'O')
+					m->map->map[r_mapy][r_mapx - 1] = 'D';
+				if (m->map->map[r_mapy + 1][r_mapx] == 'O')
+					m->map->map[r_mapy + 1][r_mapx] = 'D';
+				if (m->map->map[r_mapy - 1][r_mapx] == 'O')
+					m->map->map[r_mapy - 1][r_mapx] = 'D';
+			}
+		}
 		return (true);
 	}
 	return (false);
@@ -94,7 +108,6 @@ int	key_up_handler(int keycode, t_mlx *m)
 	if (keycode == E)
 		if (open_door(m))
 			redraw_image(m);
-	// printf("keycode = %d\n", keycode);
 	return (0);
 }
 
@@ -172,12 +185,12 @@ int	mouse_move(int x, int y, t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
-	if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
-		mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	// if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
+		// mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
 		// printf("inside x == %d\n", x);
-		mlx_mouse_hide();
+		// mlx_mouse_hide();
 		if (x > ox)
 		{
 			mouse_right = 1;
@@ -238,6 +251,8 @@ int	mouse_move(int x, int y, t_mlx *m)
 
 int	key_hold_handler(t_mlx *m)
 {
+	static	int	frame_count;
+
 	if (m->keys->left)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
@@ -267,9 +282,6 @@ int	key_hold_handler(t_mlx *m)
 			return (0);
 		m->p->px += m->p->pdx;
 		m->p->py += m->p->pdy;
-		// printf("before %lf %lf\n", m->p->px, m->p->py);
-		// player_hit_wall2(m->p, m->map);
-		// printf("after %lf %lf\n", m->p->px, m->p->py);
 	}
 	if (m->keys->a)
 	{
@@ -285,8 +297,17 @@ int	key_hold_handler(t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
+	if (frame_count == FPS)
+	{
+		m->map->torch_frame = (m->map->torch_frame + 1) % 8;
+		redraw_image(m);
+		frame_count = 0;
+	}
+	printf("fps %d\n", frame_count);
+	frame_count++;
 	if (m->keys->left | m->keys->right | \
 		m->keys->s | m->keys->w | m->keys->a | m->keys->d | m->keys->shift)
+	
 		redraw_image(m);
 	return (0);
 }

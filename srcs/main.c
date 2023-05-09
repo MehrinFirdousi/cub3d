@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/09 14:40:08 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:52:10 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ void	get_textures_from_xpm(t_mlx *m)
 				&door_open->endian);
 }
 
+void	get_torch_sprite(t_mlx *m)
+{
+	m->map->torch[0].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel1.xpm", &m->map->torch[0].width, &m->map->torch[0].height);
+	m->map->torch[1].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel2.xpm", &m->map->torch[1].width, &m->map->torch[1].height);
+	m->map->torch[2].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel3.xpm", &m->map->torch[2].width, &m->map->torch[2].height);
+	m->map->torch[3].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel4.xpm", &m->map->torch[3].width, &m->map->torch[3].height);
+	m->map->torch[4].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel5.xpm", &m->map->torch[4].width, &m->map->torch[4].height);
+	m->map->torch[5].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel6.xpm", &m->map->torch[5].width, &m->map->torch[5].height);
+	m->map->torch[6].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel7.xpm", &m->map->torch[6].width, &m->map->torch[6].height);
+	m->map->torch[7].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel8.xpm", &m->map->torch[7].width, &m->map->torch[7].height);
+}
+
 void	mlx_set_up(t_mlx *m)
 {
 	m->mlx = mlx_init();
@@ -84,6 +96,8 @@ void	mlx_set_up(t_mlx *m)
 	m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	get_textures_from_xpm(m);
+	get_torch_sprite(m);
+	m->map->torch_frame = 0;
 }
 
 int	main(int argc, char **argv)
@@ -110,7 +124,7 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx.win, 6, 0, mouse_move, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	// mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->c_door_texture.img, 0, 0);
+	// mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->torch[0].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.5);
 	mlx_loop(mlx.mlx);
 	return (0);
 }

@@ -36,6 +36,7 @@
 # define TWO_PI 6.28318531
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
+# define FPS 1000
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -133,6 +134,8 @@ typedef struct s_map
 	t_texture	e_texture;
 	t_texture	w_texture;
 	t_texture	c_door_texture;
+	t_texture	torch[8];
+	int			torch_frame;
 	char		*file;
 	char		**map;
 	int			map_width;
