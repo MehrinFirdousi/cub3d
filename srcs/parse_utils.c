@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:55:06 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 00:09:24 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ void print_map(t_map *map, t_player *p)
 	printf("{%s}\n", map->s_texture.path);
 	printf("{%s}\n", map->w_texture.path);
 	printf("{%s}\n", map->e_texture.path);
+	printf("Door {%s}\n", map->door);
+	printf("F1 {%s}\n", map->f1);
+	printf("F2 {%s}\n", map->f2);
+	printf("F3 {%s}\n", map->f3);
+	printf("F4 {%s}\n", map->f4);
+	printf("F5 {%s}\n", map->f5);
+	printf("F6 {%s}\n", map->f6);
+	printf("F7 {%s}\n", map->f7);
+	printf("F8 {%s}\n", map->f8);
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }

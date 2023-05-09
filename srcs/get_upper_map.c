@@ -24,7 +24,7 @@ static int is_valid_data(int *i, char *line, t_map *data)
 			return 0;
 		if(is_texture(&line[*i]))
 		{
-			get_paths(&line[*i], data);
+			get_textures(&line[*i], data);
 			data->texture_cnt++;
 		}
 		else if (is_color(&line[*i]))

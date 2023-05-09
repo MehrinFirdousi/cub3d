@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:40:32 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/09 17:53:56 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void update_flag(int *flag, const char *line)
 		*flag = (E_EAST);
 }
 
-void	get_paths(const char *line, t_map *data)
+void	get_textures(const char *line, t_map *data)
 {
 	int		flag;
 	char	*path;

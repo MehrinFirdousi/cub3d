@@ -133,6 +133,15 @@ typedef struct s_map
 	t_texture	e_texture;
 	t_texture	w_texture;
 	t_texture	c_door_texture;
+	char		*door;
+	char		*f1;
+	char		*f2;
+	char		*f3;
+	char		*f4;
+	char		*f5;
+	char		*f6;
+	char		*f7;
+	char		*f8;
 	char		*file;
 	char		**map;
 	int			map_width;
@@ -205,7 +214,7 @@ typedef struct s_ray
 void	init_data(t_map *data);
 void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data);
-void	get_paths(const char *line, t_map *data);
+void	get_textures(const char *line, t_map *data);
 void	get_data(char *line, t_map *map, t_player *p);
 void	get_map(char *line, t_map *map);
 void	check_valid_map(t_map *map);
@@ -221,6 +230,7 @@ int		is_color(char *line);
 int		defined_symbol(char c);
 void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
 void	is_valid_path(char *path, t_map *map);
+int		valid_extra_textures(char *line, t_map *data);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		mouse_move(int x, int y, t_mlx *m);

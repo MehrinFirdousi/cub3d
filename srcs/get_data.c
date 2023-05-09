@@ -19,6 +19,15 @@ void	init_data(t_map *data)
 	data->player_cnt = 0;
 	data->floor_color = -1;
 	data->ceil_color = -1;
+	data->door = NULL;
+	data->f1 = NULL;
+	data->f2 = NULL;
+	data->f3 = NULL;
+	data->f4 = NULL;
+	data->f5 = NULL;
+	data->f6 = NULL;
+	data->f7 = NULL;
+	data->f8 = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;
 	data->w_texture.path = NULL;
@@ -71,6 +80,7 @@ void	get_data(char *line, t_map *data, t_player *p)
 	i = get_upper_map(line, data);
 	if(is_texture(&line[i]) || is_color(&line[i]))
 		put_error("Duplicate data sides", data);
+	i += valid_extra_textures(&line[i], data);
 	while (line[--i] != '\n');
 	get_map(&line[i], data);
 	get_player(data, p);
