@@ -6,7 +6,7 @@
 #    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/09 23:56:50 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/10 00:11:55 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,8 @@ clean:
 fclean:		clean
 			rm -f ${NAME}
 			${MAKE} -C libft fclean
+
+bonus:		all
 
 re:			fclean all
 
