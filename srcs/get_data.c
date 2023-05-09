@@ -19,6 +19,7 @@ void	init_data(t_map *data)
 	data->player_cnt = 0;
 	data->floor_color = -1;
 	data->ceil_color = -1;
+	data->q_flag = 0;
 	data->c_door_texture.path = NULL;
 	data->torch[0].path = NULL;
 	data->torch[1].path = NULL;

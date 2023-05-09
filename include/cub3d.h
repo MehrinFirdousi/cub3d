@@ -45,6 +45,7 @@
 #  define S 1
 #  define D 2
 #  define E 14
+#  define Q 12
 #  define LEFT	123
 #  define UP	126
 #  define RIGHT	124
@@ -143,6 +144,7 @@ typedef struct s_map
 	int			player_cnt;
 	int			color_cnt;
 	int			texture_cnt;
+	int			q_flag;
 	int			player_x;
 	int			player_y;
 }	t_map;
@@ -171,6 +173,7 @@ typedef struct s_keys
 	bool	a;
 	bool	s;
 	bool	d;
+	bool	q;
 	bool	left;
 	bool	right;
 	bool	tab;
