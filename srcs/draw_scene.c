@@ -122,7 +122,7 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool is_vertical)
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
-	line_offset = WIN_HEIGHT / 2 - line_height / 2;
+	line_offset = WIN_HEIGHT / 2 - line_height / 2 + m->p->view_offset;
 	i = -1;
 	while (++i < line_offset)
 		my_mlx_pixel_put(m->img, ray_no, i, m->map->ceil_color);

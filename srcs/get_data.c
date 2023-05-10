@@ -27,8 +27,6 @@ void	init_data(t_map *data)
 	data->torch[3].path = NULL;
 	data->torch[4].path = NULL;
 	data->torch[5].path = NULL;
-	data->torch[6].path = NULL;
-	data->torch[7].path = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;
 	data->w_texture.path = NULL;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
+#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/10 00:11:55 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/10 17:17:40 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ ifeq ($(OS),Linux)
 else
 	MLX			=	libmlx.dylib
 	MLX_DIR		=	mlx
-	CFLAGS		=	 -I ${HEADER} -I ${MLX_DIR} -Ofast
+	CFLAGS		=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
 	MLX_FLAGS	=	-L. -lmlx -framework OpenGL -framework AppKit
 endif
 

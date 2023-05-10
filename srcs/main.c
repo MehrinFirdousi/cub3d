@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/10 16:51:12 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:12:47 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	mlx_set_up(t_mlx *m)
 	m->p->py = (m->p->py * MM_SIZE) + (MM_SIZE / 2);
 	m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 	m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
+	m->p->view_offset = 0;
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	get_textures_from_xpm(m);
 	get_torch_sprite(m);

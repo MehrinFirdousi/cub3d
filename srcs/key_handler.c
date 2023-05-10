@@ -43,7 +43,7 @@ void	redraw_image(t_mlx *m)
 	mlx_put_image_to_window(m->mlx, m->win, m->map->torch[m->map->torch_frame].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.45);
 }
 
-bool	open_door(t_mlx *m)
+void	open_door(t_mlx *m)
 {
 	int	r_mapx;
 	int	r_mapy;
@@ -52,7 +52,6 @@ bool	open_door(t_mlx *m)
 	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
 	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height)
 	{
-		printf("e cliwked\n");
 		if (m->map->map[r_mapy][r_mapx] == 'D')
 			m->map->map[r_mapy][r_mapx] = 'O';
 		if (m->map->map[r_mapy][r_mapx] == '1')
@@ -69,9 +68,8 @@ bool	open_door(t_mlx *m)
 					m->map->map[r_mapy - 1][r_mapx] = 'D';
 			}
 		}
-		return (true);
+		redraw_image(m);
 	}
-	return (false);
 }
 
 int	key_up_handler(int keycode, t_mlx *m)
@@ -85,6 +83,10 @@ int	key_up_handler(int keycode, t_mlx *m)
 		m->keys->left = false;
 	if (keycode == RIGHT)
 		m->keys->right = false;
+	if (keycode == UP)
+		m->keys->up = false;
+	if (keycode == DOWN)
+		m->keys->down = false;
 	if (keycode == S)
 		m->keys->s = false;
 	if (keycode == W)
@@ -106,8 +108,21 @@ int	key_up_handler(int keycode, t_mlx *m)
 		redraw_image(m);
 	}
 	if (keycode == E)
-		if (open_door(m))
-			redraw_image(m);
+		open_door(m);
+	if (keycode == Q)
+	{
+		if(m->map->q_flag)
+		{
+			mlx_mouse_show();
+			m->map->q_flag = !m->map->q_flag;
+		}
+		else
+		{
+			mlx_mouse_hide();
+			m->map->q_flag = !m->map->q_flag;
+		}
+		m->keys->q = true;
+	}
 	return (0);
 }
 
@@ -117,6 +132,10 @@ int	key_down_handler(int keycode, t_mlx *m)
 		m->keys->left = true;
 	if (keycode == RIGHT)
 		m->keys->right = true;
+	if (keycode == UP)
+		m->keys->up = true;
+	if (keycode == DOWN)
+		m->keys->down = true;
 	if (keycode == S)
 		m->keys->s = true;
 	if (keycode == W)
@@ -125,20 +144,6 @@ int	key_down_handler(int keycode, t_mlx *m)
 		m->keys->a = true;
 	if (keycode == D)
 		m->keys->d = true;
-	if (keycode == Q)
-	{
-		if(m->map->q_flag)
-		{
-			mlx_mouse_show();
-			m->map->q_flag = !m->map->q_flag;	
-		}
-		else if(!m->map->q_flag)
-		{
-			mlx_mouse_hide();
-			m->map->q_flag = !m->map->q_flag;
-		}
-		m->keys->q = true;
-	}
 	if (keycode == SHIFT)
 	{
 		m->keys->shift = true;
@@ -202,7 +207,6 @@ int	mouse_move(int x, int y, t_mlx *m)
 				mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 		else if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 		{
-			// printf("inside x == %d\n", x);
 			if (x > ox)
 			{
 				mouse_right = 1;
@@ -228,17 +232,14 @@ int	mouse_move(int x, int y, t_mlx *m)
 	if (mouse_right | mouse_left | \
 		m->keys->s | m->keys->w | m->keys->a | m->keys->d)
 	{
-		m->frame_count+=150;
+		m->frame_count += 150;
 		redraw_image(m);
 	}
 	return (0);
 }
 
-// void	refresh()
 int	key_hold_handler(t_mlx *m)
 {
-	// static	int	frame_count;
-
 	if (m->keys->left)
 	{
 		m->p->pa -= (TURN_SPEED * m->keys->speed);
@@ -254,6 +255,16 @@ int	key_hold_handler(t_mlx *m)
 			m->p->pa -= TWO_PI;
 		m->p->pdx = cos(m->p->pa) * STRAFE_SPEED * m->keys->speed;
 		m->p->pdy = sin(m->p->pa) * STRAFE_SPEED * m->keys->speed;
+	}
+	if (m->keys->up)
+	{
+		if (m->p->view_offset < WIN_HEIGHT >> 1)
+			m->p->view_offset += VIEW_SPEED;
+	}
+	if (m->keys->down)
+	{
+		if (m->p->view_offset > -(WIN_HEIGHT >> 1))
+			m->p->view_offset -= VIEW_SPEED;
 	}
 	if (m->keys->s)
 	{
@@ -283,21 +294,16 @@ int	key_hold_handler(t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
-	// if (frame_count >= FPS)
 	if (m->frame_count >= FPS)
 	{
 		m->map->torch_frame = (m->map->torch_frame + 1) % FRAME_TOTAL;
 		redraw_image(m);
-		// frame_count = 0;
 		m->frame_count = 0;
 	}
-	// printf("fps %d\n", frame_count);
-	// frame_count++;
 	m->frame_count++;
 	if (m->keys->left | m->keys->right | \
-		m->keys->s | m->keys->w | m->keys->a | m->keys->d | m->keys->shift)
+		m->keys->s | m->keys->w | m->keys->a | m->keys->d | m->keys->shift | m->keys->up | m->keys->down)
 	{
-		// frame_count += 200;
 		m->frame_count += 200;
 		redraw_image(m);
 	}

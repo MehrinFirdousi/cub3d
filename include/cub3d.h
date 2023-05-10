@@ -30,6 +30,7 @@
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define ORANGE 0X00CEA18D
+# define VIEW_SPEED 20
 # define STRAFE_SPEED 1
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 # define ANGLE_STEP 0.000858358649063299 // 0.5 deg in rad
@@ -165,7 +166,7 @@ typedef struct s_player
 	double	py;	
 	double	pdx;
 	double	pdy;
-
+	int		view_offset;
 }	t_player;
 
 typedef struct s_keys
@@ -177,6 +178,8 @@ typedef struct s_keys
 	bool	q;
 	bool	left;
 	bool	right;
+	bool	up;
+	bool	down;
 	bool	tab;
 	bool	shift;
 	double	speed;

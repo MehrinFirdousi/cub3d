@@ -6,12 +6,11 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 16:51:46 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:03:53 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 static char	*bonus_path_substr(const char *line, t_map *map)
 {
@@ -71,7 +70,7 @@ void	get_textures1(const char *line, t_map *data)
 	else if (flag == 6 && !data->torch[5].path)
 		data->torch[5].path = path;
 	else
-		put_error("Dublicate flame side", data);
+		put_error("Duplicate flame side", data);
 }
 
 int is_extra_texture(char *line)
