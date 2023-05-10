@@ -6,11 +6,32 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 19:19:08 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 23:51:43 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void free_colors_utils(char *str, int *colors, t_map *map, int i)
+{
+	if (!str[i])
+	{
+		free(str);
+		free(colors);
+		put_error("Not valid colors!!", map);
+	}
+}
+
+static void is_valid_range(char *str, int *colors, t_map *map)
+{
+	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
+		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
+		{
+			free(colors);
+			free(str);
+			put_error("color range 0 -> 255", map);
+		}
+}
 
 static char	*get_subline(const char *line, t_map *map)
 {
@@ -36,23 +57,30 @@ static void validate_surface(int *colors, char *line, char *str, t_map *map)
 {
 	int surface;
 
-	if (colors[0] < 0 || colors[0] > 255 || colors[1] < 0
-		|| colors[1] > 255 || colors[2] < 0 || colors[2] > 255)
-		free(colors), free(str), put_error("color range 0 -> 255", map);
+	is_valid_range(str, colors, map);
 	surface = check_surface(line, map);
 	if (surface == E_FLOOR)
 	{
 		if(map->floor_color > -1)
-			free(str), free(colors), put_error("Duplicate colors sides", map);
-		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
+		{
+			free(str);
+			free(colors);
+			put_error("Duplicate colors sides", map);
+		}
+		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]);
+		free(colors);
 	}
 	else if(surface == E_CEIL)
 	{
 		if(map->ceil_color > -1)
-			free(str), free(colors), put_error("Duplicate colors sides", map);	
-		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
+		{
+			free(str);
+			free(colors);
+			put_error("Duplicate colors sides", map);	
+		}
+		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]);
+		free(colors);
 	}
-
 }
 
 void	get_colors(char *line, t_map *map)
@@ -68,16 +96,18 @@ void	get_colors(char *line, t_map *map)
 	str = get_subline(&line[i + 2], map);
 	colors[0] = valid_color(str);
 	i = cur_index(str, ',');
-	if (!str[i])
-		free(str), free(colors), put_error("Not valid colors!!", map);
+	free_colors_utils(str, colors, map, i);
 	colors[1] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
-	if (!str[i])
-		free(str), free(colors), put_error("Not valid colors!!", map);
+	free_colors_utils(str, colors, map, i);
 	colors[2] = valid_color(&str[i + 1]);
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] != '\0')
-		free(str), free(colors), put_error("Must be 3 color", map);
+	{
+		free(str);
+		free(colors);
+		put_error("Must be 3 color", map);
+	}
 	printf("%d %d %d\n", colors[0], colors[1], colors[2]);	
 	validate_surface(colors, line, str, map);
 	free(str);

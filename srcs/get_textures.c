@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 21:34:45 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 23:35:56 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*path_substr(const char *line, t_map *map)
 {
 	int		i;
+	
 	while (ft_is_space(*line))
 		++line;
 	if (*line == '\0')
@@ -58,5 +59,8 @@ void	get_textures(const char *line, t_map *data)
 	else if (flag == E_EAST && !data->e_texture.path)
 		data->e_texture.path = path;
 	else
-		free (path), put_error("Dublicate path side", data);
+	{
+		free (path);
+		put_error("Dublicate path side", data);
+	}
 }

@@ -14,6 +14,7 @@
 
 void	init_data(t_map *data)
 {
+	int i;
 	data->map_height = 0;
 	data->map_width = 0;
 	data->player_cnt = 0;
@@ -21,12 +22,9 @@ void	init_data(t_map *data)
 	data->ceil_color = -1;
 	data->q_flag = 0;
 	data->c_door_texture.path = NULL;
-	data->torch[0].path = NULL;
-	data->torch[1].path = NULL;
-	data->torch[2].path = NULL;
-	data->torch[3].path = NULL;
-	data->torch[4].path = NULL;
-	data->torch[5].path = NULL;
+	i = (int)FRAME_TOTAL;
+	while(data->torch[--i].path)
+		data->torch[i].path = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;
 	data->w_texture.path = NULL;

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 19:05:58 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 23:32:31 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,10 @@ void print_map(t_map *map, t_player *p)
 	printf("{%s}\n", map->s_texture.path);
 	printf("{%s}\n", map->w_texture.path);
 	printf("{%s}\n", map->e_texture.path);
-	if(map->c_door_texture.path)
-		printf("Door {%s}\n", map->c_door_texture.path);
-	i = 0;
-	while(i < FRAME_TOTAL)
-	{
-		if(map->torch[i].path)
-			printf("T%i {%s}\n", i+1, map->torch[i].path);
-		i++;
-	}
+	printf("Door {%s}\n", map->c_door_texture.path);
+	i = -1;
+	while(++i < FRAME_TOTAL)
+		printf("T%i {%s}\n", i+1, map->torch[i].path);
 	i = 0;		
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
