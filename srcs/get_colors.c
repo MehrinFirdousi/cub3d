@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:41:03 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 19:19:08 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static void validate_surface(int *colors, char *line, char *str, t_map *map)
 	if (surface == E_FLOOR)
 	{
 		if(map->floor_color > -1)
-			put_error("Duplicate colors sides", map);
+			free(str), free(colors), put_error("Duplicate colors sides", map);
 		map->floor_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
 	}
 	else if(surface == E_CEIL)
 	{
 		if(map->ceil_color > -1)
-			put_error("Duplicate colors sides", map);	
+			free(str), free(colors), put_error("Duplicate colors sides", map);	
 		map->ceil_color = create_trgb(0, colors[0], colors[1], colors[2]), free(colors);
 	}
 

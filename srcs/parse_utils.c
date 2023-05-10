@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 16:43:13 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:05:58 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	cur_index(const char *str, char c)
 
 static void free_malloced(t_map *map)
 {
+	int i;	
 	if(map->n_texture.path)
 		free(map->n_texture.path);
 	if(map->s_texture.path)
@@ -58,9 +59,18 @@ static void free_malloced(t_map *map)
 		free(map->w_texture.path);
 	if(map->e_texture.path)
 		free(map->e_texture.path);
+	i = 0;	
+	while(i < FRAME_TOTAL)
+	{
+		if(map->torch[i].path)
+			free(map->torch[i].path);
+		i++;		
+	}
 	if(map->file)
 		free(map->file);
-	int i = 0;	
+	if(map->c_door_texture.path)
+		free(map->c_door_texture.path);
+	i = 0;	
 	while(i < map->map_height)
 			free(map->map[i++]);
 	if(map->map_height)		
@@ -90,14 +100,16 @@ void print_map(t_map *map, t_player *p)
 	printf("{%s}\n", map->s_texture.path);
 	printf("{%s}\n", map->w_texture.path);
 	printf("{%s}\n", map->e_texture.path);
-	printf("Door {%s}\n", map->c_door_texture.path);
-	printf("T1 {%s}\n", map->torch[0].path);
-	printf("T2 {%s}\n", map->torch[1].path);
-	printf("T3 {%s}\n", map->torch[2].path);
-	printf("T4 {%s}\n", map->torch[3].path);
-	printf("T5 {%s}\n", map->torch[4].path);
-	printf("T6 {%s}\n", map->torch[5].path);
-
+	if(map->c_door_texture.path)
+		printf("Door {%s}\n", map->c_door_texture.path);
+	i = 0;
+	while(i < FRAME_TOTAL)
+	{
+		if(map->torch[i].path)
+			printf("T%i {%s}\n", i+1, map->torch[i].path);
+		i++;
+	}
+	i = 0;		
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }
