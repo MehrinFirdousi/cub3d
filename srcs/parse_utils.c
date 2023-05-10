@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:55:06 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 16:43:13 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ void print_map(t_map *map, t_player *p)
 	printf("{%s}\n", map->s_texture.path);
 	printf("{%s}\n", map->w_texture.path);
 	printf("{%s}\n", map->e_texture.path);
+	printf("Door {%s}\n", map->c_door_texture.path);
+	printf("T1 {%s}\n", map->torch[0].path);
+	printf("T2 {%s}\n", map->torch[1].path);
+	printf("T3 {%s}\n", map->torch[2].path);
+	printf("T4 {%s}\n", map->torch[3].path);
+	printf("T5 {%s}\n", map->torch[4].path);
+	printf("T6 {%s}\n", map->torch[5].path);
+
 	while(map->map[i])
 		ft_printf("{%s}\n", map->map[i++]);
 }

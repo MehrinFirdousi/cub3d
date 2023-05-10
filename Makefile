@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/09 20:45:55 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/10 00:11:55 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	srcs/main.c \
 			srcs/valid_map.c \
 			srcs/parse_utils.c \
 			srcs/extra_parse_utils.c \
+			srcs/bonus_parse.c \
 			srcs/key_handler.c \
 			srcs/draw_minimap.c \
 			srcs/draw_scene.c \
@@ -48,7 +49,7 @@ ifeq ($(OS),Linux)
 else
 	MLX			=	libmlx.dylib
 	MLX_DIR		=	mlx
-	CFLAGS		=	-Wall -Werror -Wextra -I ${HEADER} -I ${MLX_DIR} -Ofast
+	CFLAGS		=	 -I ${HEADER} -I ${MLX_DIR} -Ofast
 	MLX_FLAGS	=	-L. -lmlx -framework OpenGL -framework AppKit
 endif
 

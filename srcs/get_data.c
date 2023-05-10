@@ -19,6 +19,16 @@ void	init_data(t_map *data)
 	data->player_cnt = 0;
 	data->floor_color = -1;
 	data->ceil_color = -1;
+	data->q_flag = 0;
+	data->c_door_texture.path = NULL;
+	data->torch[0].path = NULL;
+	data->torch[1].path = NULL;
+	data->torch[2].path = NULL;
+	data->torch[3].path = NULL;
+	data->torch[4].path = NULL;
+	data->torch[5].path = NULL;
+	data->torch[6].path = NULL;
+	data->torch[7].path = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;
 	data->w_texture.path = NULL;
@@ -71,6 +81,7 @@ void	get_data(char *line, t_map *data, t_player *p)
 	i = get_upper_map(line, data);
 	if(is_texture(&line[i]) || is_color(&line[i]))
 		put_error("Duplicate data sides", data);
+	i += valid_extra_textures(&line[i], data);
 	while (line[--i] != '\n');
 	get_map(&line[i], data);
 	get_player(data, p);

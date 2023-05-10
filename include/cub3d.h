@@ -46,6 +46,7 @@
 #  define S 1
 #  define D 2
 #  define E 14
+#  define Q 12
 #  define LEFT	123
 #  define UP	126
 #  define RIGHT	124
@@ -144,6 +145,7 @@ typedef struct s_map
 	int			player_cnt;
 	int			color_cnt;
 	int			texture_cnt;
+	int			q_flag;
 	int			player_x;
 	int			player_y;
 }	t_map;
@@ -172,6 +174,7 @@ typedef struct s_keys
 	bool	a;
 	bool	s;
 	bool	d;
+	bool	q;
 	bool	left;
 	bool	right;
 	bool	tab;
@@ -210,7 +213,7 @@ typedef struct s_ray
 void	init_data(t_map *data);
 void	parsing(int argc, char **argv, t_map *map, t_player *p);
 int		get_upper_map(char *line, t_map *data);
-void	get_paths(const char *line, t_map *data);
+void	get_textures(const char *line, t_map *data);
 void	get_data(char *line, t_map *map, t_player *p);
 void	get_map(char *line, t_map *map);
 void	check_valid_map(t_map *map);
@@ -226,6 +229,7 @@ int		is_color(char *line);
 int		defined_symbol(char c);
 void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
 void	is_valid_path(char *path, t_map *map);
+int		valid_extra_textures(char *line, t_map *data);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		mouse_move(int x, int y, t_mlx *m);

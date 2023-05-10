@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/10 16:09:34 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:51:12 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	get_textures_from_xpm(t_mlx *m)
 	if (w->img)
 		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
 				&w->endian);
-	door_open->img = mlx_xpm_file_to_image(m->mlx, "game_textures/door.xpm", &door_open->width, &door_open->height);
+	door_open->img = mlx_xpm_file_to_image(m->mlx, door_open->path, &door_open->width, &door_open->height);
 	if (door_open->img)
 		door_open->addr = mlx_get_data_addr(door_open->img, &door_open->bits_per_pixel, &door_open->line_length,
 				&door_open->endian);
@@ -69,12 +69,13 @@ void	get_textures_from_xpm(t_mlx *m)
 
 void	get_torch_sprite(t_mlx *m)
 {
-	m->map->torch[0].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel1.xpm", &m->map->torch[0].width, &m->map->torch[0].height);
-	m->map->torch[1].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel2.xpm", &m->map->torch[1].width, &m->map->torch[1].height);
-	m->map->torch[2].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel3.xpm", &m->map->torch[2].width, &m->map->torch[2].height);
-	m->map->torch[3].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel4.xpm", &m->map->torch[3].width, &m->map->torch[3].height);
-	m->map->torch[4].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel5.xpm", &m->map->torch[4].width, &m->map->torch[4].height);
-	m->map->torch[5].img = mlx_xpm_file_to_image(m->mlx, "game_textures/torch-pixel6.xpm", &m->map->torch[5].width, &m->map->torch[5].height);
+	t_texture	*t;
+	int			i;
+
+	t = &m->map->torch[0];
+	i = -1;
+	while (++i < FRAME_TOTAL)
+		t[i].img = mlx_xpm_file_to_image(m->mlx, t[i].path, &t[i].width, &t[i].height);
 }
 
 void	mlx_set_up(t_mlx *m)

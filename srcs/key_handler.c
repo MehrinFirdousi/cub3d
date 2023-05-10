@@ -125,6 +125,20 @@ int	key_down_handler(int keycode, t_mlx *m)
 		m->keys->a = true;
 	if (keycode == D)
 		m->keys->d = true;
+	if (keycode == Q)
+	{
+		if(m->map->q_flag)
+		{
+			mlx_mouse_show();
+			m->map->q_flag = !m->map->q_flag;	
+		}
+		else if(!m->map->q_flag)
+		{
+			mlx_mouse_hide();
+			m->map->q_flag = !m->map->q_flag;
+		}
+		m->keys->q = true;
+	}
 	if (keycode == SHIFT)
 	{
 		m->keys->shift = true;
@@ -182,24 +196,27 @@ int	mouse_move(int x, int y, t_mlx *m)
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
-	if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
-		mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
+	if(m->map->q_flag)
 	{
-		mlx_mouse_hide();
-		if (x > ox)
+		if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
+				mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		else if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 		{
-			mouse_right = 1;
-			m->p->pa += (0.03 * m->keys->speed);
-			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
-		}
-		if (x < ox)
-		{
-			mouse_left = 1;
-			m->p->pa -= (0.03 * m->keys->speed);
-			m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-			m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+			// printf("inside x == %d\n", x);
+			if (x > ox)
+			{
+				mouse_right = 1;
+				m->p->pa += (0.03 * m->keys->speed);
+				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+			}
+			if (x < ox)
+			{
+				mouse_left = 1;
+				m->p->pa -= (0.03 * m->keys->speed);
+				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
+				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+			}
 		}
 	}
 	ox = x;
