@@ -125,7 +125,6 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx.win, 6, 0, mouse_move, &mlx);
 	mlx_loop_hook(mlx.mlx, key_hold_handler, &mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	// mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.map->torch[0].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.5);
 	mlx_loop(mlx.mlx);
 	return (0);
 }

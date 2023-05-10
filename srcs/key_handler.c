@@ -12,18 +12,27 @@
 
 #include "cub3d.h"
 
+void	free_texture(t_mlx *m, t_texture *t)
+{
+	if (t->path)
+		free(t->path);
+	if (t->img)
+		mlx_destroy_image(m->mlx, t->img);
+}
+
 int	exit_free(t_mlx *m)
 {
+	int	i;
+
+	i = -1;
+	while (++i < FRAME_TOTAL)
+		free_texture(m, &m->map->torch[i]);
 	mlx_destroy_image(m->mlx, m->img->img);
-	// mlx_destroy_image(m->mlx, m->map->n_texture.img);
-	// mlx_destroy_image(m->mlx, m->map->s_texture.img);
-	// mlx_destroy_image(m->mlx, m->map->w_texture.img);
-	// mlx_destroy_image(m->mlx, m->map->e_texture.img);
-	// mlx_destroy_image(m->mlx, m->map->c_door_texture.img);
-	free(m->map->n_texture.path);
-	free(m->map->s_texture.path);
-	free(m->map->w_texture.path);
-	free(m->map->e_texture.path);
+	free_texture(m, &m->map->n_texture);
+	free_texture(m, &m->map->s_texture);
+	free_texture(m, &m->map->w_texture);
+	free_texture(m, &m->map->e_texture);
+	free_texture(m, &m->map->c_door_texture);
 	free(m->rays);
 	ft_split_destroy(m->map->map);
 	exit(0);
@@ -40,7 +49,8 @@ void	redraw_image(t_mlx *m)
 	if (m->keys->tab)
 		draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
-	mlx_put_image_to_window(m->mlx, m->win, m->map->torch[m->map->torch_frame].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.45);
+	if (m->map->torch[m->map->torch_frame].img)
+		mlx_put_image_to_window(m->mlx, m->win, m->map->torch[m->map->torch_frame].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.45);
 }
 
 void	open_door(t_mlx *m)

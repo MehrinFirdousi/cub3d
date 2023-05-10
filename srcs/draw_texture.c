@@ -57,20 +57,33 @@ void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height)
 		t = &m->map->c_door_texture;
 	else
 		t = get_texture(m, r, p);
-	colors = (int *)t->addr;
-	t->ty = 0;
-	if (r->vertical)
-		t->tx = (int)(r->ry * (t->width / BLOCK_SIZE)) % t->width;
-	else
-		t->tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
-	ty_step = (double)t->height / l_height;
-	while (++i < l_height + p.y && i < WIN_HEIGHT)
+	if (t->img)
 	{
-		color = colors[abs(((int)(t->ty) * t->width + (int)t->tx)
-			% (t->width * t->height))];
+		colors = (int *)t->addr;
+		t->ty = 0;
 		if (r->vertical)
-			color = (color & 0xfefefe) >> 1;
-		my_mlx_pixel_put(m->img, p.x, i, color);
-		t->ty += ty_step;
+			t->tx = (int)(r->ry * (t->width / BLOCK_SIZE)) % t->width;
+		else
+			t->tx = (int)(r->rx * (t->width / BLOCK_SIZE)) % t->width;
+		ty_step = (double)t->height / l_height;
+		while (++i < l_height + p.y && i < WIN_HEIGHT)
+		{
+			color = colors[abs(((int)(t->ty) * t->width + (int)t->tx)
+				% (t->width * t->height))];
+			if (r->vertical)
+				color = (color & 0xfefefe) >> 1;
+			my_mlx_pixel_put(m->img, p.x, i, color);
+			t->ty += ty_step;
+		}
 	}
+	else
+		while (++i < l_height + p.y && i < WIN_HEIGHT)
+		{
+			color = TEAL;
+			if (r->vertical)
+				color = TEAL_D;
+				// color = ((color & 0x7E7E7E) >> 1) | (color & 0x808080);
+				// color = (color & 0xfefefe) >> 1;
+			my_mlx_pixel_put(m->img, p.x, i, color);
+		}
 }
