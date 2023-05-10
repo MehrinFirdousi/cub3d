@@ -37,6 +37,7 @@
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
 # define FPS 1000
+# define FRAME_TOTAL 6
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -134,7 +135,7 @@ typedef struct s_map
 	t_texture	e_texture;
 	t_texture	w_texture;
 	t_texture	c_door_texture;
-	t_texture	torch[8];
+	t_texture	torch[FRAME_TOTAL];
 	int			torch_frame;
 	char		*file;
 	char		**map;
@@ -187,6 +188,7 @@ typedef struct s_mlx
 	t_map		*map;
 	t_keys		*keys;
 	t_point		*rays;
+	int			frame_count;
 }	t_mlx;
 
 typedef struct s_ray
