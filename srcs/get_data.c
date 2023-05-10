@@ -23,7 +23,7 @@ void	init_data(t_map *data)
 	data->q_flag = 0;
 	data->c_door_texture.path = NULL;
 	i = (int)FRAME_TOTAL;
-	while(data->torch[--i].path)
+	while(--i > -1)
 		data->torch[i].path = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;

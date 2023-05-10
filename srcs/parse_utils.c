@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 23:32:31 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 01:14:28 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,5 @@ int	check_surface(const char *line, t_map *map)
 		return (E_FLOOR);
 	else if (ft_strncmp(&line[i], "C ", 2) == 0)
 		return (E_CEIL);
-	else
-		put_error("Undefined side", map);
 	return (-1);
 }

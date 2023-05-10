@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 23:51:43 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 01:12:12 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static char	*get_subline(const char *line, t_map *map)
 
 	while (*line == ' ')
 		++line;
-	if (*line == '\0')
-		put_error("No colors", map);
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 		if(line[i])
