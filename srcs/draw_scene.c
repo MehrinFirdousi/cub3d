@@ -99,7 +99,7 @@ static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 			&& m->map[my][mx] == 'D')
 		{
 			r->door_status = 1;
-			break;
+			break ;
 		}
 		else
 		{
@@ -111,14 +111,13 @@ static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 }
 
 // draws one vertical line from the ray, constituting the 3d scene
-static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool is_vertical)
+static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, double *ra)
 {
 	int		i;
 	double	line_height;
 	double	line_offset;
 	double	a_diff;
 
-	r->vertical = is_vertical;
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
 	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
@@ -133,6 +132,8 @@ static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, bool is_vertical)
 		my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
 	m->rays[ray_no].x = r->rx;
 	m->rays[ray_no].y = r->ry;
+	(void)ra;
+	// *ra += atan((double)1 / r->ray_len);
 }
 
 void	draw_scene(t_mlx *m)
@@ -157,9 +158,9 @@ void	draw_scene(t_mlx *m)
 		cast_ray(m->map, &v_ray, true);
 		v_ray.ray_len = get_ray_len(m->p->px, m->p->py, v_ray.rx, v_ray.ry);
 		if (h_ray.ray_len <= v_ray.ray_len)
-			draw_ray(m, &h_ray, i, false);
+			draw_ray(m, &h_ray, i, &ra);
 		else
-			draw_ray(m, &v_ray, i, true);
+			draw_ray(m, &v_ray, i, &ra);
 		ra = fix_angle(ra + ANGLE_STEP);
 	}
 }
