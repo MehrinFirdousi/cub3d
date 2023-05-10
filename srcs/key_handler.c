@@ -170,8 +170,11 @@ bool	player_hit_wall(double px, double py, t_map *map)
 int	mouse_move(int x, int y, t_mlx *m)
 {
 	static int	ox;
+	static int	oy;
 	static int	mouse_left;
+	static int	mouse_up;
 	static int	mouse_right;
+	static int	mouse_down;
 
 	if (m->keys->s)
 	{
@@ -203,33 +206,52 @@ int	mouse_move(int x, int y, t_mlx *m)
 	}
 	if(m->map->q_flag)
 	{
-		if((x < 0 || x > WIN_WIDTH) || y < 0 || y > WIN_HEIGHT)
-				mlx_mouse_move(m->win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		if (y < oy)
+		{
+			mouse_down = 1;
+			if (m->p->view_offset < WIN_HEIGHT >> 1)
+				m->p->view_offset += VIEW_SPEED;
+		}
+		if (y > oy)
+		{
+			mouse_up = 1;
+			if (m->p->view_offset > -(WIN_HEIGHT >> 1))
+				m->p->view_offset -= VIEW_SPEED;
+		}
+		if(x < 0)
+				mlx_mouse_move(m->win, WIN_WIDTH - 1 , WIN_HEIGHT / 2);
+		if(x > WIN_WIDTH)
+				mlx_mouse_move(m->win, 1 , WIN_HEIGHT / 2);
 		else if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 		{
 			if (x > ox)
 			{
 				mouse_right = 1;
-				m->p->pa += (0.03 * m->keys->speed);
+				m->p->pa += (0.04 * m->keys->speed);
+				if (m->p->pa > TWO_PI)
+					m->p->pa -= TWO_PI;
 				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
 				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
 			}
 			if (x < ox)
 			{
 				mouse_left = 1;
-				m->p->pa -= (0.03 * m->keys->speed);
+				m->p->pa -= (0.04 * m->keys->speed);
+				if (m->p->pa < 0)
+					m->p->pa += TWO_PI;
 				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
 				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
 			}
 		}
 	}
 	ox = x;
+	oy = y;
 	if (m->frame_count >= FPS)
 	{
 		m->map->torch_frame = (m->map->torch_frame + 1) % FRAME_TOTAL;
 		m->frame_count = 0;
 	}
-	if (mouse_right | mouse_left | \
+	if (mouse_right | mouse_left | mouse_up | mouse_down | \
 		m->keys->s | m->keys->w | m->keys->a | m->keys->d)
 	{
 		m->frame_count += 150;

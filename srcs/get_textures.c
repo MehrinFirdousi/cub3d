@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 17:53:56 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 19:42:23 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	get_textures(const char *line, t_map *data)
 	path = ft_strtrim(tmp_path, " \t");
 	free(tmp_path);
 	is_valid_path(path, data);
-	flag = -1;	
+	flag = -1;
 	update_flag(&flag, line);
 	if (flag == E_NORTH && !data->n_texture.path)
 		data->n_texture.path = path;
@@ -58,5 +58,5 @@ void	get_textures(const char *line, t_map *data)
 	else if (flag == E_EAST && !data->e_texture.path)
 		data->e_texture.path = path;
 	else
-		put_error("Dublicate path side", data);
+		free (path), put_error("Dublicate path side", data);
 }
