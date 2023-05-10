@@ -233,6 +233,7 @@ int		defined_symbol(char c);
 void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
 void	is_valid_path(char *path, t_map *map);
 int		valid_extra_textures(char *line, t_map *data);
+char	*path_substr(const char *line, t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		mouse_move(int x, int y, t_mlx *m);

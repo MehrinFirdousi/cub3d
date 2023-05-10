@@ -6,13 +6,13 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 19:42:23 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 21:34:45 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*path_substr(const char *line, t_map *map)
+char	*path_substr(const char *line, t_map *map)
 {
 	int		i;
 	while (ft_is_space(*line))

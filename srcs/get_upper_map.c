@@ -47,7 +47,7 @@ int	get_upper_map(char *line, t_map *data)
 	data->texture_cnt = 0;
 	data->color_cnt = 0;
 
-	if (!is_valid_data(&i, line, data))
+	if (!is_valid_data(&i, line, data) && i != 0)
 		return i;
 	if(data->color_cnt != 2 || data->texture_cnt != 4)
 		put_error("Invalid data", data);
