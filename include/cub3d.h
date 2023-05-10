@@ -34,6 +34,7 @@
 # define STRAFE_SPEED 1
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 # define ANGLE_STEP 0.000858358649063299 // 0.5 deg in rad
+# define ONE_DEG 0.0174533 // 1 deg in rad
 # define TWO_PI 6.28318531
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
