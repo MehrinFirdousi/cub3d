@@ -34,7 +34,7 @@ HEADER	=	include
 
 LIBFT	=	libft/libft.a
 
-CC		=	gcc -fsanitize=address -g3
+CC		=	gcc
 
 OS		:=	$(shell uname)
 
