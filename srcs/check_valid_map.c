@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_map.c                                        :+:      :+:    :+:   */
+/*   check_valid_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:42:25 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/10 23:59:45 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,8 @@ static void is_closed(t_map *m, int y, int x)
 
 static bool is_walled(t_map *m, int y, int x)
 {
-	if (y == 0)
+	if (y == 0 || !m->map[y + 1] || !m->map[y][x + 1])
 		printf("%d %d-\n", x, y), put_error("Doors must be walled", m);
-	if (!m->map[y + 1])
-		printf("%d %d--\n", x, y), put_error("Doors must be walled", m);
-	if (x == 0)
-		printf("%d %d---\n", x, y), put_error("Doors must be walled", m);
-	if (!m->map[y][x + 1])
-		printf("%d %d--*\n", x, y), put_error("Doors must be walled", m);
 	if(m->map[y][x + 1] == '1' && m->map[y][x - 1] == '1' &&
 		m->map[y + 1][x] == '1' && m->map[y - 1][x] == '1')
 			return false;
@@ -91,7 +85,8 @@ void check_valid_map(t_map *map)
 					if(!is_walled(map, y, x))
 						put_error("Must be walled", map);
 			}
-			else{
+			else
+			{
 				printf("%d %d\n", y, x);
 				put_error("Undefined Symbol", map);
 			}

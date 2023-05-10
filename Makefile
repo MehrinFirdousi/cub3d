@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/10 22:09:47 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/10 23:53:07 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS	=	srcs/main.c \
 			srcs/get_textures.c \
 			srcs/get_colors.c \
 			srcs/get_map.c \
-			srcs/valid_map.c \
+			srcs/check_valid_map.c \
 			srcs/parse_utils.c \
 			srcs/extra_parse_utils.c \
 			srcs/bonus_parse.c \
