@@ -6,43 +6,42 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 23:29:59 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:56:56 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map)
+void	is_valid_file(const char *file_name, const char *file_exten, t_map *map)
 {
 	int			index;
-	const int	exten = 4;
 
-	index = (int) ft_strlen(file_name) - exten;
-	if (index < 0 || 
-			ft_strncmp(file_exten, (char *)(file_name + index), exten + 1))
-			put_error("Invalid file", map);
+	index = (int)ft_strlen(file_name) - FILE_EXTEN;
+	if (index < 0
+		|| ft_strncmp(file_exten, (char *)(file_name + index), FILE_EXTEN + 1))
+		put_error("Invalid file", map);
 }
 
-static char *read_file(int fd, t_map *map)
+static char	*read_file(int fd, t_map *map)
 {
-	int i;
-	char *line;
-	char *result;
-	
+	int		i;
+	char	*line;
+	char	*result;
+
 	result = ft_strdup("");
 	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line && i == 0)
-			return free(result), put_error("Is Empty", map), NULL;;
+			return (free(result), put_error("Is Empty", map), NULL);
 		if (!line)
-			break;
+			break ;
 		result = ft_strjoin(result, line);
 		free(line);
 		i++;
 	}
-	return result;
+	return (result);
 }
 
 void	parsing(int argc, char **argv, t_map *map, t_player *p)

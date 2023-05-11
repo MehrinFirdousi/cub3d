@@ -14,8 +14,8 @@
 
 char	*path_substr(const char *line, t_map *map)
 {
-	int		i;
-	
+	int	i;
+
 	while (ft_is_space(*line))
 		++line;
 	if (*line == '\0')
@@ -26,7 +26,7 @@ char	*path_substr(const char *line, t_map *map)
 	return (ft_substr(line, 0, i));
 }
 
-static void update_flag(int *flag, const char *line)
+static void	update_flag(int *flag, const char *line)
 {
 	if (!ft_strncmp(line, "NO ", 3))
 		*flag = (E_NORTH);
@@ -40,9 +40,9 @@ static void update_flag(int *flag, const char *line)
 
 void	get_textures(const char *line, t_map *data)
 {
-	int		flag;
-	char	*path;
-	char	*tmp_path;
+	int flag;
+	char *path;
+	char *tmp_path;
 
 	tmp_path = path_substr(&line[3], data);
 	path = ft_strtrim(tmp_path, " \t");
@@ -60,7 +60,7 @@ void	get_textures(const char *line, t_map *data)
 		data->e_texture.path = path;
 	else
 	{
-		free (path);
+		free(path);
 		put_error("Dublicate path side", data);
 	}
 }

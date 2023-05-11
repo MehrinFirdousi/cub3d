@@ -12,24 +12,24 @@
 
 #include "cub3d.h"
 
-static int is_valid_data(int *i, char *line, t_map *data)
+static int	is_valid_data(int *i, char *line, t_map *data)
 {
 	while (line[*i] != '\0')
 	{
 		while (line[*i] && ft_is_space(line[*i]))
 			(*i)++;
 		if (data->texture_cnt == 4 && is_texture(&line[*i]))
-			return 0;
+			return (0);
 		if (data->color_cnt == 2 && is_color(&line[*i]))
-			return 0;
-		if(is_texture(&line[*i]))
+			return (0);
+		if (is_texture(&line[*i]))
 		{
 			get_textures(&line[*i], data);
 			data->texture_cnt++;
 		}
 		else if (is_color(&line[*i]))
 		{
-			get_colors(&line[*i], data);	
+			get_colors(&line[*i], data);
 			data->color_cnt++;
 		}
 		else
@@ -41,15 +41,15 @@ static int is_valid_data(int *i, char *line, t_map *data)
 
 int	get_upper_map(char *line, t_map *data)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	data->texture_cnt = 0;
 	data->color_cnt = 0;
 
 	if (!is_valid_data(&i, line, data) && i != 0)
-		return i;
-	if(data->color_cnt != 2 || data->texture_cnt != 4)
+		return (i);
+	if (data->color_cnt != 2 || data->texture_cnt != 4)
 		put_error("Invalid data", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);

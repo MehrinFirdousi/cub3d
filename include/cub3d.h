@@ -40,6 +40,9 @@
 # define MM_SIZE 16
 # define FPS 1000
 # define FRAME_TOTAL 6
+# define FILE_EXTEN 4
+# define  MIN_COLOR 0
+# define  MAX_COLOR 255
 
 # ifdef __APPLE__
 #  define ESC 53
