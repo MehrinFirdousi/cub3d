@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 23:35:56 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:07:44 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	update_flag(int *flag, const char *line)
 
 void	get_textures(const char *line, t_map *data)
 {
-	int flag;
-	char *path;
-	char *tmp_path;
+	int		flag;
+	char	*path;
+	char	*tmp_path;
 
 	tmp_path = path_substr(&line[3], data);
 	path = ft_strtrim(tmp_path, " \t");

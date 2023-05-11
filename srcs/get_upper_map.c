@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:29:30 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:08:47 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 21:43:08 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ static int	is_valid_data(int *i, char *line, t_map *data)
 
 int	get_upper_map(char *line, t_map *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->texture_cnt = 0;
 	data->color_cnt = 0;
-
 	if (!is_valid_data(&i, line, data) && i != 0)
 		return (i);
 	if (data->color_cnt != 2 || data->texture_cnt != 4)

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 19:45:14 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:25:29 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	valid_color(const char *str)
 	while (ft_isdigit(str[i]))
 	{
 		num = num * 10 + (str[i++] - '0');
-		if (num > 255)
+		if (num > MAX_COLOR)
 			return (-1);
 	}
 	while (str[i] == ' ' || str[i] == '\t')
@@ -48,10 +48,8 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-static void	free_malloced(t_map *map)
+void free_paths(t_map *map)
 {
-	int	i;
-
 	if (map->n_texture.path)
 		free(map->n_texture.path);
 	if (map->s_texture.path)
@@ -60,6 +58,15 @@ static void	free_malloced(t_map *map)
 		free(map->w_texture.path);
 	if (map->e_texture.path)
 		free(map->e_texture.path);
+	if (map->file)
+		free(map->file);
+}
+
+void	free_malloced(t_map *map)
+{
+	int	i;
+
+	free_paths(map);
 	i = 0;
 	while (i < FRAME_TOTAL)
 	{
@@ -67,8 +74,6 @@ static void	free_malloced(t_map *map)
 			free(map->torch[i].path);
 		i++;
 	}
-	if (map->file)
-		free(map->file);
 	if (map->c_door_texture.path)
 		free(map->c_door_texture.path);
 	i = 0;

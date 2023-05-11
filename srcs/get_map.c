@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:41:33 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:26:50 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,16 @@ static void	check_mini_map(char *line, t_map *map)
 	map->map_height = mapy_len(line, map);
 	if (map->map_height < 3 || map->map_height < 3)
 	{
-		if (map->n_texture.path)
-			free(map->n_texture.path);
-		if (map->s_texture.path)
-			free(map->s_texture.path);
-		if (map->w_texture.path)
-			free(map->w_texture.path);
-		if (map->e_texture.path)
-			free(map->e_texture.path);
-		if (map->file)
-			free(map->file);
-		ft_printf("ERROR\nInvalid map\n"), exit(1);
+		free_paths(map);
+		ft_printf("ERROR\nInvalid map\n");
+		exit(1);
 	}
 }
 
 void	get_map(char *line, t_map *map)
 {
-	int i;
-	int y;
+	int	i;
+	int	y;
 
 	check_mini_map(line, map);
 	map->map = malloc(sizeof(char *) * (map->map_height + 1));
@@ -126,6 +118,4 @@ void	get_map(char *line, t_map *map)
 			line++;
 	}
 	map->map[y] = NULL;
-	check_valid_map(map);
-	fill_map(map);
 }

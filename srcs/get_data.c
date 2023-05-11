@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:07:04 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:22:26 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,9 @@ void	get_data(char *line, t_map *data, t_player *p)
 	while (line[--i] != '\n')
 		;
 	get_map(&line[i], data);
+	check_valid_map(data);
+	check_empty_line(data);
+	valid_player(data);
+	fill_map(data);
 	get_player(data, p);
 }
