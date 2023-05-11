@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 01:12:12 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:45:22 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void is_valid_range(char *str, int *colors, t_map *map)
 		}
 }
 
-static char	*get_subline(const char *line, t_map *map)
+static char	*get_subline(const char *line)
 {
 	int		i;
 
@@ -56,7 +56,7 @@ static void validate_surface(int *colors, char *line, char *str, t_map *map)
 	int surface;
 
 	is_valid_range(str, colors, map);
-	surface = check_surface(line, map);
+	surface = check_surface(line);
 	if (surface == E_FLOOR)
 	{
 		if(map->floor_color > -1)
@@ -91,7 +91,7 @@ void	get_colors(char *line, t_map *map)
 	colors = malloc(sizeof(int) * 3);
 	while(line[i] && line[i] == ' ')
 		i++;
-	str = get_subline(&line[i + 2], map);
+	str = get_subline(&line[i + 2]);
 	colors[0] = valid_color(str);
 	i = cur_index(str, ',');
 	free_colors_utils(str, colors, map, i);

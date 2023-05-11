@@ -225,7 +225,7 @@ void	get_map(char *line, t_map *map);
 void	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
-int		check_surface(const char *line, t_map *map);
+int		check_surface(const char *line);
 void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
 void	print_map(t_map *map, t_player *p);

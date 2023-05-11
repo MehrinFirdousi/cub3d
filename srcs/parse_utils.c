@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 01:14:28 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:45:14 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void print_map(t_map *map, t_player *p)
 		ft_printf("{%s}\n", map->map[i++]);
 }
 
-int	check_surface(const char *line, t_map *map)
+int	check_surface(const char *line)
 {	
 	int i;
 
