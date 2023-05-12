@@ -32,13 +32,14 @@
 # define ORANGE 0X00CEA18D
 # define VIEW_SPEED 20
 # define STRAFE_SPEED 1
+# define MOUSE_SENS 0.045 // 2.57 deg in rad
 # define TURN_SPEED 0.0261799 // 2 deg in rad
 # define ANGLE_STEP 0.000858358649063299 // 0.5 deg in rad
 # define ONE_DEG 0.0174533 // 1 deg in rad
 # define TWO_PI 6.28318531
 # define BLOCK_SIZE 16
 # define MM_SIZE 16
-# define FPS 1000
+# define REFRESH_RATE 1000
 # define FRAME_TOTAL 6
 # define FILE_EXTEN 4
 # define  MIN_COLOR 0
@@ -152,7 +153,6 @@ typedef struct s_map
 	int			player_cnt;
 	int			color_cnt;
 	int			texture_cnt;
-	int			q_flag;
 	int			player_x;
 	int			player_y;
 }	t_map;
@@ -246,11 +246,22 @@ void	fill_map(t_map *map);
 void	free_paths(t_map *map);
 void	free_malloced(t_map *map);
 
-int		key_up_handler(int keycode, t_mlx *m);
+// mouse handlers
+void	toggle_mouse(t_mlx *m);
 int		mouse_move(int x, int y, t_mlx *m);
+
+// key handlers
+int		key_up_handler(int keycode, t_mlx *m);
 int		key_down_handler(int keycode, t_mlx *m);
 int		key_hold_handler(t_mlx *m);
+
+// key actions
+void	open_door(t_mlx *m);
+void	move_player(t_mlx *m);
+void	change_player_direction(t_mlx *m);
+
 int		exit_free(t_mlx *m);
+void	redraw_image(t_mlx *m);
 
 double	deg_to_rad(double x);
 void	draw_player(t_mlx *m);

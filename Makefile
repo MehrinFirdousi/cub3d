@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
+#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/10 23:53:07 by ahassan          ###   ########.fr        #
+#    Updated: 2023/05/12 16:01:06 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,14 @@ SRCS	=	srcs/main.c \
 			srcs/extra_parse_utils.c \
 			srcs/bonus_parse.c \
 			srcs/key_handler.c \
+			srcs/key_handler_utils.c \
+			srcs/mouse_handler.c \
 			srcs/draw_minimap.c \
 			srcs/draw_scene.c \
 			srcs/draw_texture.c \
-			srcs/draw_utils.c
+			srcs/draw_utils.c \
+			srcs/redraw_image.c \
+			srcs/exit_free.c
 			
 
 OBJS	=	${SRCS:.c=.o}

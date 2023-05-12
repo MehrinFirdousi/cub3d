@@ -3,34 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:22:26 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/12 14:49:06 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_data(t_map *data)
+void	init_data(t_map *map)
 {
 	int	i;
 
-	data->map_height = 0;
-	data->map_width = 0;
-	data->player_cnt = 0;
-	data->floor_color = -1;
-	data->ceil_color = -1;
-	data->q_flag = 0;
-	data->c_door_texture.path = NULL;
+	map->map_height = 0;
+	map->map_width = 0;
+	map->player_cnt = 0;
+	map->floor_color = -1;
+	map->ceil_color = -1;
+	map->c_door_texture.path = NULL;
 	i = (int)FRAME_TOTAL;
 	while (--i > -1)
-		data->torch[i].path = NULL;
-	data->n_texture.path = NULL;
-	data->s_texture.path = NULL;
-	data->w_texture.path = NULL;
-	data->e_texture.path = NULL;
-	data->file = NULL;
+		map->torch[i].path = NULL;
+	map->n_texture.path = NULL;
+	map->s_texture.path = NULL;
+	map->w_texture.path = NULL;
+	map->e_texture.path = NULL;
+	map->file = NULL;
 }
 
 static void	set_player_pos(t_map *map, t_player *p, int x, int y)
