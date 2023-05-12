@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/09 16:41:33 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:26:50 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	mapx_len(const char *line, t_map *map)
 	int	i;
 	int	n;
 	int	max;
-	int cnt;
+	int	cnt;
 
 	i = 0;
 	n = 0;
@@ -34,7 +34,7 @@ static int	mapx_len(const char *line, t_map *map)
 		cnt++;
 		if (i - n > max)
 			max = i - n;
-		if(line[i])
+		if (line[i])
 			n = i++;
 	}
 	return (max - 1);
@@ -44,18 +44,18 @@ static int	mapy_len(const char *line, t_map *map)
 {
 	int	i;
 	int	cnt;
-	int len;
+	int	len;
 
 	i = 0;
 	cnt = 1;
 	(void)map;
-	len = ft_strlen(line) - 1;	
-	while(line[len] && ft_is_space(line[len]))
+	len = ft_strlen(line) - 1;
+	while (line[len] && ft_is_space(line[len]))
 		len--;
-	while(line[i] && ft_is_space(line[i]))
+	while (line[i] && ft_is_space(line[i]))
 		i++;
 	while (i < len)
-	{	
+	{
 		if (line[i] == '\n')
 			cnt++;
 		i++;
@@ -63,10 +63,10 @@ static int	mapy_len(const char *line, t_map *map)
 	return (cnt);
 }
 
-void fill_map(t_map *map)
+void	fill_map(t_map *map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = 0;
 	map->player_cnt = 0;
@@ -80,52 +80,42 @@ void fill_map(t_map *map)
 			x++;
 		}
 		y++;
-	}		
+	}
 }
 
-static void check_mini_map(char *line, t_map *map)
+static void	check_mini_map(char *line, t_map *map)
 {
 	map->map_width = mapx_len(line, map);
 	map->map_height = mapy_len(line, map);
-	if(map->map_height < 3 || map->map_height < 3)
+	if (map->map_height < 3 || map->map_height < 3)
 	{
-		if(map->n_texture.path)
-			free(map->n_texture.path);
-		if(map->s_texture.path)
-			free(map->s_texture.path);
-		if(map->w_texture.path)
-			free(map->w_texture.path);
-		if(map->e_texture.path)
-			free(map->e_texture.path);
-		if(map->file)
-			free(map->file); 
-		ft_printf("ERROR\nInvalid map\n"), exit(1);
+		free_paths(map);
+		ft_printf("ERROR\nInvalid map\n");
+		exit(1);
 	}
 }
 
 void	get_map(char *line, t_map *map)
 {
-	int		i;
-	int		y;
-	
-	check_mini_map(line, map);	
-	map->map = malloc(sizeof (char *) * (map->map_height + 1));
+	int	i;
+	int	y;
+
+	check_mini_map(line, map);
+	map->map = malloc(sizeof(char *) * (map->map_height + 1));
 	y = 0;
-	while(*line && *line == '\n')
+	while (*line && *line == '\n')
 		line++;
 	while (y < map->map_height)
 	{
-		map->map[y] = (char *) malloc(sizeof (char) * (map->map_width + 1));
+		map->map[y] = (char *)malloc(sizeof(char) * (map->map_width + 1));
 		i = 0;
 		while (*line && *line != '\n')
 			map->map[y][i++] = *(line++);
 		while (i < map->map_width)
 			map->map[y][i++] = ' ';
 		map->map[y++][i] = '\0';
-		if(*line)
+		if (*line)
 			line++;
 	}
 	map->map[y] = NULL;
-	check_valid_map(map);
-	fill_map(map);
 }

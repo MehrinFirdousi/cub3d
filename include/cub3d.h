@@ -40,6 +40,9 @@
 # define MM_SIZE 16
 # define FPS 1000
 # define FRAME_TOTAL 6
+# define FILE_EXTEN 4
+# define  MIN_COLOR 0
+# define  MAX_COLOR 255
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -225,7 +228,7 @@ void	get_map(char *line, t_map *map);
 void	check_valid_map(t_map *map);
 int		cur_index(const char *str, char c);
 int		valid_color(const char *str);
-int		check_surface(const char *line, t_map *map);
+int		check_surface(const char *line);
 void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
 void	print_map(t_map *map, t_player *p);
@@ -237,6 +240,11 @@ void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
 void	is_valid_path(char *path, t_map *map);
 int		valid_extra_textures(char *line, t_map *data);
 char	*path_substr(const char *line, t_map *map);
+void	check_empty_line(t_map *map);
+void	valid_player(t_map *map);
+void	fill_map(t_map *map);
+void	free_paths(t_map *map);
+void	free_malloced(t_map *map);
 
 int		key_up_handler(int keycode, t_mlx *m);
 int		mouse_move(int x, int y, t_mlx *m);

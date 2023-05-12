@@ -6,52 +6,52 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/10 23:59:45 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:21:35 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void valid_player(t_map *map)
+void	valid_player(t_map *map)
 {
-	if(map->player_cnt > 1)
+	if (map->player_cnt > 1)
 		put_error("Multiplayer!", map);
-	if(map->player_cnt == 0)
-		put_error("No Player!", map);			
+	if (map->player_cnt == 0)
+		put_error("No Player!", map);
 }
 
-static void is_closed(t_map *m, int y, int x)
+static void	is_closed(t_map *m, int y, int x)
 {
 	if (y == 0 || m->map[y - 1][x] == ' ')
-		printf("%d %d-\n", x, y), put_error("Map must be closed", m);
+		put_error("Map must be closed", m);
 	if (!m->map[y + 1] || m->map[y + 1][x] == ' ')
-		printf("%d %d--\n", x, y), put_error("Map must be closed", m);
+		put_error("Map must be closed", m);
 	if (x == 0 || m->map[y][x - 1] == ' ')
-		printf("%d %d---\n", x, y), put_error("Map must be closed", m);
+		put_error("Map must be closed", m);
 	if (m->map[y][x + 1] == ' ' || !m->map[y][x + 1])
-		printf("%d %d----\n", x, y), put_error("Map must be closed", m);
+		put_error("Map must be closed", m);
 }
 
-static bool is_walled(t_map *m, int y, int x)
+static bool	is_walled(t_map *m, int y, int x)
 {
 	if (y == 0 || !m->map[y + 1] || !m->map[y][x + 1])
-		printf("%d %d-\n", x, y), put_error("Doors must be walled", m);
-	if(m->map[y][x + 1] == '1' && m->map[y][x - 1] == '1' &&
+		put_error("Doors must be walled", m);
+	if (m->map[y][x + 1] == '1' && m->map[y][x - 1] == '1' &&
 		m->map[y + 1][x] == '1' && m->map[y - 1][x] == '1')
-			return false;
-	if(m->map[y][x + 1] == '1')
-		 if(m->map[y][x - 1] == '1')
-		 	return true;
-	if(m->map[y + 1][x] == '1')
-		 if(m->map[y - 1][x] == '1')
-		 	return true;
-	return false;
+		return (false);
+	if (m->map[y][x + 1] == '1')
+		if (m->map[y][x - 1] == '1')
+			return (true);
+	if (m->map[y + 1][x] == '1')
+		if (m->map[y - 1][x] == '1')
+			return (true);
+	return (false);
 }
 
-void check_empty_line(t_map *map)
+void	check_empty_line(t_map *map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (++y < map->map_height)
@@ -59,15 +59,15 @@ void check_empty_line(t_map *map)
 		x = 0;
 		while (map->map[y][x] == ' ' || map->map[y][x] == '\t')
 			x++;
-		if(!map->map[y][x])
-				printf("%d %d\n", y, x), put_error("Empty Line", map);		
+		if (!map->map[y][x])
+			put_error("Empty Line", map);
 	}
 }
 
-void check_valid_map(t_map *map)
+void	check_valid_map(t_map *map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = -1;
 	while (++y < map->map_height)
@@ -77,21 +77,16 @@ void check_valid_map(t_map *map)
 		{
 			if (defined_symbol(map->map[y][x]))
 			{
-				if(player_symbol(map->map[y][x]))
-						map->player_cnt++;
-				if(map->map[y][x] == '0' || player_symbol(map->map[y][x]))
+				if (player_symbol(map->map[y][x]))
+					map->player_cnt++;
+				if (map->map[y][x] == '0' || player_symbol(map->map[y][x]))
 					is_closed(map, y, x);
-				if(map->map[y][x] == 'D')	
-					if(!is_walled(map, y, x))
+				if (map->map[y][x] == 'D')
+					if (!is_walled(map, y, x))
 						put_error("Must be walled", map);
 			}
 			else
-			{
-				printf("%d %d\n", y, x);
 				put_error("Undefined Symbol", map);
-			}
 		}
 	}
-	check_empty_line(map);
-	valid_player(map);
 }

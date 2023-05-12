@@ -33,6 +33,7 @@ int	exit_free(t_mlx *m)
 	free_texture(m, &m->map->w_texture);
 	free_texture(m, &m->map->e_texture);
 	free_texture(m, &m->map->c_door_texture);
+	free(m->map->file);
 	free(m->rays);
 	ft_split_destroy(m->map->map);
 	exit(0);

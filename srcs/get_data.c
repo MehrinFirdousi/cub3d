@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/01 23:07:04 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 22:22:26 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	init_data(t_map *data)
 {
-	int i;
+	int	i;
+
 	data->map_height = 0;
 	data->map_width = 0;
 	data->player_cnt = 0;
@@ -23,7 +24,7 @@ void	init_data(t_map *data)
 	data->q_flag = 0;
 	data->c_door_texture.path = NULL;
 	i = (int)FRAME_TOTAL;
-	while(--i > -1)
+	while (--i > -1)
 		data->torch[i].path = NULL;
 	data->n_texture.path = NULL;
 	data->s_texture.path = NULL;
@@ -32,7 +33,7 @@ void	init_data(t_map *data)
 	data->file = NULL;
 }
 
-static void set_player_pos(t_map *map, t_player *p, int x, int y)
+static void	set_player_pos(t_map *map, t_player *p, int x, int y)
 {
 	p->px = x;
 	map->player_x = x;
@@ -66,19 +67,24 @@ static void	get_player(t_map *map, t_player *p)
 				map->map[y][x] = 'P';
 				set_player_pos(map, p, x, y);
 			}
-		}	
+		}
 	}
 }
 
 void	get_data(char *line, t_map *data, t_player *p)
 {
-	int i;
-	
+	int	i;
+
 	i = get_upper_map(line, data);
-	if(is_texture(&line[i]) || is_color(&line[i]))
+	if (is_texture(&line[i]) || is_color(&line[i]))
 		put_error("Duplicate data sides", data);
 	i += valid_extra_textures(&line[i], data);
-	while (line[--i] != '\n');
+	while (line[--i] != '\n')
+		;
 	get_map(&line[i], data);
+	check_valid_map(data);
+	check_empty_line(data);
+	valid_player(data);
+	fill_map(data);
 	get_player(data, p);
 }
