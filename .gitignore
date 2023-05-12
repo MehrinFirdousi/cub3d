@@ -6,3 +6,5 @@ cube
 _cube
 .DS_Store
 mlx
+*.a
+*.dylib

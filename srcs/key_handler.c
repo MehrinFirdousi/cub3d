@@ -93,29 +93,44 @@ void	open_door(t_mlx *m)
 	}
 }
 
+void	set_hold_keys(int keycode, t_keys *keys, bool status)
+{
+	if (keycode == LEFT)
+		keys->left = status;
+	if (keycode == RIGHT)
+		keys->right = status;
+	if (keycode == UP)
+		keys->up = status;
+	if (keycode == DOWN)
+		keys->down = status;
+	if (keycode == S)
+		keys->s = status;
+	if (keycode == W)
+		keys->w = status;
+	if (keycode == A)
+		keys->a = status;
+	if (keycode == D)
+		keys->d = status;
+}
+
+void	toggle_mouse(t_mlx *m)
+{
+	if (m->map->q_flag)
+		mlx_mouse_show();
+	else
+		mlx_mouse_hide();
+	m->map->q_flag = !m->map->q_flag;
+	m->keys->q = true;
+}
+
 int	key_up_handler(int keycode, t_mlx *m)
 {
+	set_hold_keys(keycode, m->keys, false);
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(m->mlx, m->win);
 		exit_free(m);
 	}
-	if (keycode == LEFT)
-		m->keys->left = false;
-	if (keycode == RIGHT)
-		m->keys->right = false;
-	if (keycode == UP)
-		m->keys->up = false;
-	if (keycode == DOWN)
-		m->keys->down = false;
-	if (keycode == S)
-		m->keys->s = false;
-	if (keycode == W)
-		m->keys->w = false;
-	if (keycode == A)
-		m->keys->a = false;
-	if (keycode == D)
-		m->keys->d = false;
 	if (keycode == SHIFT)
 	{
 		m->keys->shift = false;
@@ -131,40 +146,13 @@ int	key_up_handler(int keycode, t_mlx *m)
 	if (keycode == E)
 		open_door(m);
 	if (keycode == Q)
-	{
-		if (m->map->q_flag)
-		{
-			mlx_mouse_show();
-			m->map->q_flag = !m->map->q_flag;
-		}
-		else
-		{
-			mlx_mouse_hide();
-			m->map->q_flag = !m->map->q_flag;
-		}
-		m->keys->q = true;
-	}
+		toggle_mouse(m);
 	return (0);
 }
 
 int	key_down_handler(int keycode, t_mlx *m)
 {
-	if (keycode == LEFT)
-		m->keys->left = true;
-	if (keycode == RIGHT)
-		m->keys->right = true;
-	if (keycode == UP)
-		m->keys->up = true;
-	if (keycode == DOWN)
-		m->keys->down = true;
-	if (keycode == S)
-		m->keys->s = true;
-	if (keycode == W)
-		m->keys->w = true;
-	if (keycode == A)
-		m->keys->a = true;
-	if (keycode == D)
-		m->keys->d = true;
+	set_hold_keys(keycode, m->keys, true);
 	if (keycode == SHIFT)
 	{
 		m->keys->shift = true;
@@ -175,15 +163,28 @@ int	key_down_handler(int keycode, t_mlx *m)
 	return (0);
 }
 
-bool	player_hit_wall(double px, double py, t_map *map)
+bool	player_hit_wall(t_mlx *m, int x_dir, int y_dir)
 {
-	int	p_mapx;
-	int	p_mapy;
+	int		p_mapx;
+	int		p_mapy;
+	double	px;
+	double	py;
 
+	if (x_dir == y_dir)
+	{
+		px = m->p->px + (m->p->pdx * 3 * x_dir);
+		py = m->p->py + (m->p->pdy * 3 * y_dir);
+	}
+	else
+	{
+		px = m->p->px + (m->p->pdy * 3 * x_dir);
+		py = m->p->py + (m->p->pdx * 3 * y_dir);
+	}
 	p_mapx = (int)px / BLOCK_SIZE;
 	p_mapy = (int)py / BLOCK_SIZE;
-	if (p_mapx >= 0 && p_mapy >= 0 && p_mapx < map->map_width && p_mapy < map->map_height)
-		if (map->map[p_mapy][p_mapx] == '1' || map->map[p_mapy][p_mapx] == 'D') // if we hit a wall
+	if (is_within_map_boundaries(p_mapx, p_mapy, m->map, 0))
+		if (m->map->map[p_mapy][p_mapx] == '1' ||
+			m->map->map[p_mapy][p_mapx] == 'D')
 			return (true);
 	return (false);
 }
@@ -197,35 +198,27 @@ int	mouse_move(int x, int y, t_mlx *m)
 	static int	mouse_right;
 	static int	mouse_down;
 
-	if (m->keys->s)
+	if (m->keys->s && !player_hit_wall(m, -1, -1))
 	{
-		if (player_hit_wall(m->p->px - 3 * m->p->pdx, m->p->py - 3 * m->p->pdy, m->map))
-			return (0);
 		m->p->px -= m->p->pdx;
 		m->p->py -= m->p->pdy;
 	}
-	if (m->keys->w)
+	if (m->keys->w && !player_hit_wall(m, 1, 1))
 	{
-		if (player_hit_wall(m->p->px + 3 * m->p->pdx, m->p->py + 3 * m->p->pdy, m->map))
-			return (0);
 		m->p->px += m->p->pdx;
 		m->p->py += m->p->pdy;
 	}
-	if (m->keys->a)
+	if (m->keys->a && !player_hit_wall(m, 1, -1))
 	{
-		if (player_hit_wall(m->p->px + 3 * m->p->pdy, m->p->py - 3 * m->p->pdx, m->map))
-			return (0);
 		m->p->px += m->p->pdy;
 		m->p->py -= m->p->pdx;
 	}
-	if (m->keys->d)
+	if (m->keys->d && !player_hit_wall(m, -1, 1))
 	{
-		if (player_hit_wall(m->p->px - 3 * m->p->pdy, m->p->py + 3 * m->p->pdx, m->map))
-			return (0);
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
-	if(m->map->q_flag)
+	if (m->map->q_flag)
 	{
 		if (y < oy - 2)
 		{
@@ -239,11 +232,11 @@ int	mouse_move(int x, int y, t_mlx *m)
 			if (m->p->view_offset > -(WIN_HEIGHT >> 1))
 				m->p->view_offset -= VIEW_SPEED;
 		}
-		if(x < 0)
-				mlx_mouse_move(m->win, WIN_WIDTH - 1 , WIN_HEIGHT / 2);
-		if(x > WIN_WIDTH)
-				mlx_mouse_move(m->win, 1 , WIN_HEIGHT / 2);
-		else if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
+		if (x < 0)
+			mlx_mouse_move(m->win, WIN_WIDTH - 1, WIN_HEIGHT >> 1);
+		if (x > WIN_WIDTH)
+			mlx_mouse_move(m->win, 1, WIN_HEIGHT >> 1);
+		else if (x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 		{
 			if (x > ox + 2)
 			{
@@ -251,8 +244,8 @@ int	mouse_move(int x, int y, t_mlx *m)
 				m->p->pa += (0.045 * m->keys->speed);
 				if (m->p->pa > TWO_PI)
 					m->p->pa -= TWO_PI;
-				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+				m->p->pdx = cos(m->p->pa) * m->keys->speed;
+				m->p->pdy = sin(m->p->pa) * m->keys->speed;
 			}
 			if (x < ox - 2)
 			{
@@ -260,8 +253,8 @@ int	mouse_move(int x, int y, t_mlx *m)
 				m->p->pa -= (0.045 * m->keys->speed);
 				if (m->p->pa < 0)
 					m->p->pa += TWO_PI;
-				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
-				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
+				m->p->pdx = cos(m->p->pa) * m->keys->speed;
+				m->p->pdy = sin(m->p->pa) * m->keys->speed;
 			}
 		}
 	}
@@ -309,31 +302,23 @@ int	key_hold_handler(t_mlx *m)
 		if (m->p->view_offset > -(WIN_HEIGHT >> 1))
 			m->p->view_offset -= VIEW_SPEED;
 	}
-	if (m->keys->s)
+	if (m->keys->s && !player_hit_wall(m, -1, -1))
 	{
-		if (player_hit_wall(m->p->px - 3 * m->p->pdx, m->p->py - 3 * m->p->pdy, m->map))
-			return (0);
 		m->p->px -= m->p->pdx;
 		m->p->py -= m->p->pdy;
 	}
-	if (m->keys->w)
+	if (m->keys->w && !player_hit_wall(m, 1, 1))
 	{
-		if (player_hit_wall(m->p->px + 3 * m->p->pdx, m->p->py + 3 * m->p->pdy, m->map))
-			return (0);
 		m->p->px += m->p->pdx;
 		m->p->py += m->p->pdy;
 	}
-	if (m->keys->a)
+	if (m->keys->a && !player_hit_wall(m, 1, -1))
 	{
-		if (player_hit_wall(m->p->px + 3 * m->p->pdy, m->p->py - 3 * m->p->pdx, m->map))
-			return (0);
 		m->p->px += m->p->pdy;
 		m->p->py -= m->p->pdx;
 	}
-	if (m->keys->d)
+	if (m->keys->d && !player_hit_wall(m, -1, 1))
 	{
-		if (player_hit_wall(m->p->px - 3 * m->p->pdy, m->p->py + 3 * m->p->pdx, m->map))
-			return (0);
 		m->p->px -= m->p->pdy;
 		m->p->py += m->p->pdx;
 	}
