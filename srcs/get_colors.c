@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 01:12:12 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 14:37:24 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*get_subline(const char *line, t_map *map)
 		if(line[i])
 			++i;
 	return (ft_substr(line, 0, i));
+	(void)map;
 }
 
 static int	create_trgb(int t, int r, int g, int b)

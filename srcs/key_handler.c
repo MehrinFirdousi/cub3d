@@ -49,8 +49,18 @@ void	redraw_image(t_mlx *m)
 	if (m->keys->tab)
 		draw_minimap(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->img, 0, 0);
-	if (m->map->torch[m->map->torch_frame].img)
-		mlx_put_image_to_window(m->mlx, m->win, m->map->torch[m->map->torch_frame].img, WIN_WIDTH * 0.7, WIN_HEIGHT * 0.45);
+	if (m->map->torch[m->map->t_frame].img)
+		mlx_put_image_to_window(m->mlx, m->win,
+			m->map->torch[m->map->t_frame].img,
+			WIN_WIDTH * 0.7, WIN_HEIGHT * 0.45);
+}
+
+bool	is_within_map_boundaries(int x, int y, t_map *m, int os)
+{
+	if (x > -1 + os && y > -1 + os
+		&& x < m->map_width - os && y < m->map_height - os)
+		return (true);
+	return (false);
 }
 
 void	open_door(t_mlx *m)
@@ -58,15 +68,15 @@ void	open_door(t_mlx *m)
 	int	r_mapx;
 	int	r_mapy;
 
-	r_mapx = (int)m->rays[WIN_WIDTH / 2].x / BLOCK_SIZE;
-	r_mapy = (int)m->rays[WIN_WIDTH / 2].y / BLOCK_SIZE;
-	if (r_mapx >= 0 && r_mapy >= 0 && r_mapx < m->map->map_width && r_mapy < m->map->map_height)
+	r_mapx = (int)m->rays[WIN_WIDTH >> 1].x / BLOCK_SIZE;
+	r_mapy = (int)m->rays[WIN_WIDTH >> 1].y / BLOCK_SIZE;
+	if (is_within_map_boundaries(r_mapx, r_mapy, m->map, 0))
 	{
 		if (m->map->map[r_mapy][r_mapx] == 'D')
 			m->map->map[r_mapy][r_mapx] = 'O';
 		if (m->map->map[r_mapy][r_mapx] == '1')
 		{
-			if (r_mapx > 0 && r_mapy > 0 && r_mapx < m->map->map_width - 1 && r_mapy < m->map->map_height - 1)
+			if (is_within_map_boundaries(r_mapx, r_mapy, m->map, 1))
 			{
 				if (m->map->map[r_mapy][r_mapx + 1] == 'O')
 					m->map->map[r_mapy][r_mapx + 1] = 'D';
@@ -121,7 +131,7 @@ int	key_up_handler(int keycode, t_mlx *m)
 		open_door(m);
 	if (keycode == Q)
 	{
-		if(m->map->q_flag)
+		if (m->map->q_flag)
 		{
 			mlx_mouse_show();
 			m->map->q_flag = !m->map->q_flag;
@@ -216,13 +226,13 @@ int	mouse_move(int x, int y, t_mlx *m)
 	}
 	if(m->map->q_flag)
 	{
-		if (y < oy)
+		if (y < oy - 2)
 		{
 			mouse_down = 1;
 			if (m->p->view_offset < WIN_HEIGHT >> 1)
 				m->p->view_offset += VIEW_SPEED;
 		}
-		if (y > oy)
+		if (y > oy + 2)
 		{
 			mouse_up = 1;
 			if (m->p->view_offset > -(WIN_HEIGHT >> 1))
@@ -234,19 +244,19 @@ int	mouse_move(int x, int y, t_mlx *m)
 				mlx_mouse_move(m->win, 1 , WIN_HEIGHT / 2);
 		else if(x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 		{
-			if (x > ox)
+			if (x > ox + 2)
 			{
 				mouse_right = 1;
-				m->p->pa += (0.04 * m->keys->speed);
+				m->p->pa += (0.045 * m->keys->speed);
 				if (m->p->pa > TWO_PI)
 					m->p->pa -= TWO_PI;
 				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
 				m->p->pdy = sin(m->p->pa) * 1 * m->keys->speed;
 			}
-			if (x < ox)
+			if (x < ox - 2)
 			{
 				mouse_left = 1;
-				m->p->pa -= (0.04 * m->keys->speed);
+				m->p->pa -= (0.045 * m->keys->speed);
 				if (m->p->pa < 0)
 					m->p->pa += TWO_PI;
 				m->p->pdx = cos(m->p->pa) * 1 * m->keys->speed;
@@ -258,7 +268,7 @@ int	mouse_move(int x, int y, t_mlx *m)
 	oy = y;
 	if (m->frame_count >= FPS)
 	{
-		m->map->torch_frame = (m->map->torch_frame + 1) % FRAME_TOTAL;
+		m->map->t_frame = (m->map->t_frame + 1) % FRAME_TOTAL;
 		m->frame_count = 0;
 	}
 	if (mouse_right | mouse_left | mouse_up | mouse_down | \
@@ -328,7 +338,7 @@ int	key_hold_handler(t_mlx *m)
 	}
 	if (m->frame_count >= FPS)
 	{
-		m->map->torch_frame = (m->map->torch_frame + 1) % FRAME_TOTAL;
+		m->map->t_frame = (m->map->t_frame + 1) % FRAME_TOTAL;
 		redraw_image(m);
 		m->frame_count = 0;
 	}

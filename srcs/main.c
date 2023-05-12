@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/10 17:12:47 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:55:41 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	mlx_set_up(t_mlx *m)
 	m->rays = ft_malloc(WIN_WIDTH * sizeof(t_point));
 	get_textures_from_xpm(m);
 	get_torch_sprite(m);
-	m->map->torch_frame = 0;
+	m->map->t_frame = 0;
 	m->frame_count = 0;
 }
 

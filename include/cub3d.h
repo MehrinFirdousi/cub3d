@@ -141,7 +141,7 @@ typedef struct s_map
 	t_texture	w_texture;
 	t_texture	c_door_texture;
 	t_texture	torch[FRAME_TOTAL];
-	int			torch_frame;
+	int			t_frame;
 	char		*file;
 	char		**map;
 	int			map_width;

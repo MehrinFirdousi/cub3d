@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 01:14:28 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/11 14:39:15 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ void print_map(t_map *map, t_player *p)
 
 int	check_surface(const char *line, t_map *map)
 {	
-	int i;
+	int	i;
 
+	(void)map;
 	i = 0;
-	while(line[i] && line[i] == ' ')
+	while (line[i] && line[i] == ' ')
 		i++;
 	if (ft_strncmp(&line[i], "F ", 2) == 0)
 		return (E_FLOOR);
