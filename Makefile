@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/14 20:23:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/14 20:47:30 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS	=	srcs/main.c \
 			srcs/draw_texture.c \
 			srcs/draw_utils.c \
 			srcs/cast_ray.c \
-			srcs/redraw_image.c \
 			srcs/exit_free.c
 			
 
