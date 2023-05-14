@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/12 12:27:49 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:13:01 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	get_colors(char *line, t_map *map)
 	i += cur_index(&str[i + 1], ',') + 1;
 	if (str[i] != '\0')
 		free_colors(str, colors, map, "Must be 3 colors");
-	printf("%d %d %d\n", colors[0], colors[1], colors[2]);
 	validate_surface(colors, line, str, map);
 	free(str);
 }

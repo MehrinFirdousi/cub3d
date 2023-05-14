@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/12 12:26:24 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:07:42 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-void free_paths(t_map *map)
+void	free_paths(t_map *map)
 {
 	if (map->n_texture.path)
 		free(map->n_texture.path);
@@ -83,15 +83,6 @@ void	free_malloced(t_map *map)
 		free(map->map);
 }
 
-void	put_error(const char *error, t_map *map)
-{
-	write(2, "ERROR\n", ft_strlen("ERROR\n"));
-	write(2, error, ft_strlen(error));
-	write(2, "\n", 1);
-	free_malloced(map);
-	exit(1);
-}
-
 void	print_map(t_map *map, t_player *p)
 {
 	int	i;
@@ -117,7 +108,7 @@ void	print_map(t_map *map, t_player *p)
 
 int	check_surface(const char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && line[i] == ' ')

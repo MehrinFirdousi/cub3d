@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:16:00 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 19:08:11 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,12 @@ static void	get_extra_textures(char *line, t_map *data)
 		if (flag == (i + 1) && !data->torch[i].path)
 		{
 			data->torch[i].path = path;
+			data->texture_cnt++;
 			return ;
 		}
 	}
 	free(path);
-	put_error("Duplicate flame side", data);
-}
-
-static int	is_extra_texture(char *line)
-{
-	if (ft_strncmp(line, "DO ", 3) == 0 || ft_strncmp(line, "T1 ", 3) == 0
-		|| ft_strncmp(line, "T2 ", 3) == 0 || ft_strncmp(line, "T3 ", 3) == 0
-		|| ft_strncmp(line, "T4 ", 3) == 0 || ft_strncmp(line, "T5 ", 3) == 0
-		|| ft_strncmp(line, "T6 ", 3) == 0)
-		return (1);
-	return (0);
+	put_error("Duplicate bonus side", data);
 }
 
 static int	is_valid_data(int *i, char *line, t_map *data)
@@ -88,10 +79,7 @@ static int	is_valid_data(int *i, char *line, t_map *data)
 		if (data->texture_cnt == FRAME_TOTAL + 1 && is_extra_texture(&line[*i]))
 			return (0);
 		if (is_extra_texture(&line[*i]))
-		{
 			get_extra_textures(&line[*i], data);
-			data->texture_cnt++;
-		}
 		else
 			break ;
 		*i += cur_index(&line[*i], '\n');
@@ -99,17 +87,19 @@ static int	is_valid_data(int *i, char *line, t_map *data)
 	return (*i);
 }
 
-int	valid_extra_textures(char *line, t_map *data)
+int	bonus_parse(char *line, t_map *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->texture_cnt = 0;
 	data->color_cnt = 0;
-
 	if (!is_valid_data(&i, line, data))
 		return (i);
-	if (data->texture_cnt != FRAME_TOTAL + 1)
+	if (!data->c_door_texture.path && data->texture_cnt != FRAME_TOTAL)
+		put_error("Invalid data", data);
+	if (data->c_door_texture.path && data->texture_cnt > 0
+		&& data->texture_cnt < FRAME_TOTAL)
 		put_error("Invalid data", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);

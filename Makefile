@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/12 16:01:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/14 19:00:10 by ahassan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	srcs/main.c \
 			srcs/parse_utils.c \
 			srcs/extra_parse_utils.c \
 			srcs/bonus_parse.c \
+			srcs/extra_utils.c \
 			srcs/key_handler.c \
 			srcs/key_handler_utils.c \
 			srcs/mouse_handler.c \
