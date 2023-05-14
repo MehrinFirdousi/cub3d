@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:59:19 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/12 15:59:53 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:16:13 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	exit_free(t_mlx *m)
 	free_texture(m, &m->map->w_texture);
 	free_texture(m, &m->map->e_texture);
 	free_texture(m, &m->map->c_door_texture);
+	free_texture(m, &m->map->o_door_texture);
 	free(m->map->file);
 	free(m->rays);
 	ft_split_destroy(m->map->map);

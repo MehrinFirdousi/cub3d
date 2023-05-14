@@ -6,19 +6,11 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:38:45 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/12 15:43:50 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:16:45 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static bool	is_within_map_boundaries(int x, int y, t_map *m, int os)
-{
-	if (x > -1 + os && y > -1 + os
-		&& x < m->map_width - os && y < m->map_height - os)
-		return (true);
-	return (false);
-}
 
 static bool	player_hit_wall(t_mlx *m, int x_dir, int y_dir)
 {
@@ -37,8 +29,8 @@ static bool	player_hit_wall(t_mlx *m, int x_dir, int y_dir)
 		px = m->p->px + (m->p->pdy * 3 * x_dir);
 		py = m->p->py + (m->p->pdx * 3 * y_dir);
 	}
-	p_mapx = (int)px / BLOCK_SIZE;
-	p_mapy = (int)py / BLOCK_SIZE;
+	p_mapx = (int)px >> SHIFT_VALUE;
+	p_mapy = (int)py >> SHIFT_VALUE;
 	if (is_within_map_boundaries(p_mapx, p_mapy, m->map, 0))
 		if (m->map->map[p_mapy][p_mapx] == '1' ||
 			m->map->map[p_mapy][p_mapx] == 'D')
@@ -51,8 +43,8 @@ void	open_door(t_mlx *m)
 	int	r_mapx;
 	int	r_mapy;
 
-	r_mapx = (int)m->rays[WIN_WIDTH >> 1].x / BLOCK_SIZE;
-	r_mapy = (int)m->rays[WIN_WIDTH >> 1].y / BLOCK_SIZE;
+	r_mapx = (int)m->rays[WIN_WIDTH >> 1].x >> SHIFT_VALUE;
+	r_mapy = (int)m->rays[WIN_WIDTH >> 1].y >> SHIFT_VALUE;
 	if (is_within_map_boundaries(r_mapx, r_mapy, m->map, 0))
 	{
 		if (m->map->map[r_mapy][r_mapx] == 'D')

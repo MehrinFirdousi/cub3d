@@ -22,6 +22,23 @@ static void	draw_fov(t_mlx *m)
 			(t_point){m->rays[ray_no].x, m->rays[ray_no].y}, TEAL);
 }
 
+int	get_block_color(t_map *m, int i, int j)
+{
+	if (m->map[i][j] == '1')
+	{
+		if (j >= 0 && i >= 0 && j < m->map_width - 1 && i < m->map_height - 1 \
+			&& (m->map[i + 1][j] == 'O' || m->map[i][j + 1] == 'O'))
+			return (ORANGE);
+		if (j > 0 && i > 0 && j < m->map_width && i < m->map_height \
+			&& (m->map[i - 1][j] == 'O' || m->map[i][j - 1] == 'O'))
+			return (ORANGE);
+		return (WHITE);
+	}
+	else if (m->map[i][j] == 'D')
+		return (BLUE);
+	return (GRAY);
+}
+
 void	draw_minimap(t_mlx *m)
 {
 	int	i;
@@ -31,29 +48,15 @@ void	draw_minimap(t_mlx *m)
 	int	color;
 
 	i = -1;
-	color = GRAY;
 	while (++i < m->map->map_height)
 	{
 		j = -1;
 		while (++j < m->map->map_width)
 		{
-			x = j * MM_SIZE;
-			y = i * MM_SIZE;
-			if (m->map->map[i][j] == '1')
-			{
-				color = WHITE;
-				if (j >= 0 && i >= 0 && j < m->map->map_width - 1 && i < m->map->map_height - 1 \
-					&& (m->map->map[i + 1][j] == 'O' || m->map->map[i][j + 1] == 'O'))
-					color = ORANGE;
-				if (j > 0 && i > 0 && j < m->map->map_width && i < m->map->map_height \
-					&& (m->map->map[i - 1][j] == 'O' || m->map->map[i][j - 1] == 'O'))
-					color = ORANGE;
-			}
-			if (m->map->map[i][j] == 'D')
-				color = BLUE;
-			
+			x = j << SHIFT_VALUE;
+			y = i << SHIFT_VALUE;
+			color = get_block_color(m->map, i, j);
 			draw_square(m, (t_point){x, y}, MM_SIZE, color);
-			color = GRAY;
 		}
 	}
 	draw_square(m, (t_point){m->p->px, m->p->py}, 3, GREEN);

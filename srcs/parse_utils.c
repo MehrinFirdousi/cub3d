@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/12 12:26:24 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:36:05 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cur_index(const char *str, char c)
 	return (i);
 }
 
-void free_paths(t_map *map)
+void	free_paths(t_map *map)
 {
 	if (map->n_texture.path)
 		free(map->n_texture.path);
@@ -117,7 +117,7 @@ void	print_map(t_map *map, t_player *p)
 
 int	check_surface(const char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] && line[i] == ' ')

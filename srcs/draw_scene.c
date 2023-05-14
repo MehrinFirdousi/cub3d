@@ -19,14 +19,14 @@ static void	check_horizontal_intersect(t_player *p, t_ray *r)
 	r->tan_ra = -(1 / tan(r->ra));
 	if (r->ra > M_PI)
 	{
-		r->ry = (((int)p->py / BLOCK_SIZE) * BLOCK_SIZE) - 0.0001;
+		r->ry = (((int)p->py >> SHIFT_VALUE) << SHIFT_VALUE) - 0.0001;
 		r->rx = (p->py - r->ry) * r->tan_ra + p->px;
 		r->y_step = -BLOCK_SIZE;
 		r->x_step = -r->y_step * r->tan_ra;
 	}
 	else if (r->ra < M_PI)
 	{
-		r->ry = (((int)p->py / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
+		r->ry = (((int)p->py >> SHIFT_VALUE) << SHIFT_VALUE) + BLOCK_SIZE;
 		r->rx = (p->py - r->ry) * r->tan_ra + p->px;
 		r->y_step = BLOCK_SIZE;
 		r->x_step = -r->y_step * r->tan_ra;
@@ -46,14 +46,14 @@ static void	check_vertical_intersect(t_player *p, t_ray *r)
 	r->tan_ra = -tan(r->ra);
 	if (r->ra > M_PI / 2 && r->ra < 3 * M_PI / 2)
 	{
-		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) - 0.0001;
+		r->rx = (((int)p->px >> SHIFT_VALUE) << SHIFT_VALUE) - 0.0001;
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = -BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
 	}
 	else if (r->ra < M_PI / 2 || r->ra > 3 * M_PI / 2)
 	{
-		r->rx = (((int)p->px / BLOCK_SIZE) * BLOCK_SIZE) + BLOCK_SIZE;
+		r->rx = (((int)p->px >> SHIFT_VALUE) << SHIFT_VALUE) + BLOCK_SIZE;
 		r->ry = (p->px - r->rx) * r->tan_ra + p->py;
 		r->x_step = BLOCK_SIZE;
 		r->y_step = -r->x_step * r->tan_ra;
@@ -66,6 +66,32 @@ static void	check_vertical_intersect(t_player *p, t_ray *r)
 	}
 }
 
+bool	hit_wall(int mx, int my, t_map *m, t_ray *r)
+{
+	if (is_within_map_boundaries(mx, my, m, 0) && m->map[my][mx] == '1')
+	{
+		if (r->vertical)
+		{
+			if (mx > 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height
+				&& (m->map[my][mx + 1] == 'O' || m->map[my][mx - 1] == 'O'))
+				r->door_status = 2;
+		}
+		else
+		{
+			if (mx >= 0 && my > 0 && mx < m->map_width && my < m->map_height - 1
+				&& (m->map[my + 1][mx] == 'O' || m->map[my - 1][mx] == 'O'))
+				r->door_status = 3;
+		}
+		return (true);
+	}
+	else if (is_within_map_boundaries(mx, my, m, 0) && m->map[my][mx] == 'D')
+	{
+		r->door_status = 1;
+		return (true);
+	}
+	return (false);
+}
+
 // casts a ray till it hits a wall
 static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 {
@@ -76,31 +102,10 @@ static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 	r->vertical = is_vertical;
 	while (r->dof < r->max_dof)
 	{
-		mx = (int)r->rx / BLOCK_SIZE;
-		my = (int)r->ry / BLOCK_SIZE;
-		if (mx >= 0 && my >= 0 && mx < m->map_width && my < m->map_height \
-			&& m->map[my][mx] == '1')
-		{
-			if (is_vertical)
-			{
-				if (mx > 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height \
-					&& (m->map[my][mx + 1] == 'O' || m->map[my][mx - 1] == 'O'))
-					r->door_status = 2;
-			}
-			else
-			{
-				if (mx >= 0 && my > 0 && mx < m->map_width && my < m->map_height - 1 \
-					&& (m->map[my + 1][mx] == 'O' || m->map[my - 1][mx] == 'O'))
-					r->door_status = 3;
-			}
+		mx = (int)r->rx >> SHIFT_VALUE;
+		my = (int)r->ry >> SHIFT_VALUE;
+		if (hit_wall(mx, my, m, r))
 			break ;
-		}
-		if (mx >= 0 && my >= 0 && mx < m->map_width && my < m->map_height \
-			&& m->map[my][mx] == 'D')
-		{
-			r->door_status = 1;
-			break ;
-		}
 		else
 		{
 			r->rx += r->x_step;
@@ -111,29 +116,26 @@ static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
 }
 
 // draws one vertical line from the ray, constituting the 3d scene
-static void	draw_ray(t_mlx *m, t_ray *r, int ray_no, double *ra)
+static void	draw_ray(t_mlx *m, t_ray *r, int ray_no)
 {
 	int		i;
-	double	line_height;
 	double	line_offset;
 	double	a_diff;
 
 	a_diff = fix_angle(m->p->pa - r->ra);
 	r->ray_len = r->ray_len * cos(a_diff);
-	line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
-	line_offset = WIN_HEIGHT / 2 - line_height / 2 + m->p->view_offset;
+	r->line_height = (BLOCK_SIZE * WIN_HEIGHT) / r->ray_len;
+	line_offset = WIN_HEIGHT / 2 - r->line_height / 2 + m->p->view_offset;
 	i = -1;
 	while (++i < line_offset)
 		my_mlx_pixel_put(m->img, ray_no, i, m->map->ceil_color);
 	if (ray_no > 0)
-		draw_texture(m, r, (t_point){ray_no, line_offset}, line_height);
-	i = line_height + line_offset - 1;
+		draw_texture(m, r, (t_point){ray_no, line_offset});
+	i = r->line_height + line_offset - 1;
 	while (++i < WIN_HEIGHT)
 		my_mlx_pixel_put(m->img, ray_no, i, m->map->floor_color);
 	m->rays[ray_no].x = r->rx;
 	m->rays[ray_no].y = r->ry;
-	(void)ra;
-	// *ra += atan((double)1 / r->ray_len);
 }
 
 void	draw_scene(t_mlx *m)
@@ -158,9 +160,9 @@ void	draw_scene(t_mlx *m)
 		cast_ray(m->map, &v_ray, true);
 		v_ray.ray_len = get_ray_len(m->p->px, m->p->py, v_ray.rx, v_ray.ry);
 		if (h_ray.ray_len <= v_ray.ray_len)
-			draw_ray(m, &h_ray, i, &ra);
+			draw_ray(m, &h_ray, i);
 		else
-			draw_ray(m, &v_ray, i, &ra);
+			draw_ray(m, &v_ray, i);
 		ra = fix_angle(ra + ANGLE_STEP);
 	}
 }

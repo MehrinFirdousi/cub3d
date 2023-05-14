@@ -81,3 +81,11 @@ double	fix_angle(double a)
 		a -= TWO_PI;
 	return (a);
 }
+
+bool	is_within_map_boundaries(int x, int y, t_map *m, int os)
+{
+	if (x > -1 + os && y > -1 + os
+		&& x < m->map_width - os && y < m->map_height - os)
+		return (true);
+	return (false);
+}

@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/12 12:25:46 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:15:57 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,39 +32,23 @@ void	print_colors(t_texture *texture)
 	}
 }
 
+void	xpm_to_img(t_texture *t, t_mlx *m)
+{
+	t->img = mlx_xpm_file_to_image(m->mlx, t->path, &t->width, &t->height);
+	if (t->img)
+		t->addr = mlx_get_data_addr(t->img, &t->bits_per_pixel, &t->line_length,
+				&t->endian);
+}
+
 void	get_textures_from_xpm(t_mlx *m)
 {
-	t_texture	*n;
-	t_texture	*s;
-	t_texture	*e;
-	t_texture	*w;
-	t_texture	*door_open;
-
-	n = &m->map->n_texture;
-	s = &m->map->s_texture;
-	e = &m->map->e_texture;
-	w = &m->map->w_texture;
-	door_open = &m->map->c_door_texture;
-	n->img = mlx_xpm_file_to_image(m->mlx, n->path, &n->width, &n->height);
-	if (n->img)
-		n->addr = mlx_get_data_addr(n->img, &n->bits_per_pixel, &n->line_length,
-				&n->endian);
-	s->img = mlx_xpm_file_to_image(m->mlx, s->path, &s->width, &s->height);
-	if (s->img)
-		s->addr = mlx_get_data_addr(s->img, &s->bits_per_pixel, &s->line_length,
-				&s->endian);
-	e->img = mlx_xpm_file_to_image(m->mlx, e->path, &e->width, &e->height);
-	if (e->img)
-		e->addr = mlx_get_data_addr(e->img, &e->bits_per_pixel, &e->line_length,
-				&e->endian);
-	w->img = mlx_xpm_file_to_image(m->mlx, w->path, &w->width, &w->height);
-	if (w->img)
-		w->addr = mlx_get_data_addr(w->img, &w->bits_per_pixel, &w->line_length,
-				&w->endian);
-	door_open->img = mlx_xpm_file_to_image(m->mlx, door_open->path, &door_open->width, &door_open->height);
-	if (door_open->img)
-		door_open->addr = mlx_get_data_addr(door_open->img, &door_open->bits_per_pixel, &door_open->line_length,
-				&door_open->endian);
+	xpm_to_img(&m->map->n_texture, m);
+	xpm_to_img(&m->map->s_texture, m);
+	xpm_to_img(&m->map->e_texture, m);
+	xpm_to_img(&m->map->w_texture, m);
+	xpm_to_img(&m->map->c_door_texture, m);
+	m->map->o_door_texture.path = ft_strdup("game_textures/door_half.xpm");
+	xpm_to_img(&m->map->o_door_texture, m);
 }
 
 void	get_torch_sprite(t_mlx *m)
@@ -75,7 +59,8 @@ void	get_torch_sprite(t_mlx *m)
 	t = &m->map->torch[0];
 	i = -1;
 	while (++i < FRAME_TOTAL)
-		t[i].img = mlx_xpm_file_to_image(m->mlx, t[i].path, &t[i].width, &t[i].height);
+		t[i].img = mlx_xpm_file_to_image(m->mlx, t[i].path, &t[i].width,
+				&t[i].height);
 }
 
 void	mlx_set_up(t_mlx *m)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:16:00 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 15:55:44 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	is_valid_data(int *i, char *line, t_map *data)
 
 int	valid_extra_textures(char *line, t_map *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->texture_cnt = 0;

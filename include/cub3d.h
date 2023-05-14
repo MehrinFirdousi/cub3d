@@ -38,6 +38,7 @@
 # define ONE_DEG 0.0174533 // 1 deg in rad
 # define TWO_PI 6.28318531
 # define BLOCK_SIZE 16
+# define SHIFT_VALUE 4
 # define MM_SIZE 16
 # define REFRESH_RATE 1000
 # define FRAME_TOTAL 6
@@ -144,6 +145,7 @@ typedef struct s_map
 	t_texture	e_texture;
 	t_texture	w_texture;
 	t_texture	c_door_texture;
+	t_texture	o_door_texture;
 	t_texture	torch[FRAME_TOTAL];
 	int			t_frame;
 	char		*file;
@@ -216,6 +218,7 @@ typedef struct s_ray
 	double	ray_len;
 	bool	vertical;
 	int		door_status;
+	double	line_height;
 }	t_ray;
 
 /* -------> Parse <-------- */
@@ -267,8 +270,9 @@ double	deg_to_rad(double x);
 void	draw_player(t_mlx *m);
 void	draw_minimap(t_mlx *mlx);
 void	draw_scene(t_mlx *m);
-void	draw_texture(t_mlx *m, t_ray *r, t_point p, double l_height);
+void	draw_texture(t_mlx *m, t_ray *r, t_point p);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+bool	is_within_map_boundaries(int x, int y, t_map *m, int os);
 
 void	draw_square(t_mlx *m, t_point start, int size, int color);
 void	dda(t_mlx *m, t_point p1, t_point p2, int color);

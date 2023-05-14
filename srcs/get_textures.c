@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:07:44 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 15:57:10 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	get_textures(const char *line, t_map *data)
 	else
 	{
 		free(path);
-		put_error("Dublicate path side", data);
+		put_error("Duplicate path side", data);
 	}
 }

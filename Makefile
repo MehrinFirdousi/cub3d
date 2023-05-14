@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/12 16:01:06 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/14 16:17:35 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,13 +71,13 @@ all:		${NAME}
 
 clean:
 			rm -f ${OBJS}
-			rm -f ${MLX}
-			${MAKE} -C libft clean
-			${MAKE} -C ${MLX_DIR} clean
+#			rm -f ${MLX}
+#			${MAKE} -C libft clean
+#			${MAKE} -C ${MLX_DIR} clean
 
 fclean:		clean
 			rm -f ${NAME}
-			${MAKE} -C libft fclean
+#			${MAKE} -C libft fclean
 
 bonus:		all
 
