@@ -66,55 +66,6 @@ static void	check_vertical_intersect(t_player *p, t_ray *r)
 	}
 }
 
-bool	hit_wall(int mx, int my, t_map *m, t_ray *r)
-{
-	if (is_within_map_boundaries(mx, my, m, 0) && m->map[my][mx] == '1')
-	{
-		if (r->vertical)
-		{
-			if (mx > 0 && my >= 0 && mx < m->map_width - 1 && my < m->map_height
-				&& (m->map[my][mx + 1] == 'O' || m->map[my][mx - 1] == 'O'))
-				r->door_status = 2;
-		}
-		else
-		{
-			if (mx >= 0 && my > 0 && mx < m->map_width && my < m->map_height - 1
-				&& (m->map[my + 1][mx] == 'O' || m->map[my - 1][mx] == 'O'))
-				r->door_status = 3;
-		}
-		return (true);
-	}
-	else if (is_within_map_boundaries(mx, my, m, 0) && m->map[my][mx] == 'D')
-	{
-		r->door_status = 1;
-		return (true);
-	}
-	return (false);
-}
-
-// casts a ray till it hits a wall
-static void	cast_ray(t_map *m, t_ray *r, bool is_vertical)
-{
-	int	mx;
-	int	my;
-
-	r->door_status = 0;
-	r->vertical = is_vertical;
-	while (r->dof < r->max_dof)
-	{
-		mx = (int)r->rx >> SHIFT_VALUE;
-		my = (int)r->ry >> SHIFT_VALUE;
-		if (hit_wall(mx, my, m, r))
-			break ;
-		else
-		{
-			r->rx += r->x_step;
-			r->ry += r->y_step;
-			r->dof++;
-		}
-	}
-}
-
 // draws one vertical line from the ray, constituting the 3d scene
 static void	draw_ray(t_mlx *m, t_ray *r, int ray_no)
 {

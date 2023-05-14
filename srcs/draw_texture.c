@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:52 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/14 20:07:07 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:32:57 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static t_texture	*get_wall_texture(t_mlx *m, t_ray *r, t_point p)
 
 	x_dec = (m->rays[(int)p.x - 1].x > r->rx);
 	y_dec = (m->rays[(int)p.x - 1].y > r->ry);
-	if (!r->vertical && r->ra > deg_to_rad(225) && r->ra < deg_to_rad(315))
+	if (!r->vertical && r->ra > NW && r->ra < NE)
 		return (&m->map->n_texture);
-	if (!r->vertical && r->ra > deg_to_rad(45) && r->ra < deg_to_rad(135))
+	if (!r->vertical && r->ra > SE && r->ra < SW)
 		return (&m->map->s_texture);
 	if (r->vertical && y_dec)
 		return (&m->map->w_texture);
 	if (r->vertical && !y_dec)
 		return (&m->map->e_texture);
-	if (r->vertical && r->ra > deg_to_rad(135) && r->ra < deg_to_rad(225))
+	if (r->vertical && r->ra > SW && r->ra < NW)
 		return (&m->map->w_texture);
 	if (r->vertical)
 		return (&m->map->e_texture);
