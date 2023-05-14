@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 20:35:33 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 21:06:33 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,6 @@ void	free_malloced(t_map *map)
 		free(map->map[i++]);
 	if (map->map_height)
 		free(map->map);
-}
-
-void	print_map(t_map *map, t_player *p)
-{
-	int	i;
-
-	i = 0;
-	printf("height == %d\n", map->map_height);
-	printf("width == %d\n", map->map_width);
-	printf("py == %lf\n", p->py);
-	printf("px == %lf\n", p->px);
-	printf("pa == %lf\n", p->pa);
-	printf("{%s}\n", map->n_texture.path);
-	printf("{%s}\n", map->s_texture.path);
-	printf("{%s}\n", map->w_texture.path);
-	printf("{%s}\n", map->e_texture.path);
-	printf("Door {%s}\n", map->c_door_texture.path);
-	printf("Door c {%s}\n", map->o_door_texture.path);
-	i = -1;
-	while (++i < FRAME_TOTAL)
-		printf("T%i {%s}\n", i + 1, map->torch[i].path);
-	i = 0;
-	while (map->map[i])
-		ft_printf("{%s}\n", map->map[i++]);
 }
 
 int	check_surface(const char *line)

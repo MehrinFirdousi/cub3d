@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:41:38 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/14 20:46:07 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:31:41 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,31 @@ void	toggle_mouse(t_mlx *m)
 	m->keys->q = !m->keys->q;
 }
 
-int		mouse_move(int x, int y, t_mlx *m)
+static void	update_x_pos(t_mlx *m, bool right_pos)
+{
+	if (right_pos)
+		m->p->pa = fix_angle(m->p->pa + MOUSE_SENS * m->keys->speed);
+	else
+		m->p->pa = fix_angle(m->p->pa - MOUSE_SENS * m->keys->speed);
+	m->p->pdx = cos(m->p->pa) * m->keys->speed;
+	m->p->pdy = sin(m->p->pa) * m->keys->speed;
+}
+
+static void	update_texture_frame(t_mlx *m)
+{
+	m->map->t_frame = (m->map->t_frame + 1) % FRAME_TOTAL;
+	m->frame_count = 0;
+}
+
+static void	redraw_updates(t_mlx *m)
+{
+	if (m->frame_count >= REFRESH_RATE)
+		update_texture_frame(m);
+	m->frame_count += 150;
+	redraw_image(m);
+}
+
+int	mouse_move(int x, int y, t_mlx *m)
 {
 	static int	ox;
 	static int	oy;
@@ -37,28 +61,14 @@ int		mouse_move(int x, int y, t_mlx *m)
 		mlx_mouse_move(m->win, WIN_WIDTH - 1, WIN_HEIGHT >> 1);
 	if (x > WIN_WIDTH)
 		mlx_mouse_move(m->win, 1, WIN_HEIGHT >> 1);
-	else if (x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
+	if (x > 0 && x < WIN_WIDTH && y > 0 && y < WIN_HEIGHT)
 	{
 		if (x > ox + 2)
-		{
-			m->p->pa = fix_angle(m->p->pa + MOUSE_SENS * m->keys->speed);
-			m->p->pdx = cos(m->p->pa) * m->keys->speed;
-			m->p->pdy = sin(m->p->pa) * m->keys->speed;
-		}
+			update_x_pos(m, 1);
 		if (x < ox - 2)
-		{
-			m->p->pa = fix_angle(m->p->pa - MOUSE_SENS * m->keys->speed);
-			m->p->pdx = cos(m->p->pa) * m->keys->speed;
-			m->p->pdy = sin(m->p->pa) * m->keys->speed;
-		}
+			update_x_pos(m, 0);
 	}
-	if (m->frame_count >= REFRESH_RATE)
-	{
-		m->map->t_frame = (m->map->t_frame + 1) % FRAME_TOTAL;
-		m->frame_count = 0;
-	}
-	m->frame_count += 150;
-	redraw_image(m);
+	redraw_updates(m);
 	ox = x;
 	oy = y;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 20:48:49 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 21:00:30 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,8 @@ static void	get_extra_textures(char *line, t_map *data)
 	i = -1;
 	while (++i < FRAME_TOTAL)
 	{
-		if (flag == (FRAME_TOTAL + 1) && !data->c_door_texture.path)
-		{
-			data->c_door_texture.path = path;
+		if (is_door_texture(&flag, path, data))
 			return ;
-		}
-		if (flag == (FRAME_TOTAL + 2) && !data->o_door_texture.path)
-		{
-			data->o_door_texture.path = path;
-			return ;
-		}
 		if (flag == (i + 1) && !data->torch[i].path)
 		{
 			data->torch[i].path = path;
@@ -103,7 +95,8 @@ int	bonus_parse(char *line, t_map *data)
 	data->color_cnt = 0;
 	if (!is_valid_data(&i, line, data))
 		return (i);
-	if (!data->c_door_texture.path && !data->o_door_texture.path && data->texture_cnt != FRAME_TOTAL)
+	if (!data->c_door_texture.path && !data->o_door_texture.path
+		&& data->texture_cnt != FRAME_TOTAL)
 		put_error("Invalid data1", data);
 	if (data->c_door_texture.path && data->texture_cnt > 0
 		&& data->texture_cnt < FRAME_TOTAL)

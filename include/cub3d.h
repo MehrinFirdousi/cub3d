@@ -248,12 +248,14 @@ int		defined_symbol(char c);
 void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
 void	is_valid_path(char *path, t_map *map);
 int		bonus_parse(char *line, t_map *data);
+bool	is_door_texture(int *flag, char *path, t_map *data);
 char	*path_substr(const char *line, t_map *map);
 void	check_empty_line(t_map *map);
 void	valid_player(t_map *map);
 void	fill_map(t_map *map);
 void	free_paths(t_map *map);
 void	free_malloced(t_map *map);
+void	print_map(t_map *map, t_player *p);
 
 // mouse handlers
 void	toggle_mouse(t_mlx *m);
