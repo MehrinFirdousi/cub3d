@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/14 16:17:35 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/14 20:18:21 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	srcs/main.c \
 			srcs/parse_utils.c \
 			srcs/extra_parse_utils.c \
 			srcs/bonus_parse.c \
+			srcs/extra_utils.c \
 			srcs/key_handler.c \
 			srcs/key_handler_utils.c \
 			srcs/mouse_handler.c \

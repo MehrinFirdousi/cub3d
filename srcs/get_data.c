@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/12 14:49:06 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:08:34 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	get_data(char *line, t_map *data, t_player *p)
 	i = get_upper_map(line, data);
 	if (is_texture(&line[i]) || is_color(&line[i]))
 		put_error("Duplicate data sides", data);
-	i += valid_extra_textures(&line[i], data);
+	i += bonus_parse(&line[i], data);
 	while (line[--i] != '\n')
 		;
 	get_map(&line[i], data);

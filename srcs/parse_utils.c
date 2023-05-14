@@ -6,7 +6,7 @@
 /*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 16:36:05 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:18:42 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,6 @@ void	free_malloced(t_map *map)
 		free(map->map[i++]);
 	if (map->map_height)
 		free(map->map);
-}
-
-void	put_error(const char *error, t_map *map)
-{
-	write(2, "ERROR\n", ft_strlen("ERROR\n"));
-	write(2, error, ft_strlen(error));
-	write(2, "\n", 1);
-	free_malloced(map);
-	exit(1);
 }
 
 void	print_map(t_map *map, t_player *p)
