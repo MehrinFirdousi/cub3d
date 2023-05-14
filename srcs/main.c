@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/14 20:15:57 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:41:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	get_textures_from_xpm(t_mlx *m)
 	xpm_to_img(&m->map->e_texture, m);
 	xpm_to_img(&m->map->w_texture, m);
 	xpm_to_img(&m->map->c_door_texture, m);
-	m->map->o_door_texture.path = ft_strdup("game_textures/door_half.xpm");
 	xpm_to_img(&m->map->o_door_texture, m);
 }
 

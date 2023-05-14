@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 20:18:37 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:48:49 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	bonus_update_flag(int *flag, const char *line)
 {
 	if (ft_strncmp(line, "DO ", 3) == 0)
 		*flag = (7);
+	if (ft_strncmp(line, "DC ", 3) == 0)
+		*flag = (8);
 	if (ft_strncmp(line, "T1 ", 3) == 0)
 		*flag = (1);
 	if (ft_strncmp(line, "T2 ", 3) == 0)
@@ -59,6 +61,11 @@ static void	get_extra_textures(char *line, t_map *data)
 			data->c_door_texture.path = path;
 			return ;
 		}
+		if (flag == (FRAME_TOTAL + 2) && !data->o_door_texture.path)
+		{
+			data->o_door_texture.path = path;
+			return ;
+		}
 		if (flag == (i + 1) && !data->torch[i].path)
 		{
 			data->torch[i].path = path;
@@ -96,8 +103,8 @@ int	bonus_parse(char *line, t_map *data)
 	data->color_cnt = 0;
 	if (!is_valid_data(&i, line, data))
 		return (i);
-	if (!data->c_door_texture.path && data->texture_cnt != FRAME_TOTAL)
-		put_error("Invalid data", data);
+	if (!data->c_door_texture.path && !data->o_door_texture.path && data->texture_cnt != FRAME_TOTAL)
+		put_error("Invalid data1", data);
 	if (data->c_door_texture.path && data->texture_cnt > 0
 		&& data->texture_cnt < FRAME_TOTAL)
 		put_error("Invalid data", data);

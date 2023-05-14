@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 19:08:34 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 20:31:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_data(t_map *map)
 	map->floor_color = -1;
 	map->ceil_color = -1;
 	map->c_door_texture.path = NULL;
+	map->o_door_texture.path = NULL;
 	i = (int)FRAME_TOTAL;
 	while (--i > -1)
 		map->torch[i].path = NULL;
