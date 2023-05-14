@@ -43,8 +43,13 @@
 # define REFRESH_RATE 1000
 # define FRAME_TOTAL 6
 # define FILE_EXTEN 4
-# define  MIN_COLOR 0
-# define  MAX_COLOR 255
+# define MIN_COLOR 0
+# define MAX_COLOR 255
+# define NW 3.92699		// 225 deg in rad
+# define NE 5.49779		// 315 deg in rad
+# define SE 0.785398	// 45 deg in rad
+# define SW 2.35619		// 135 deg in rad
+
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -267,13 +272,14 @@ void	change_player_direction(t_mlx *m);
 int		exit_free(t_mlx *m);
 void	redraw_image(t_mlx *m);
 
-double	deg_to_rad(double x);
+// double	deg_to_rad(double x);
 void	draw_player(t_mlx *m);
 void	draw_minimap(t_mlx *mlx);
 void	draw_scene(t_mlx *m);
 void	draw_texture(t_mlx *m, t_ray *r, t_point p);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 bool	is_within_map_boundaries(int x, int y, t_map *m, int os);
+void	cast_ray(t_map *m, t_ray *r, bool is_vertical);
 
 void	draw_square(t_mlx *m, t_point start, int size, int color);
 void	dda(t_mlx *m, t_point p1, t_point p2, int color);

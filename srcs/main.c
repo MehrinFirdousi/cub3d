@@ -6,31 +6,11 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/14 20:41:53 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 20:52:54 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-double	deg_to_rad(double x)
-{
-	return (x * M_PI / 180.0);
-}
-
-void	print_colors(t_texture *texture)
-{
-	int	i;
-	int	*colors;
-	int	count;
-
-	colors = (int *)texture->addr;
-	i = -1;
-	count = texture->width * texture->height;
-	while (++i < count)
-	{
-		printf("%d - %d\n", i, colors[i]);
-	}
-}
 
 void	xpm_to_img(t_texture *t, t_mlx *m)
 {

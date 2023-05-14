@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 20:31:53 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/14 20:52:25 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ static void	set_player_pos(t_map *map, t_player *p, int x, int y)
 	map->player_y = y;
 	p->py = y;
 	map->player_y = y;
+}
+
+static double	deg_to_rad(double x)
+{
+	return (x * M_PI / 180.0);
 }
 
 static void	get_player(t_map *map, t_player *p)
