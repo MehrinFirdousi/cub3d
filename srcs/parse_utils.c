@@ -76,6 +76,8 @@ void	free_malloced(t_map *map)
 	}
 	if (map->c_door_texture.path)
 		free(map->c_door_texture.path);
+	if (map->o_door_texture.path)
+		free(map->o_door_texture.path);
 	i = 0;
 	while (i < map->map_height)
 		free(map->map[i++]);
