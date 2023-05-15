@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:04 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 18:13:01 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 15:20:09 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_colors(char *line, t_map *map)
 	int		*colors;
 
 	i = 0;
-	colors = malloc(sizeof(int) * 3);
+	colors = ft_malloc(sizeof(int) * 3);
 	while (line[i] && line[i] == ' ')
 		i++;
 	str = get_subline(&line[i + 2]);

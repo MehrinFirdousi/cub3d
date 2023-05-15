@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:26:50 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 15:19:45 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ void	get_map(char *line, t_map *map)
 	int	y;
 
 	check_mini_map(line, map);
-	map->map = malloc(sizeof(char *) * (map->map_height + 1));
+	map->map = ft_malloc(sizeof(char *) * (map->map_height + 1));
 	y = 0;
 	while (*line && *line == '\n')
 		line++;
 	while (y < map->map_height)
 	{
-		map->map[y] = (char *)malloc(sizeof(char) * (map->map_width + 1));
+		map->map[y] = ft_malloc(sizeof(char) * (map->map_width + 1));
 		i = 0;
 		while (*line && *line != '\n')
 			map->map[y][i++] = *(line++);
