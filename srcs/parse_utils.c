@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:25:06 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 21:06:33 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 14:39:25 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	cur_index(const char *str, char c)
 
 void	free_paths(t_map *map)
 {
+	int	i;
+
 	if (map->n_texture.path)
 		free(map->n_texture.path);
 	if (map->s_texture.path)
@@ -60,13 +62,6 @@ void	free_paths(t_map *map)
 		free(map->e_texture.path);
 	if (map->file)
 		free(map->file);
-}
-
-void	free_malloced(t_map *map)
-{
-	int	i;
-
-	free_paths(map);
 	i = 0;
 	while (i < FRAME_TOTAL)
 	{
@@ -78,6 +73,13 @@ void	free_malloced(t_map *map)
 		free(map->c_door_texture.path);
 	if (map->o_door_texture.path)
 		free(map->o_door_texture.path);
+}
+
+void	free_malloced(t_map *map)
+{
+	int	i;
+
+	free_paths(map);
 	i = 0;
 	while (i < map->map_height)
 		free(map->map[i++]);
