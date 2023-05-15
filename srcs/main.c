@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:25:33 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/14 20:52:54 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 16:59:36 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	main(int argc, char **argv)
 
 	init_data(&map);
 	parsing(argc, argv, &map, &p);
-	print_map(&map, &p);
 	mlx.img = &img;
 	mlx.p = &p;
 	mlx.map = &map;

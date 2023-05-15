@@ -6,7 +6,7 @@
 #    By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/26 20:19:54 by mfirdous          #+#    #+#              #
-#    Updated: 2023/05/14 20:47:30 by mfirdous         ###   ########.fr        #
+#    Updated: 2023/05/15 16:58:42 by mfirdous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OS		:=	$(shell uname)
 ifeq ($(OS),Linux)
 	MLX			=	libmlx.a
 	MLX_DIR		=	mlx_linux
-	CFLAGS		=	-Wall -Wextra -I${HEADER} -I/usr/include -I ${MLX_DIR} -O3 -Ofast
+	CFLAGS		=	-Wall -Werror -Wextra -I${HEADER} -I/usr/include -I ${MLX_DIR} -O3 -Ofast
 	MLX_FLAGS	=	-Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lm -lXext -lX11 -lz
 else
 	MLX			=	libmlx.dylib
@@ -72,13 +72,13 @@ all:		${NAME}
 
 clean:
 			rm -f ${OBJS}
-#			rm -f ${MLX}
-#			${MAKE} -C libft clean
-#			${MAKE} -C ${MLX_DIR} clean
+			rm -f ${MLX}
+			${MAKE} -C libft clean
+			${MAKE} -C ${MLX_DIR} clean
 
 fclean:		clean
 			rm -f ${NAME}
-#			${MAKE} -C libft fclean
+			${MAKE} -C libft fclean
 
 bonus:		all
 

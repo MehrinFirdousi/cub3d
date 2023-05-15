@@ -7,7 +7,7 @@ C 45, 11, 11
 F 72, 64, 60
 
 DO game_textures/door.xpm
-
+DC game_textures/door_half.xpm
 T1 game_textures/torch-pixel1.xpm
 T2 game_textures/torch-pixel2.xpm
 T3 game_textures/torch-pixel3.xpm
@@ -28,4 +28,5 @@ T6 game_textures/torch-pixel6.xpm
 10000000000000001101010010001
 11000001110101011111011110N0111
 11110111 1110101 101111010001
+11111111 1111111 111111111111
 11111111 1111111 111111111111

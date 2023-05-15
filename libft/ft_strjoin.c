@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2);
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s;
@@ -40,6 +38,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	s[i] = 0;
-	free((char*)s1);
-	return (s);
+	return (free((char *)s1), s);
 }

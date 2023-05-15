@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 20:22:27 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/01 23:12:37 by ahassan          ###   ########.fr       */
+/*   Created: 2023/05/15 16:07:36 by mfirdous          #+#    #+#             */
+/*   Updated: 2023/05/15 16:59:09 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define GREEN 65280
 # define TEAL 0X0014FFC0
 # define TEAL_D 0X0000D69D
-# define BLUE 0X008DB1CE
+# define BLUE 0X0090B3D0
 # define GRAY 0X00808080
 # define RED 0X00FF0000
 # define ORANGE 0X00CEA18D
@@ -49,7 +49,6 @@
 # define NE 5.49779		// 315 deg in rad
 # define SE 0.785398	// 45 deg in rad
 # define SW 2.35619		// 135 deg in rad
-
 
 # ifdef __APPLE__
 #  define ESC 53
@@ -239,13 +238,12 @@ int		valid_color(const char *str);
 int		check_surface(const char *line);
 void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
-void	print_map(t_map *map, t_player *p);
 int		player_symbol(char c);
 int		is_texture(char *line);
 int		is_extra_texture(char *line);
 int		is_color(char *line);
 int		defined_symbol(char c);
-void	is_valid_file(const char *file_name, const char *file_exten ,t_map *map);
+void	is_valid_file(const char *file_name, const char *f_exten, t_map *map);
 void	is_valid_path(char *path, t_map *map);
 int		bonus_parse(char *line, t_map *data);
 bool	is_door_texture(int *flag, char *path, t_map *data);
@@ -255,7 +253,6 @@ void	valid_player(t_map *map);
 void	fill_map(t_map *map);
 void	free_paths(t_map *map);
 void	free_malloced(t_map *map);
-void	print_map(t_map *map, t_player *p);
 
 // mouse handlers
 void	toggle_mouse(t_mlx *m);

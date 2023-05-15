@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 15:09:47 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 19:07:53 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 17:02:24 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	is_valid_file(const char *file_name, const char *file_exten, t_map *map)
 {
-	int			index;
+	int	index;
 
 	index = (int)ft_strlen(file_name) - FILE_EXTEN;
 	if (index < 0

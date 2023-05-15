@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:57:22 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 21:08:34 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/15 16:31:39 by mfirdous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,4 @@ bool	is_door_texture(int *flag, char *path, t_map *data)
 		return (true);
 	}
 	return (false);
-}
-
-void	print_map(t_map *map, t_player *p)
-{
-	int	i;
-
-	i = 0;
-	printf("height == %d\n", map->map_height);
-	printf("width == %d\n", map->map_width);
-	printf("py == %lf\n", p->py);
-	printf("px == %lf\n", p->px);
-	printf("pa == %lf\n", p->pa);
-	printf("{%s}\n", map->n_texture.path);
-	printf("{%s}\n", map->s_texture.path);
-	printf("{%s}\n", map->w_texture.path);
-	printf("{%s}\n", map->e_texture.path);
-	printf("Door {%s}\n", map->c_door_texture.path);
-	printf("Door c {%s}\n", map->o_door_texture.path);
-	i = -1;
-	while (++i < FRAME_TOTAL)
-		printf("T%i {%s}\n", i + 1, map->torch[i].path);
-	i = 0;
-	while (map->map[i])
-		ft_printf("{%s}\n", map->map[i++]);
 }
