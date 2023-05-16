@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:07:36 by mfirdous          #+#    #+#             */
-/*   Updated: 2023/05/15 16:59:09 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:17:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,16 +238,17 @@ int		valid_color(const char *str);
 int		check_surface(const char *line);
 void	put_error(const char *error, t_map *map);
 void	get_colors(char *line, t_map *map);
-int		player_symbol(char c);
-int		is_texture(char *line);
-int		is_extra_texture(char *line);
-int		is_color(char *line);
-int		defined_symbol(char c);
+bool	player_symbol(char c);
+bool	is_texture(char *line);
+bool	is_extra_texture(char *line);
+bool	is_color(char *line);
+bool	defined_symbol(char c);
+bool	is_door_texture(int *flag, char *path, t_map *data);
 void	is_valid_file(const char *file_name, const char *f_exten, t_map *map);
 void	is_valid_path(char *path, t_map *map);
 int		bonus_parse(char *line, t_map *data);
-bool	is_door_texture(int *flag, char *path, t_map *data);
-char	*path_substr(const char *line, t_map *map);
+int		reset_line(char *line, int i);
+char	*path_substr(const char *line);
 void	check_empty_line(t_map *map);
 void	valid_player(t_map *map);
 void	fill_map(t_map *map);

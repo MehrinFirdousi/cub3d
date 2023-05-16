@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_textures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 16:38:58 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 15:57:10 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:13:53 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*path_substr(const char *line, t_map *map)
+char	*path_substr(const char *line)
 {
 	int	i;
 
 	while (ft_is_space(*line))
 		++line;
-	if (*line == '\0')
-		put_error("No path", map);
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 		++i;
@@ -44,7 +42,7 @@ void	get_textures(const char *line, t_map *data)
 	char	*path;
 	char	*tmp_path;
 
-	tmp_path = path_substr(&line[3], data);
+	tmp_path = path_substr(&line[3]);
 	path = ft_strtrim(tmp_path, " \t");
 	free(tmp_path);
 	is_valid_path(path, data);

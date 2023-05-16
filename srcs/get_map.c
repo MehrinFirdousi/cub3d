@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:10:18 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/15 15:19:45 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:18:31 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	check_mini_map(char *line, t_map *map)
 {
 	map->map_width = mapx_len(line, map);
 	map->map_height = mapy_len(line, map);
-	if (map->map_height < 3 || map->map_height < 3)
+	if (map->map_height < 3 || map->map_width < 3)
 	{
 		free_paths(map);
 		ft_printf("ERROR\nInvalid map\n");

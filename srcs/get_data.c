@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 08:56:25 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 20:52:25 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:08:34 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,8 @@ void	get_data(char *line, t_map *data, t_player *p)
 	int	i;
 
 	i = get_upper_map(line, data);
-	if (is_texture(&line[i]) || is_color(&line[i]))
-		put_error("Duplicate data sides", data);
 	i += bonus_parse(&line[i], data);
-	while (line[--i] != '\n')
-		;
+	i -= reset_line(line, i);
 	get_map(&line[i], data);
 	check_valid_map(data);
 	check_empty_line(data);

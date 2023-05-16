@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:50:50 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/14 21:00:30 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:16:55 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*get_path(int *flag, char *line, t_map *data)
 	char	*path;
 	char	*tmp_path;
 
-	tmp_path = path_substr(&line[3], data);
+	tmp_path = path_substr(&line[3]);
 	path = ft_strtrim(tmp_path, " \t");
 	free(tmp_path);
 	is_valid_path(path, data);
@@ -69,21 +69,18 @@ static void	get_extra_textures(char *line, t_map *data)
 	put_error("Duplicate bonus side", data);
 }
 
-static int	is_valid_data(int *i, char *line, t_map *data)
+static void	is_valid_data(int *i, char *line, t_map *data)
 {
 	while (line[*i] != '\0')
 	{
 		while (line[*i] && ft_is_space(line[*i]))
 			(*i)++;
-		if (data->texture_cnt == FRAME_TOTAL + 1 && is_extra_texture(&line[*i]))
-			return (0);
 		if (is_extra_texture(&line[*i]))
 			get_extra_textures(&line[*i], data);
 		else
 			break ;
 		*i += cur_index(&line[*i], '\n');
 	}
-	return (*i);
 }
 
 int	bonus_parse(char *line, t_map *data)
@@ -93,14 +90,9 @@ int	bonus_parse(char *line, t_map *data)
 	i = 0;
 	data->texture_cnt = 0;
 	data->color_cnt = 0;
-	if (!is_valid_data(&i, line, data))
-		return (i);
-	if (!data->c_door_texture.path && !data->o_door_texture.path
-		&& data->texture_cnt != FRAME_TOTAL)
-		put_error("Invalid data1", data);
-	if (data->c_door_texture.path && data->texture_cnt > 0
-		&& data->texture_cnt < FRAME_TOTAL)
-		put_error("Invalid data", data);
+	is_valid_data(&i, line, data);
+	if (data->texture_cnt && data->texture_cnt != FRAME_TOTAL)
+		put_error("Missing torch frame", data);
 	if (line[i] == '\0')
 		put_error("Map is missing one or more data", data);
 	return (i);

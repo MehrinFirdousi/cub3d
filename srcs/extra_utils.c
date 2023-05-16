@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   extra_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfirdous <mfirdous@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:57:22 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/15 16:31:39 by mfirdous         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:17:26 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_extra_texture(char *line)
+bool	is_extra_texture(char *line)
 {
 	if (ft_strncmp(line, "DO ", 3) == 0 || ft_strncmp(line, "T1 ", 3) == 0
 		|| ft_strncmp(line, "T2 ", 3) == 0 || ft_strncmp(line, "T3 ", 3) == 0
 		|| ft_strncmp(line, "T4 ", 3) == 0 || ft_strncmp(line, "T5 ", 3) == 0
 		|| ft_strncmp(line, "T6 ", 3) == 0 || ft_strncmp(line, "DC ", 3) == 0)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
 void	put_error(const char *error, t_map *map)
@@ -29,6 +29,16 @@ void	put_error(const char *error, t_map *map)
 	write(2, "\n", 1);
 	free_malloced(map);
 	exit(1);
+}
+
+int	reset_line(char *line, int i)
+{
+	int	j;
+
+	j = i--;
+	while (line[j] != '\n')
+		j--;
+	return (i - j);
 }
 
 bool	is_door_texture(int *flag, char *path, t_map *data)

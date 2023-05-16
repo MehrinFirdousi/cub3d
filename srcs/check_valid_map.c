@@ -6,7 +6,7 @@
 /*   By: ahassan <ahassan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 23:11:38 by ahassan           #+#    #+#             */
-/*   Updated: 2023/05/11 22:21:35 by ahassan          ###   ########.fr       */
+/*   Updated: 2023/05/16 23:19:02 by ahassan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	check_valid_map(t_map *map)
 					if (!is_walled(map, y, x))
 						put_error("Must be walled", map);
 			}
-			else
-				put_error("Undefined Symbol", map);
 		}
 	}
 }
