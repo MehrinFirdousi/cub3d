@@ -89,7 +89,6 @@ int	bonus_parse(char *line, t_map *data)
 
 	i = 0;
 	data->texture_cnt = 0;
-	data->color_cnt = 0;
 	is_valid_data(&i, line, data);
 	if (data->texture_cnt && data->texture_cnt != FRAME_TOTAL)
 		put_error("Missing torch frame", data);
