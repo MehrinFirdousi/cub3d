@@ -4,9 +4,13 @@ A simple interactive 3D FPP game using ray-casting, inspired by the world famous
 ## About the game 
 On launch, the player is spawned in a 3D world where they can move around and explore the map. The direction the player faces (N/S/E/W) is specified by the map file and can be modified (examples of map files can be found [here](https://github.com/MehrinFirdousi/cub3d/tree/master/maps)). The player can navigate the world using the WASD keys, and can shift their point of view using the up, down, left and right keys. The point of view can also be moved using the mouse. A minimap of the game world is displayed on the top-left corner and can be toggled on and off. Doors are present to separate parts of the map and can be opened and closed. 
 
-## Demo of movement in game using WASD keys and left/right keys for direction
+## Demo - Movement in game using keys only
 
 https://github.com/MehrinFirdousi/cub3d/assets/88845742/a4873b0a-70a0-4fe3-80ba-6572219ddbad
+
+## Demo - Mouse movement
+
+https://github.com/MehrinFirdousi/cub3d/assets/88845742/0fbc1b93-f3b4-42f3-a58e-fce104300f0b
 
 ## Features
 * Minimap with a field of view - can be toggled on and off
