@@ -34,10 +34,12 @@ https://github.com/MehrinFirdousi/cub3d/assets/88845742/a4873b0a-70a0-4fe3-80ba-
 This game uses ray-casting techniques to render a 3D world based on calculations performed on a top-level (2D) representation of the world. This process involves shooting rays through each pixel of an image plane from the camera (eye position) and then checking if the ray intersects with obstacles (walls/doors) in the map. The game is written in C and uses a basic graphics library - Minilibx.
 
 ## How to run
-The code can be compiled in a Mac/Linux environment as follows:
+The code can be compiled and executed on a Mac or Linux environment as follows:
 ```bash
 git clone https://github.com/MehrinFirdousi/cub3d.git
 cd cub3d
 make
 ./cub3d maps/subject.cub
 ```
+
+To compile on Windows, you will need to have WSL installed and a few additional dependencies to open a graphics window through WSL. Use this [guide](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
